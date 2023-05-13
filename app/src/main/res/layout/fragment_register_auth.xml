@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="@string/str_ask_type"
+                android:text="@string/str_ask_auth"
                 android:layout_marginBottom="52dp"/>
             <TextView
                 style="@style/medium16"
@@ -41,7 +41,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp">
+                android:layout_marginBottom="8dp">
                 <EditText
                     android:id="@+id/editText"
                     style="@style/medium16"
@@ -53,7 +53,9 @@
                     android:inputType="text"
                     app:layout_constraintEnd_toStartOf="@+id/textView2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{vm.typedId}"
+                    android:onTextChanged="@{(cs,s,e,c) -> vm.typeId(cs)}"/>
 
                 <TextView
                     android:id="@+id/textView2"
@@ -63,7 +65,8 @@
                     android:background="@drawable/btn_default_small"
                     android:text="@string/str_id_check"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{v-> vm.checkIdValid()}"/>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
@@ -71,13 +74,22 @@
                     android:background="@color/grey400"
                     app:layout_constraintTop_toBottomOf="@+id/editText"
                     android:layout_marginTop="8dp"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/medium12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_id_valid"
+                android:visibility="@{vm.idValid ? 0 : 4}"/>
 
             <TextView
                 style="@style/medium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_password"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +106,9 @@
                     android:textColorHint="@color/grey500"
                     android:inputType="textPassword"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{vm.typedPassword}"
+                    android:onTextChanged="@{(cs,s,e,c) -> vm.typePassword(cs)}"/>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
@@ -109,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_password_valid"
-                android:textColor="@color/grey500"
+                android:textColor="@{vm.passwordValid ? @color/black : @color/grey500}"
                 android:layout_marginBottom="28dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,7 +140,9 @@
                     android:textColorHint="@color/grey500"
                     android:inputType="textPassword"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{vm.typedRePassword}"
+                    android:onTextChanged="@{(cs,s,e,c) -> vm.typeRePassword(cs)}"/>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
@@ -141,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_password_equal"
-                android:visibility="gone"/>
+                android:visibility="@{vm.passwordSame ? 0 : 8}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -159,10 +175,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_primary"
-                android:enabled="@{false}"
                 android:gravity="center"
                 android:text="@string/str_next"
-                android:textColor="@color/btn_enabled_color" />
+                android:textColor="@color/btn_enabled_color"
+                android:enabled="@{vm.idValid &amp; vm.passwordValid &amp; vm.passwordSame}"
+                android:onClick="@{v->vm.moveNext()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
