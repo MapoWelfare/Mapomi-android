@@ -3,6 +3,7 @@ package io.mapomi.android.ui.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.mapomi.android.model.GlobalUiModel
+import io.mapomi.android.model.context.SignModel
 import io.mapomi.android.model.navigate.Navigation
 import io.mapomi.android.system.App
 import io.mapomi.android.system.LogDebug
@@ -12,6 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {
+
+    @Inject lateinit var signModel: SignModel
 
     @Inject lateinit var navigation : Navigation
 

@@ -2,7 +2,9 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.auth.login.LoginViewModel" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -27,20 +29,29 @@
                 android:text="@string/str_disabled"
                 style="@style/medium14"
                 android:layout_marginEnd="4dp"
-                android:background="@drawable/btn_login_type"/>
+                android:background="@drawable/btn_login_type"
+                android:textColor="@color/btn_selected_color"
+                android:onClick="@{v->vm.changeType(vm.DISABLED)}"
+                isSelect="@{vm.type==vm.DISABLED}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_companion"
                 style="@style/medium14"
                 android:layout_marginEnd="4dp"
-                android:background="@drawable/btn_login_type"/>
+                android:background="@drawable/btn_login_type"
+                android:textColor="@color/btn_selected_color"
+                android:onClick="@{v->vm.changeType(vm.COMPANION)}"
+                isSelect="@{vm.type==vm.COMPANION}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_related"
                 style="@style/medium14"
-                android:background="@drawable/btn_login_type"/>
+                android:background="@drawable/btn_login_type"
+                android:textColor="@color/btn_selected_color"
+                android:onClick="@{v->vm.changeType(vm.RELATED)}"
+                isSelect="@{vm.type==vm.RELATED}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -56,7 +67,9 @@
                 android:hint="@string/str_id"
                 android:textColorHint="@color/grey500"
                 style="@style/medium16"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:text="@{vm.typedId}"
+                android:onTextChanged="@{(cs,s,e,c) -> vm.typeId(cs)}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -72,17 +85,21 @@
                 android:hint="@string/str_password"
                 android:textColorHint="@color/grey500"
                 style="@style/medium16"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:text="@{vm.typedPassword}"
+                android:onTextChanged="@{(cs,s,e,c) -> vm.typePassword(cs)}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/str_do_login"
             style="@style/medium16"
-            android:enabled="false"
             android:gravity="center"
             android:background="@drawable/btn_primary"
-            android:layout_marginBottom="12dp"/>
+            android:textColor="@color/btn_enabled_color"
+            android:layout_marginBottom="12dp"
+            android:enabled="@{!vm.typedId.empty &amp; !vm.typedPassword.empty}"
+            android:onClick="@{v->vm.login()}"/>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,6 +139,7 @@
             style="@style/medium16"
             android:gravity="center"
             android:background="@drawable/btn_default"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:onClick="@{v->vm.goRegister()}"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

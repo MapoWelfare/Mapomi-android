@@ -30,7 +30,7 @@ object Module {
     }
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().client(okHttpClient).baseUrl(URL(BASE_URL))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CallAdapter.Factory()).build()
@@ -43,7 +43,7 @@ object Module {
 
 }
 
-const val BASE_URL = ""
+const val BASE_URL = "https://www.naver.com/"
 
 const val CONNECT_TIMEOUT = 1L
 const val WRITE_TIMEOUT = 5L
