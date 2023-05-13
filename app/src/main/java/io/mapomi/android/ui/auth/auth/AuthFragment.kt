@@ -1,6 +1,7 @@
 package io.mapomi.android.ui.auth.auth
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.databinding.FragmentRegisterAuthBinding
 import io.mapomi.android.ui.base.BaseFragment
@@ -9,6 +10,7 @@ import io.mapomi.android.ui.base.BaseFragment
 class AuthFragment : BaseFragment() {
 
     private lateinit var bind : FragmentRegisterAuthBinding
+    val viewModel by activityViewModels<AuthViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentRegisterAuthBinding.inflate(layoutInflater)
@@ -17,6 +19,7 @@ class AuthFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
     }
@@ -26,6 +29,6 @@ class AuthFragment : BaseFragment() {
     }
 
     override fun navigationOnBackPressed() {
-
+        viewModel.connect.moveBackPage()
     }
 }
