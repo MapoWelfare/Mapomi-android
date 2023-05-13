@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.auth.AuthActivity">
+    <data>
+        <variable
+            name="activity"
+            type="io.mapomi.android.ui.auth.AuthActivity" />
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.auth.AuthViewModel" />
+        <variable
+            name="navigator"
+            type="io.mapomi.android.model.navigate.AuthNavigation" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fc_auth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="@{activity.inflateFragment(navigator.topPage)}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
