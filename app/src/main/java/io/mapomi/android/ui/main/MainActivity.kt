@@ -63,6 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         fragment?.run {
             this.navigationOnBackPressed()

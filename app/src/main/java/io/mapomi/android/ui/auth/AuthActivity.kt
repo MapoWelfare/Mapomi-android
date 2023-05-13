@@ -68,6 +68,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (navigation.revealHistory()) return
         else super.onBackPressed()

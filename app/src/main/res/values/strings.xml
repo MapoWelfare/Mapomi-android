@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">마포미</string>
+
+    <string name="str_login">로그인</string>
+    <string name="str_do_login">로그인하기</string>
+    <string name="str_id">아이디</string>
+    <string name="str_password">비밀번호</string>
+    <string name="str_find_id">아이디 찾기</string>
+    <string name="str_find_password">비밀번호 찾기</string>
+    <string name="str_register">회원가입</string>
+    <string name="str_register_before">계정이 없으신가요?</string>
+
+    <string name="str_disabled">장애인</string>
+    <string name="str_companion">동행자</string>
+    <string name="str_related">연관자</string>
 </resources>
