@@ -1,19 +1,23 @@
 package io.mapomi.android.ui.auth.login
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.enums.Type
 import io.mapomi.android.model.context.SignModel
+import io.mapomi.android.ui.auth.AuthConnect
 import io.mapomi.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : BaseViewModel() {
+class LoginViewModel @Inject constructor(
+    val connect : AuthConnect
+) : BaseViewModel() {
 
-    val type = MutableStateFlow(DISABLED)
+    val type = MutableStateFlow(Type.DISABLED)
     val typedId = MutableStateFlow("")
     val typedPassword = MutableStateFlow("")
 
-    fun changeType(type : Int){
+    fun changeType(type : Type){
         this.type.value = type
     }
 
@@ -26,7 +30,7 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun goRegister() {
-
+        connect.gotoTypePage()
     }
 
     fun login(){
@@ -34,9 +38,4 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         showToast("로그인 성공")
     }
 
-    companion object {
-        const val DISABLED = 0
-        const val COMPANION = 1
-        const val RELATED = 2
-    }
 }

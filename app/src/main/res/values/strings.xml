@@ -9,6 +9,16 @@
     <string name="str_find_password">비밀번호 찾기</string>
     <string name="str_register">회원가입</string>
     <string name="str_register_before">계정이 없으신가요?</string>
+    
+    <string name="str_ask_type">안녕하세요\n어떤 용건으로 오셨나요?</string>
+    <string name="str_ask_auth">아이디와 비밀번호를\n입력해주세요.</string>
+    <string name="str_id_hint">아이디 입력</string>
+    <string name="str_id_check">중복 확인</string>
+    <string name="str_id_valid">사용가능한 아이디입니다.</string>
+    <string name="str_password_hint">비밀버호 입력</string>
+    <string name="str_password_valid">비밀번호 2~12자</string>
+    <string name="str_password_check">비밀번호 확인</string>
+    <string name="str_password_equal">비밀번호가 일치합니다.</string>
 
     <string name="str_disabled">장애인</string>
     <string name="str_companion">동행자</string>

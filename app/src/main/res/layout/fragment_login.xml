@@ -5,6 +5,9 @@
         <variable
             name="vm"
             type="io.mapomi.android.ui.auth.login.LoginViewModel" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -31,8 +34,8 @@
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/btn_login_type"
                 android:textColor="@color/btn_selected_color"
-                android:onClick="@{v->vm.changeType(vm.DISABLED)}"
-                isSelect="@{vm.type==vm.DISABLED}"/>
+                android:onClick="@{v->vm.changeType(type.DISABLED)}"
+                isSelect="@{vm.type==type.DISABLED}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,8 +44,8 @@
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/btn_login_type"
                 android:textColor="@color/btn_selected_color"
-                android:onClick="@{v->vm.changeType(vm.COMPANION)}"
-                isSelect="@{vm.type==vm.COMPANION}"/>
+                android:onClick="@{v->vm.changeType(type.COMPANION)}"
+                isSelect="@{vm.type==type.COMPANION}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,8 +53,8 @@
                 style="@style/medium14"
                 android:background="@drawable/btn_login_type"
                 android:textColor="@color/btn_selected_color"
-                android:onClick="@{v->vm.changeType(vm.RELATED)}"
-                isSelect="@{vm.type==vm.RELATED}"/>
+                android:onClick="@{v->vm.changeType(type.RELATED)}"
+                isSelect="@{vm.type==type.RELATED}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

@@ -10,7 +10,10 @@ import io.mapomi.android.enums.AuthPage
 import io.mapomi.android.enums.AuthPage.*
 import io.mapomi.android.model.navigate.AuthNavigation
 import io.mapomi.android.system.LogDebug
+import io.mapomi.android.ui.auth.auth.AuthFragment
+import io.mapomi.android.ui.auth.info.InfoFragment
 import io.mapomi.android.ui.auth.login.LoginFragment
+import io.mapomi.android.ui.auth.type.TypeFragment
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.ui.base.BaseFragment
 import io.mapomi.android.utils.RootViewDeferringInsetsCallback
@@ -22,6 +25,9 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
 
     @Inject
     lateinit var navigation : AuthNavigation
+
+    @Inject
+    lateinit var authConnect: AuthConnect
 
     private val viewModel by viewModels<AuthViewModel>()
     private var fragment : BaseFragment? = null
@@ -37,6 +43,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
         }
         LogDebug(javaClass.name, "[LOGIN ACTIVITY]")
         attachInsetsCallback()
+        authConnect.registerActivity(this,navigation)
     }
 
     private fun attachInsetsCallback() {
@@ -59,6 +66,10 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
                     navigation.clearHistory()
                     LoginFragment()
                 }
+                REGISTER_TYPE -> TypeFragment()
+                REGISTER_AUTH -> AuthFragment()
+                REGISTER_INFO -> InfoFragment()
+
             }
 
         fragment?.let {

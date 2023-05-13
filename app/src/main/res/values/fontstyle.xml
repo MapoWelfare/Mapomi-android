@@ -8,6 +8,9 @@
     <style name="regular24" parent="textRegular">
         <item name="android:textSize">24sp</item>
     </style>
+    <style name="regular22" parent="textRegular">
+        <item name="android:textSize">22sp</item>
+    </style>
     <style name="regular16" parent="textRegular">
         <item name="android:textSize">16sp</item>
     </style>
