@@ -24,6 +24,11 @@ class InfoFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        viewModel.initStatus()
+        super.onResume()
+    }
+
     override fun showBottomBar(): Boolean {
         return false
     }

@@ -15,18 +15,14 @@ class InfoViewModel @Inject constructor(
 
     val registerType get() = signModel.registerType
 
-    var typedNickname = ""
-    var typedLocation = ""
-    var typedAge = ""
-    var typedDisabilityInfo = ""
+    val typedNickname = MutableStateFlow("")
+    val typedLocation = MutableStateFlow("")
+    val typedAge = MutableStateFlow("")
+    val typedDisabilityInfo = MutableStateFlow("")
     val nicknameValid get() = signModel.nicknameValidFlag
     val buttonEnabled = MutableStateFlow(false)
 
     private val regex = Regex("[^0-9]")
-
-    init {
-        updateButtonEnabled(typedLocation,typedAge,typedDisabilityInfo)
-    }
 
     /*******************************************
      **** 입력을 받습니다
@@ -34,14 +30,14 @@ class InfoViewModel @Inject constructor(
 
     fun typeNickname(text : CharSequence)
     {
-        typedNickname = text.toString()
+        typedNickname.value = text.toString()
     }
 
     fun typeLocation(text : CharSequence)
     {
         text.toString().let {
-            typedLocation = it
-            updateButtonEnabled(it,typedAge,typedDisabilityInfo)
+            typedLocation.value = it
+            updateButtonEnabled(it,typedAge.value,typedDisabilityInfo.value)
         }
     }
 
@@ -52,15 +48,15 @@ class InfoViewModel @Inject constructor(
             editText.setText(filteredText)
             editText.setSelection(filteredText.length)
         }
-        typedAge = filteredText
-        updateButtonEnabled(typedLocation,filteredText,typedDisabilityInfo)
+        typedAge.value = filteredText
+        updateButtonEnabled(typedLocation.value,filteredText,typedDisabilityInfo.value)
     }
 
     fun typeDisabilityInfo(text : CharSequence)
     {
         text.toString().let {
-            typedDisabilityInfo = it
-            updateButtonEnabled(typedLocation,typedAge,it)
+            typedDisabilityInfo.value = it
+            updateButtonEnabled(typedLocation.value,typedAge.value,it)
         }
     }
 
@@ -86,16 +82,16 @@ class InfoViewModel @Inject constructor(
      */
     fun checkNickname()
     {
-        signModel.requestCheckNickname(typedNickname)
-        updateButtonEnabled(typedLocation,typedAge,typedDisabilityInfo)
+        signModel.requestCheckNickname(typedNickname.value)
+        updateButtonEnabled(typedLocation.value,typedAge.value,typedDisabilityInfo.value)
     }
 
     fun onNext()
     {
         signModel.setInfo(
-            location = typedLocation,
-            age = if (typedAge.toIntOrNull() == null) -1 else typedAge.toInt(),
-            disabilityInfo = typedDisabilityInfo
+            location = typedLocation.value,
+            age = if (typedAge.value.toIntOrNull() == null) -1 else typedAge.value.toInt(),
+            disabilityInfo = typedDisabilityInfo.value
         )
 
         if (registerType.value == Type.RELATED)
@@ -108,4 +104,17 @@ class InfoViewModel @Inject constructor(
 
     }
 
+    /*******************************************
+     **** 초기화 합니다
+     ******************************************/
+
+    fun initStatus()
+    {
+        signModel.nicknameValidFlag.value = false
+        typedNickname.value = ""
+        typedLocation.value = ""
+        typedAge.value = ""
+        typedDisabilityInfo.value = ""
+        buttonEnabled.value = false
+    }
 }
