@@ -1,11 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.auth.certify.CertifyViewModel" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/app_padding">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="20dp">
+
+            <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:src="@drawable/ic_back"
+                android:onClick="@{v->vm.connect.moveBackPage()}"/>
+            <TextView
+                android:id="@+id/textView"
+                style="@style/regular22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@{vm.registerType==type.DISABLED ? @string/str_ask_certify_disabled : @string/str_ask_certify}"
+                android:layout_marginBottom="52dp"
+                tools:text="@string/str_ask_certify"/>
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.registerType==type.DISABLED ? @string/str_id_card_disabled : @string/str_id_card}"
+                android:layout_marginBottom="16dp"
+                tools:text="@string/str_id_card"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp">
+                <EditText
+                    android:id="@+id/et_id_card"
+                    style="@style/medium16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@{vm.registerType==type.DISABLED ? @string/str_id_card_disabled_hint : @string/str_id_card_hint}"
+                    android:textColorHint="@color/grey500"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toStartOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{vm.imgFileName}"
+                    android:enabled="false"
+                    tools:hint="@string/str_id_card_hint"/>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/medium12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_default_small"
+                    android:text="@{vm.isUpload ? @string/str_delete_file : @string/str_add_file}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{v-> vm.pickOrDeleteFile()}"
+                    tools:text="@string/str_add_file"/>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey400"
+                    app:layout_constraintTop_toBottomOf="@+id/et_id_card"
+                    android:layout_marginTop="8dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="20dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_primary"
+                android:gravity="center"
+                android:text="@string/str_register_done"
+                android:textColor="@color/btn_enabled_color"
+                android:enabled="@{vm.isUpload()}"
+                android:onClick="@{v->vm.register()}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

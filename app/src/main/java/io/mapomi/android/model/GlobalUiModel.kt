@@ -1,9 +1,13 @@
 package io.mapomi.android.model
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.mapomi.android.ui.base.BaseActivity
+import io.mapomi.android.utils.FileUtil
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,5 +27,31 @@ class GlobalUiModel @Inject constructor() {
 
     fun showToast(msg : String) {
         Toast.makeText(_context,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    /*******************************************
+     **** 이미지
+     ******************************************/
+
+    fun loadImage(callback : (Uri) -> Unit)
+    {
+        _activity?.let { activity ->
+            FileUtil.pickFromGallery(activity,
+                {
+                callback(it[0])
+                },
+                false)
+        }
+    }
+
+    fun getImgRealName(uri: Uri) : String
+    {
+        return FileUtil.getRealName(_context!!,uri)
+    }
+
+    fun convertImgToUpload(uri: Uri) : MultipartBody.Part
+    {
+        val imgBitmap : Bitmap = FileUtil.getBitmapFile(_context!!,uri)
+        return FileUtil.getMultipart(_context!!,"multipartFile",imgBitmap)
     }
 }

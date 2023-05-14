@@ -94,9 +94,15 @@ class InfoViewModel @Inject constructor(
             disabilityInfo = typedDisabilityInfo.value
         )
 
-        if (registerType.value == Type.RELATED)
+        if (registerType.value == Type.RELATED) //연관자 유형일때 회원가입
         {
-            TODO("회원가입 요청, 성공시 메인 화면으로")
+            // 회원가입 로직
+            signModel.requestRegister()
+            useFlag(signModel.registerSuccessFlag)
+            {
+                uiModel.showToast("회원가입 성공")
+                connect.finishPage()
+            }
             return
         }
 
@@ -104,17 +110,4 @@ class InfoViewModel @Inject constructor(
 
     }
 
-    /*******************************************
-     **** 초기화 합니다
-     ******************************************/
-
-    fun initStatus()
-    {
-        signModel.nicknameValidFlag.value = false
-        typedNickname.value = ""
-        typedLocation.value = ""
-        typedAge.value = ""
-        typedDisabilityInfo.value = ""
-        buttonEnabled.value = false
-    }
 }

@@ -1,25 +1,22 @@
-package io.mapomi.android.ui.auth.info
+package io.mapomi.android.ui.main.home
 
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.mapomi.android.databinding.FragmentRegisterInfoBinding
+import io.mapomi.android.databinding.FragmentHomeBinding
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class InfoFragment : BaseFragment() {
+class HomeFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentRegisterInfoBinding
-    val viewModel by activityViewModels<InfoViewModel>()
+    private lateinit var bind : FragmentHomeBinding
 
     override fun getFragmentRoot(): View {
-        bind = FragmentRegisterInfoBinding.inflate(layoutInflater)
+       bind = FragmentHomeBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onFragmentCreated() {
         bind.apply {
-            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
     }

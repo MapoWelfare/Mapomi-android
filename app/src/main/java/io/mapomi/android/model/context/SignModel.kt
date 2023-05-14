@@ -1,9 +1,16 @@
 package io.mapomi.android.model.context
 
+import android.graphics.Bitmap
+import android.net.Uri
 import io.mapomi.android.enums.Type
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
+import io.mapomi.android.utils.FileUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,6 +21,10 @@ class SignModel @Inject constructor() : BaseModel(){
     /*******************************************
      **** 로그인
      ******************************************/
+
+    /**
+     * 로그인을 요청합니다
+     */
     fun requestLogin(id : String, password : String)
     {
 
@@ -66,6 +77,33 @@ class SignModel @Inject constructor() : BaseModel(){
         this.location = location.trim()
         this.age = age
         this.disabilityInfo = disabilityInfo.trim()
+    }
+
+    private var multiPart : MultipartBody.Part? = null
+    val uploadOnApp = MutableStateFlow(false)
+
+    fun convertUriToMultiPart(uri: Uri)
+    {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (!uri.toString().contains("http"))
+            {
+                multiPart = uiModel.convertImgToUpload(uri)
+                uploadOnApp.value = true
+            }
+
+            else uploadOnApp.value = false
+
+        }
+    }
+
+    val registerSuccessFlag = MutableStateFlow(false)
+
+    /**
+     * 회원가입을 요청합니다
+     */
+    fun requestRegister()
+    {
+        registerSuccessFlag.value = true
     }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
