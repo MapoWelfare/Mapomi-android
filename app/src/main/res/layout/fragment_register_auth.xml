@@ -107,6 +107,7 @@
                     android:inputType="textPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:maxLength="12"
                     android:text="@{vm.typedPassword}"
                     android:onTextChanged="@{(cs,s,e,c) -> vm.typePassword(cs)}"/>
 
@@ -141,6 +142,7 @@
                     android:inputType="textPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:maxLength="12"
                     android:text="@{vm.typedRePassword}"
                     android:onTextChanged="@{(cs,s,e,c) -> vm.typeRePassword(cs)}"/>
 

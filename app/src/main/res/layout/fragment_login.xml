@@ -89,6 +89,7 @@
                 android:textColorHint="@color/grey500"
                 style="@style/medium16"
                 android:inputType="textPassword"
+                android:maxLength="12"
                 android:text="@{vm.typedPassword}"
                 android:onTextChanged="@{(cs,s,e,c) -> vm.typePassword(cs)}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

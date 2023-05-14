@@ -1,11 +1,9 @@
 package io.mapomi.android.model.context
 
-import android.graphics.Bitmap
 import android.net.Uri
 import io.mapomi.android.enums.Type
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
-import io.mapomi.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,12 +20,14 @@ class SignModel @Inject constructor() : BaseModel(){
      **** 로그인
      ******************************************/
 
+    val loginSuccessFlag = MutableStateFlow(false)
+
     /**
      * 로그인을 요청합니다
      */
     fun requestLogin(id : String, password : String)
     {
-
+        loginSuccessFlag.value = true
     }
 
     /*******************************************

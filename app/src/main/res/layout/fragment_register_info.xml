@@ -151,6 +151,7 @@
                         android:inputType="numberDecimal"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:maxLength="3"
                         android:text="@{vm.typedAge}"
                         android:onTextChanged="@{(cs,s,e,c) -> vm.typeAge(cs,etAge)}"/>
 
@@ -182,7 +183,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="@string/str_location_hint"
+                        android:hint="@string/str_disability_info_hint"
                         android:textColorHint="@color/grey500"
                         android:inputType="text"
                         app:layout_constraintStart_toStartOf="parent"

@@ -43,7 +43,12 @@ class LoginViewModel @Inject constructor(
 
     fun login(){
         signModel.requestLogin(typedId.value,typedPassword.value)
-        showToast("로그인 성공")
+        useFlag(signModel.loginSuccessFlag)
+        {
+            connect.finishPage()
+            showToast("로그인 성공")
+        }
+
     }
 
 }
