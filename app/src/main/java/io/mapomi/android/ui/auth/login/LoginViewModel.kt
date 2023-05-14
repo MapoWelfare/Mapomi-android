@@ -17,9 +17,9 @@ class LoginViewModel @Inject constructor(
     val typedId = MutableStateFlow("")
     val typedPassword = MutableStateFlow("")
 
-    fun changeType(type : Type){
-        this.type.value = type
-    }
+    /*******************************************
+     **** 입력을 받습니다
+     ******************************************/
 
     fun typeId(text : CharSequence){
         typedId.value = text.toString()
@@ -27,6 +27,14 @@ class LoginViewModel @Inject constructor(
 
     fun typePassword(text : CharSequence){
         typedPassword.value = text.toString()
+    }
+
+    /*******************************************
+     **** 버튼을 누릅니다
+     ******************************************/
+
+    fun changeType(type : Type){
+        this.type.value = type
     }
 
     fun goRegister() {

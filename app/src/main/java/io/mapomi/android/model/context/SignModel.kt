@@ -26,7 +26,7 @@ class SignModel @Inject constructor() : BaseModel(){
     /**
      * 가입 유형
      */
-    private val registerType = MutableStateFlow(Type.DISABLED)
+    val registerType = MutableStateFlow(Type.DISABLED)
 
 
     fun changeRegisterType(type: Type)
@@ -63,9 +63,9 @@ class SignModel @Inject constructor() : BaseModel(){
 
     fun setInfo(location : String, age : Int, disabilityInfo : String)
     {
-        this.location = location
+        this.location = location.trim()
         this.age = age
-        this.disabilityInfo = disabilityInfo
+        this.disabilityInfo = disabilityInfo.trim()
     }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {

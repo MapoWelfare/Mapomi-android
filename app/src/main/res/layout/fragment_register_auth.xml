@@ -41,7 +41,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="4dp">
                 <EditText
                     android:id="@+id/editText"
                     style="@style/medium16"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_default_small"
-                    android:text="@string/str_id_check"
+                    android:text="@string/str_check_duplication"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:onClick="@{v-> vm.checkIdValid()}"/>
@@ -95,7 +95,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="4dp">
                 <EditText
                     android:id="@+id/editText2"
                     style="@style/medium16"
@@ -129,7 +129,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="4dp">
                 <EditText
                     android:id="@+id/editText3"
                     style="@style/medium16"
@@ -167,8 +167,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingVertical="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="15dp">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 style="@style/medium16"
@@ -179,7 +178,8 @@
                 android:text="@string/str_next"
                 android:textColor="@color/btn_enabled_color"
                 android:enabled="@{vm.idValid &amp; vm.passwordValid &amp; vm.passwordSame}"
-                android:onClick="@{v->vm.moveNext()}"/>
+                android:onClick="@{v->vm.onNext()}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -11,6 +11,10 @@ class TypeViewModel @Inject constructor(
     val connect: AuthConnect
 ) : BaseViewModel() {
 
+    /*******************************************
+     **** 버튼을 누릅니다
+     ******************************************/
+
     fun selectType(type: Type)
     {
         signModel.changeRegisterType(type)

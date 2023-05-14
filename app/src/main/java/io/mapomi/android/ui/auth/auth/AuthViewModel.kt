@@ -18,6 +18,10 @@ class AuthViewModel @Inject constructor(
     val passwordValid = MutableStateFlow(false)
     val passwordSame = MutableStateFlow(false)
 
+    /*******************************************
+     **** 입력을 받습니다
+     ******************************************/
+
     fun typeId(text : CharSequence)
     {
         typedId = text.toString()
@@ -41,6 +45,10 @@ class AuthViewModel @Inject constructor(
 
     }
 
+    /*******************************************
+     **** 버튼을 누릅니다
+     ******************************************/
+
     /**
      * 아이디 중복확인을 합니다
      */
@@ -52,7 +60,7 @@ class AuthViewModel @Inject constructor(
     /**
      * 다음 페이지로 이동합니다
      */
-    fun moveNext()
+    fun onNext()
     {
         signModel.setPassword(typedPassword.value)
         connect.goInfoPage()

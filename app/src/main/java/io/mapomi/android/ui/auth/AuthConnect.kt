@@ -41,6 +41,13 @@ class AuthConnect @Inject constructor() {
     }
 
     /**
+     * 신분증/장애인증 인증 페이지로
+     */
+    fun goCertifyPage() {
+        navigation.changePage(AuthPage.REGISTER_CERTIFY)
+    }
+
+    /**
      * 뒤로 이동
      */
     fun moveBackPage() {

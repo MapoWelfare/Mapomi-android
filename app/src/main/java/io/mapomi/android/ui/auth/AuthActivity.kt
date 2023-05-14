@@ -11,6 +11,7 @@ import io.mapomi.android.enums.AuthPage.*
 import io.mapomi.android.model.navigate.AuthNavigation
 import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.auth.auth.AuthFragment
+import io.mapomi.android.ui.auth.certify.CertifyFragment
 import io.mapomi.android.ui.auth.info.InfoFragment
 import io.mapomi.android.ui.auth.login.LoginFragment
 import io.mapomi.android.ui.auth.type.TypeFragment
@@ -69,6 +70,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
                 REGISTER_TYPE -> TypeFragment()
                 REGISTER_AUTH -> AuthFragment()
                 REGISTER_INFO -> InfoFragment()
+                REGISTER_CERTIFY -> CertifyFragment()
 
             }
 

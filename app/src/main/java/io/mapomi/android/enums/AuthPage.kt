@@ -5,5 +5,5 @@ enum class AuthPage {
     REGISTER_TYPE,
     REGISTER_AUTH,
     REGISTER_INFO,
-
+    REGISTER_CERTIFY,
 }
