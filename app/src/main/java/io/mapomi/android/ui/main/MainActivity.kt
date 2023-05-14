@@ -14,6 +14,7 @@ import io.mapomi.android.ui.base.BaseFragment
 import io.mapomi.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 import io.mapomi.android.enums.Page.*
+import io.mapomi.android.ui.main.home.HomeFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -49,10 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     fun inflateFragment(page: Page) : Boolean {
 
-/*        fragment =
+        fragment =
             when(page) {
-                HOME ->
-            }*/
+                HOME -> HomeFragment()
+            }
 
         fragment?.let {
             supportFragmentManager.beginTransaction().replace(R.id.fc_main, it).commit()
@@ -63,6 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return true
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         fragment?.run {
             this.navigationOnBackPressed()

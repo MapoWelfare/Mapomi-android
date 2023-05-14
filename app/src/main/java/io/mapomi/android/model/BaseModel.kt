@@ -1,10 +1,11 @@
 package io.mapomi.android.model
 
 import io.mapomi.android.di.NetStatus
+import io.mapomi.android.remote.remotesources.RemoteListener
 import io.mapomi.android.remote.retrofit.Remote
 import javax.inject.Inject
 
-abstract class BaseModel {
+abstract class BaseModel : RemoteListener {
 
     @Inject
     lateinit var netStatus: NetStatus

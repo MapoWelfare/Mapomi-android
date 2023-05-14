@@ -1,3 +1,50 @@
 <resources>
     <string name="app_name">마포미</string>
+
+    <string name="str_login">로그인</string>
+    <string name="str_do_login">로그인하기</string>
+    <string name="str_id">아이디</string>
+    <string name="str_password">비밀번호</string>
+    <string name="str_find_id">아이디 찾기</string>
+    <string name="str_find_password">비밀번호 찾기</string>
+    <string name="str_register">회원가입</string>
+    <string name="str_register_before">계정이 없으신가요?</string>
+    
+    <string name="str_ask_type">안녕하세요\n어떤 용건으로 오셨나요?</string>
+    <string name="str_ask_auth">아이디와 비밀번호를\n입력해주세요.</string>
+    <string name="str_id_hint">아이디 입력</string>
+    <string name="str_id_valid">사용가능한 아이디입니다.</string>
+    <string name="str_password_hint">비밀번호 입력</string>
+    <string name="str_password_valid">비밀번호 2~12자</string>
+    <string name="str_password_check">비밀번호 확인</string>
+    <string name="str_password_equal">비밀번호가 일치합니다.</string>
+
+    <string name="str_ask_info">간단한 정보를 입력해주세요.</string>
+    <string name="str_nickname">닉네임</string>
+    <string name="str_nickname_hint">닉네임 입력</string>
+    <string name="str_nickname_valid">사용가능한 닉네임입니다.</string>
+    <string name="str_age">나이</string>
+    <string name="str_age_hint">나이 입력</string>
+    <string name="str_location">거주지</string>
+    <string name="str_location_hint">거주지 정보 입력</string>
+    <string name="str_disability_info">장애정보</string>
+    <string name="str_disability_info_hint">장애 정보 입력</string>
+
+    <string name="str_ask_certify">신분증 혹은 학생증을\n인증해주세요.</string>
+    <string name="str_ask_certify_disabled">신분증 혹은 장애인증을\n인증해주세요.</string>
+    <string name="str_id_card">신분증/학생증</string>
+    <string name="str_id_card_disabled">신분증/장애인증</string>
+    <string name="str_id_card_hint">신분증 혹은 학생증 사진</string>
+    <string name="str_id_card_disabled_hint">신분증 혹은 장애인증 사진</string>
+    <string name="str_add_file">파일 첨부</string>
+    <string name="str_delete_file">파일 삭제</string>
+
+    <string name="str_register_done">회원가입 완료</string>
+
+    <string name="str_disabled">장애인</string>
+    <string name="str_companion">동행자</string>
+    <string name="str_related">연관자</string>
+    <string name="str_next">다음</string>
+    <string name="str_check_duplication">중복 확인</string>
+
 </resources>
