@@ -37,6 +37,8 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
 
     override fun onResume() {
         super.onResume()
+        softKey.registerActivity(this)
+        uiModel.registerActivity(this,this)
     }
 
     private lateinit var launcherResponse : (Intent?)->Unit

@@ -1,10 +1,12 @@
 package io.mapomi.android.model
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import io.mapomi.android.ui.auth.AuthActivity
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.utils.FileUtil
 import okhttp3.MultipartBody
@@ -27,6 +29,10 @@ class GlobalUiModel @Inject constructor() {
 
     fun showToast(msg : String) {
         Toast.makeText(_context,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    fun goToLogin(){
+        _activity?.startActivity(Intent(_activity, AuthActivity::class.java))
     }
 
     /*******************************************
