@@ -4,6 +4,7 @@ import io.mapomi.android.constants.*
 import io.mapomi.android.remote.dataclass.CRequest
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.JoinRequest
+import io.mapomi.android.remote.dataclass.request.LoginRequest
 import io.mapomi.android.remote.remotesources.RemoteInterface
 import io.mapomi.android.remote.remotesources.RemoteListener
 import okhttp3.MultipartBody
@@ -36,6 +37,8 @@ class CallImpl(
     {
         return when(apiNum)
         {
+
+            API_LOGIN_ACCOUNT -> remoteApi.loginAccount(header, requestBody as LoginRequest)
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header, paramStr0!!, requestBody as JoinRequest)
 

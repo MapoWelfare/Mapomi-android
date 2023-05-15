@@ -3,6 +3,7 @@ package io.mapomi.android.ui.auth.login
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.enums.Type
 import io.mapomi.android.model.context.SignModel
+import io.mapomi.android.system.App.Companion.prefs
 import io.mapomi.android.ui.auth.AuthConnect
 import io.mapomi.android.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,7 +47,7 @@ class LoginViewModel @Inject constructor(
         useFlag(signModel.loginSuccessFlag)
         {
             connect.finishPage()
-            showToast("로그인 성공")
+            showToast(prefs.accessToken)
         }
 
     }
