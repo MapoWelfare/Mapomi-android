@@ -1,7 +1,7 @@
 package io.mapomi.android.remote.retrofit
 
 import com.google.gson.Gson
-import io.mapomi.android.constants.API_REFRESH_TOKEN
+import io.mapomi.android.constants.*
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.remotesources.RemoteListener
 import io.mapomi.android.system.LogInfo
