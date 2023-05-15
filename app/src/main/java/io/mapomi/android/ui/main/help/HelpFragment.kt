@@ -1,28 +1,26 @@
-package io.mapomi.android.ui.main.home
+package io.mapomi.android.ui.main.help
 
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
-import io.mapomi.android.databinding.FragmentHomeBinding
+import io.mapomi.android.databinding.FragmentHelpBinding
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HelpFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentHomeBinding
+    lateinit var bind : FragmentHelpBinding
 
     override fun getFragmentRoot(): View {
-       bind = FragmentHomeBinding.inflate(layoutInflater)
+        bind = FragmentHelpBinding.inflate(layoutInflater)
         return bind.root
     }
 
     override fun onFragmentCreated() {
-        bind.apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
+
     }
 
     override fun showBottomBar(): Boolean {
-        return false
+        return true
     }
 
     override fun navigationOnBackPressed() {

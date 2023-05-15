@@ -3,9 +3,11 @@ package io.mapomi.android.ui.main
 import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.R
 import io.mapomi.android.databinding.ActivityMainBinding
+import io.mapomi.android.databinding.ViewMainBottomMenuBinding
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.navigate.Navigation
 import io.mapomi.android.system.LogDebug
@@ -14,14 +16,18 @@ import io.mapomi.android.ui.base.BaseFragment
 import io.mapomi.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 import io.mapomi.android.enums.Page.*
-import io.mapomi.android.ui.main.home.HomeFragment
+import io.mapomi.android.ui.main.accompany.AccompanyFragment
+import io.mapomi.android.ui.main.help.HelpFragment
+import io.mapomi.android.ui.main.profile.ProfileFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     @Inject lateinit var navigator : Navigation
 
-    private val viewModel : MainViewModel by viewModels()
+    private val mainViewModel : MainViewModel by viewModels()
+
+    private val bottomViewModel : MainBottomViewModel by viewModels()
 
     private var fragment : BaseFragment? = null
 
@@ -30,10 +36,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             navigation = navigator
             activity = this@MainActivity
             lifecycleOwner = this@MainActivity
-            viewModel = viewModel
+            viewModel = mainViewModel
         }
 
+        inflateBottomMenu()
+
         attachInsetsCallback()
+
     }
 
     private fun attachInsetsCallback() {
@@ -48,17 +57,46 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    private fun inflateBottomMenu() {
+
+
+        useBind {
+            DataBindingUtil.inflate<ViewMainBottomMenuBinding>(
+                layoutInflater,
+                R.layout.view_main_bottom_menu,
+                null,
+                false
+            ).apply {
+                activity = this@MainActivity
+                vm = bottomViewModel
+                lifecycleOwner = this@MainActivity
+                flBottomMenu.addView(root)
+            }
+        }
+    }
+
     fun inflateFragment(page: Page) : Boolean {
 
         fragment =
             when(page) {
-                HOME -> HomeFragment()
+                ACCOMPANY -> {
+                    navigator.clearHistory()
+                    AccompanyFragment()
+                }
+                HELP -> {
+                    navigator.clearHistory()
+                    HelpFragment()
+                }
+                PROFILE -> {
+                    navigator.clearHistory()
+                    ProfileFragment()
+                }
             }
 
         fragment?.let {
             supportFragmentManager.beginTransaction().replace(R.id.fc_main, it).commit()
-            viewModel.setBottomMenuVisibility(it.showBottomBar())
-            LogDebug(javaClass.name, "BOTTOM MENU VISIBILITY = ${it.showBottomBar()}")
+            mainViewModel.setBottomMenuVisibility(it.showBottomBar())
+            LogDebug(javaClass.name, "BOTTOM VISIBILITY = ${it.showBottomBar()}")
         }
 
         return true
@@ -66,6 +104,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+
+        if (mainViewModel.netStatus.onRemotePending.value)
+            return
+
         fragment?.run {
             this.navigationOnBackPressed()
         } ?: run {

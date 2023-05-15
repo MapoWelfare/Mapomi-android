@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.MainBottomViewModel" />
+        <variable
+            name="activity"
+            type="io.mapomi.android.ui.main.MainActivity" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:onClick="@{v->vm.setCurrentButton(vm.PAGE_ACCOMPANY)}"
+            isSelect="@{vm.currentButton == vm.PAGE_ACCOMPANY}">
+            <TextView
+                style="@style/regular14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="동행해요"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:onClick="@{v->vm.setCurrentButton(vm.PAGE_HELP)}"
+            isSelect="@{vm.currentButton == vm.PAGE_HELP}">
+            <TextView
+                style="@style/regular14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도와줘요"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:onClick="@{v->vm.setCurrentButton(vm.PAGE_PROFILE)}"
+            isSelect="@{vm.currentButton == vm.PAGE_PROFILE}">
+            <TextView
+                style="@style/regular14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로필"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

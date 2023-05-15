@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class Navigation @Inject constructor() {
 
-    private val _topPage = MutableStateFlow(Page.HOME)
+    private val _topPage = MutableStateFlow(Page.ACCOMPANY)
     val topPage : StateFlow<Page> get() = _topPage
 
     private val pageHistory = mutableListOf<Page>()

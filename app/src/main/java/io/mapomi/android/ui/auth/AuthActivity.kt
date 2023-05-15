@@ -43,21 +43,9 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
 
         }
         LogDebug(javaClass.name, "[LOGIN ACTIVITY]")
-        attachInsetsCallback()
         authConnect.registerActivity(this,navigation)
     }
 
-    private fun attachInsetsCallback() {
-        RootViewDeferringInsetsCallback(
-            WindowInsetsCompat.Type.systemBars(),
-            WindowInsetsCompat.Type.ime()
-        ).apply {
-            useBind {
-                ViewCompat.setOnApplyWindowInsetsListener(root, this@apply)
-                ViewCompat.setWindowInsetsAnimationCallback(root,this@apply)
-            }
-        }
-    }
 
     fun inflateFragment(page : AuthPage) : Boolean {
 
