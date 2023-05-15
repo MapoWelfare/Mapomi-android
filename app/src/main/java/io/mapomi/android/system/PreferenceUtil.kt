@@ -2,6 +2,7 @@ package io.mapomi.android.system
 
 import android.content.Context
 import android.content.SharedPreferences
+import io.mapomi.android.constants.*
 
 class PreferenceUtil(context : Context) {
     private val prefs : SharedPreferences = context.getSharedPreferences(PREFERENCE,0)
@@ -42,4 +43,13 @@ class PreferenceUtil(context : Context) {
     companion object {
         const val PREFERENCE = "PREFERENCE"
     }
+
+    var accessToken : String get() = getString(ACCESS_TOKEN,"").toString()
+        set(value) {
+            setString(ACCESS_TOKEN, value)
+        }
+    var refreshToken : String get() = getString(REFRESH_TOKEN,"").toString()
+        set(value) {
+            setString(REFRESH_TOKEN, value)
+        }
 }

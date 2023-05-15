@@ -1,9 +1,13 @@
 package io.mapomi.android.model.context
 
 import android.net.Uri
+import io.mapomi.android.constants.API_JOIN_ACCOUNT
 import io.mapomi.android.enums.Type
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
+import io.mapomi.android.remote.dataclass.request.JoinRequest
+import io.mapomi.android.remote.dataclass.response.JoinResponse
+import io.mapomi.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -103,11 +107,37 @@ class SignModel @Inject constructor() : BaseModel(){
      */
     fun requestRegister()
     {
-        registerSuccessFlag.value = true
+        val request = JoinRequest(
+            id = id,
+            password = password,
+            name = "장애인안승우",
+            phoneNum = "01025903605",
+            term = true,
+            nickname = nickname,
+            residence = if (registerType.value == Type.DISABLED) location else "",
+            age = if (registerType.value == Type.COMPANION) age else -1,
+            type = if (registerType.value == Type.DISABLED) disabilityInfo else ""
+        )
+
+        CallImpl(
+            API_JOIN_ACCOUNT,
+            this,
+            request,
+            paramStr0 = registerType.value.serverName
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+
     }
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
-
+        when(api)
+        {
+            API_JOIN_ACCOUNT -> {
+                body as JoinResponse
+                registerSuccessFlag.value = body.success!!
+            }
+        }
     }
 
     override fun handleError(api: Int, msg: String?, t: Throwable?) {

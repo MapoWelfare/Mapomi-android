@@ -18,6 +18,7 @@ class TypeViewModel @Inject constructor(
     fun selectType(type: Type)
     {
         signModel.changeRegisterType(type)
+        uiModel.showToast(type.serverName)
         connect.goAuthPage()
     }
 
