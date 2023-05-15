@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.mapomi.android.constants.BASE_URL
 import io.mapomi.android.constants.DEBUG_MODE
 import io.mapomi.android.remote.remotesources.RemoteInterface
 import okhttp3.OkHttpClient
@@ -42,8 +43,6 @@ object Module {
     }
 
 }
-
-const val BASE_URL = "https://www.naver.com/"
 
 const val CONNECT_TIMEOUT = 1L
 const val WRITE_TIMEOUT = 5L
