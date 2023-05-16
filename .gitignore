@@ -109,8 +109,3 @@ lint/tmp/
 *.hprof
 
 /.idea/deploymentTargetDropDown.xml
-
-# SDK
-GoogleSDK.kt
-KakaoSDK.kt
-NaverSDK.kt
