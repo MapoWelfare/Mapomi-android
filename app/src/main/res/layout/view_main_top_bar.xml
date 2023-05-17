@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="title"
+            type="String" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/app_padding"
+        android:paddingTop="23dp">
+        <ImageView
+            android:layout_width="73dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_mapomi"/>
+        <TextView
+            style="@style/bold22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            tools:text="@string/str_request_accompany"
+            android:layout_marginTop="27dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
