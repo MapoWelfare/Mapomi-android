@@ -22,31 +22,10 @@ class AuthConnect @Inject constructor() {
     }
 
     /**
-     * 1. 가입 유형 페이지로
+     * 추가 정보 입력 페이지로
      */
-    fun gotoTypePage() {
-        navigation.changePage(AuthPage.REGISTER_TYPE)
-    }
-
-    /**
-     * 2. 아이디/비밀번호 페이지로
-     */
-    fun goAuthPage() {
-        navigation.changePage(AuthPage.REGISTER_AUTH)
-    }
-
-    /**
-     * 3. 정보 입력 페이지로
-     */
-    fun goInfoPage() {
-        navigation.changePage(AuthPage.REGISTER_INFO)
-    }
-
-    /**
-     * 4. 신분증/장애인증 인증 페이지로
-     */
-    fun goCertifyPage() {
-        navigation.changePage(AuthPage.REGISTER_CERTIFY)
+    fun goRegister() {
+        navigation.changePage(AuthPage.REGISTER)
     }
 
     /**

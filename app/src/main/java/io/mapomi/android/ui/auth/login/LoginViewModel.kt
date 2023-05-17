@@ -14,9 +14,15 @@ class LoginViewModel @Inject constructor(
     val connect : AuthConnect
 ) : BaseViewModel() {
 
+    /*******************************************
+     **** 버튼을 누릅니다
+     ******************************************/
 
+    /**
+     * 카카오로 시작하기
+     */
     fun login(){
-        connect.finishPage()
+        connect.goRegister()
     }
 
 }

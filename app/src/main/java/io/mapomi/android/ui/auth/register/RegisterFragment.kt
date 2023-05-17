@@ -1,19 +1,19 @@
-package io.mapomi.android.ui.auth.info
+package io.mapomi.android.ui.auth.register
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.mapomi.android.databinding.FragmentRegisterInfoBinding
+import io.mapomi.android.databinding.FragmentRegisterBinding
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class InfoFragment : BaseFragment() {
+class RegisterFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentRegisterInfoBinding
-    val viewModel by activityViewModels<InfoViewModel>()
+    private lateinit var bind : FragmentRegisterBinding
+    val viewModel by activityViewModels<RegisterViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentRegisterInfoBinding.inflate(layoutInflater)
+        bind = FragmentRegisterBinding.inflate(layoutInflater)
         return bind.root
     }
 
@@ -29,6 +29,6 @@ class InfoFragment : BaseFragment() {
     }
 
     override fun navigationOnBackPressed() {
-
+        viewModel.connect.moveBackPage()
     }
 }
