@@ -59,7 +59,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun inflateBottomMenu() {
 
-
         useBind {
             DataBindingUtil.inflate<ViewMainBottomMenuBinding>(
                 layoutInflater,
@@ -67,7 +66,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 null,
                 false
             ).apply {
-                activity = this@MainActivity
                 vm = bottomViewModel
                 lifecycleOwner = this@MainActivity
                 flBottomMenu.addView(root)

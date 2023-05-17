@@ -40,6 +40,10 @@
     <string name="str_delete_file">파일 삭제</string>
 
     <string name="str_register_done">회원가입 완료</string>
+    
+    <string name="str_help">도와줘요</string>
+    <string name="str_accompany">동행해요</string>
+    <string name="str_profile">프로필</string>
 
     <string name="str_disabled">장애인</string>
     <string name="str_companion">동행자</string>

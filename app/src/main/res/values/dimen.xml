@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="bottomMenu_height">60dp</dimen>
+    <dimen name="bottomMenu_height">80dp</dimen>
     <dimen name="app_padding">15dp</dimen>
     <dimen name="btn_radius">5dp</dimen>
     <dimen name="icon_size">24dp</dimen>
