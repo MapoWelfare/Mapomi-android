@@ -1,8 +1,12 @@
 package io.mapomi.android.model.navigate
 
 import io.mapomi.android.enums.AuthPage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -35,6 +39,5 @@ class AuthNavigation @Inject constructor() {
 
     fun clearHistory() {
         pageHistory.clear()
-        _topPage.value = AuthPage.LOGIN
     }
 }
