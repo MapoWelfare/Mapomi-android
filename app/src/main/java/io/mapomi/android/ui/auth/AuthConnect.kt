@@ -39,6 +39,7 @@ class AuthConnect @Inject constructor() {
      * 로그인 혹은 가입 완료
      */
     fun finishPage(){
+        navigation.clearHistory()
         activity.finish()
     }
 }

@@ -35,5 +35,6 @@ class AuthNavigation @Inject constructor() {
 
     fun clearHistory() {
         pageHistory.clear()
+        _topPage.value = AuthPage.LOGIN
     }
 }

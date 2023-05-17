@@ -11,6 +11,8 @@
     <string name="str_nickname_valid">사용가능한 닉네임입니다.</string>
     <string name="str_phone">휴대폰 전화번호</string>
     <string name="str_phone_hint">휴대폰 전화번호 11자리 입력</string>
+    <string name="str_service_terms">서비스 약관 동의</string>
+    <string name="str_accept_all">모두 동의 (선택 정보 포함)</string>
 
     <string name="str_help">도와줘요</string>
     <string name="str_accompany">동행해요</string>
@@ -20,6 +22,7 @@
     <string name="str_companion">동행자</string>
     <string name="str_related">연관자</string>
     <string name="str_next">다음</string>
+    <string name="str_complete">완료</string>
     <string name="str_check_duplication">중복 확인</string>
     <string name="str_add_file">파일 첨부</string>
     <string name="str_delete_file">파일 삭제</string>

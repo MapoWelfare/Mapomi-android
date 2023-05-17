@@ -16,10 +16,12 @@ class RegisterViewModel @Inject constructor(
 
     val nickname = MutableStateFlow("")
     val phone = MutableStateFlow("")
+    val terms = MutableStateFlow(false)
 
     val nickNameValid get() = signModel.nickNameValid
 
     private val regex = Regex("[^0-9]")
+
 
     /*******************************************
      **** 입력을 받습니다
@@ -53,10 +55,24 @@ class RegisterViewModel @Inject constructor(
     }
 
     /**
-     * 다음 클릭
+     * 약관 동의 클릭
      */
-    fun onNext()
+    fun onCheck()
     {
-        connect.finishPage()
+        terms.value = !terms.value
     }
+
+
+    /**
+     * 완료 클릭
+     */
+    fun onComplete()
+    {
+        signModel.requestRegister(phone.value,true)
+        useFlag(signModel.registerSuccessFlag){
+            signModel.setIsLogin(true)
+            connect.finishPage()
+        }
+    }
+
 }

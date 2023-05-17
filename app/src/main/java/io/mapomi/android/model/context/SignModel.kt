@@ -34,7 +34,7 @@ class SignModel @Inject constructor() : BaseModel(){
     /**
      * 로그인 정보를 설정합니다
      */
-    private fun setIsLogin(status : Boolean)
+    fun setIsLogin(status : Boolean)
     {
         LogInfo(javaClass.name, "로그인 상태 변경 : $status")
         _isLogin.value = status

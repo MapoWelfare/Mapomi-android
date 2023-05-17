@@ -39,8 +39,12 @@
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
-    <style name="regular22" parent="textBold">
+    <style name="bold22" parent="textBold">
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="bold16" parent="textBold">
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

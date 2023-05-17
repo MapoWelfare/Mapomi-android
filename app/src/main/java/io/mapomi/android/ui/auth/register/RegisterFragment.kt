@@ -5,12 +5,16 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.databinding.FragmentRegisterBinding
 import io.mapomi.android.ui.base.BaseFragment
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment() {
 
     private lateinit var bind : FragmentRegisterBinding
     val viewModel by activityViewModels<RegisterViewModel>()
+
+    @Inject
+    lateinit var termsView : TermBottom
 
     override fun getFragmentRoot(): View {
         bind = FragmentRegisterBinding.inflate(layoutInflater)
@@ -19,6 +23,7 @@ class RegisterFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
+            fg = this@RegisterFragment
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
@@ -30,5 +35,10 @@ class RegisterFragment : BaseFragment() {
 
     override fun navigationOnBackPressed() {
         viewModel.connect.moveBackPage()
+    }
+
+    fun showTermsView()
+    {
+        termsView.show(requireActivity().supportFragmentManager,termsView.tag)
     }
 }
