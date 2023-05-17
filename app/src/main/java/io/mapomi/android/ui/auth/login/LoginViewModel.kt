@@ -14,42 +14,15 @@ class LoginViewModel @Inject constructor(
     val connect : AuthConnect
 ) : BaseViewModel() {
 
-    val type = MutableStateFlow(Type.DISABLED)
-    val typedId = MutableStateFlow("")
-    val typedPassword = MutableStateFlow("")
-
-    /*******************************************
-     **** 입력을 받습니다
-     ******************************************/
-
-    fun typeId(text : CharSequence){
-        typedId.value = text.toString()
-    }
-
-    fun typePassword(text : CharSequence){
-        typedPassword.value = text.toString()
-    }
-
     /*******************************************
      **** 버튼을 누릅니다
      ******************************************/
 
-    fun changeType(type : Type){
-        this.type.value = type
-    }
-
-    fun goRegister() {
-        connect.gotoTypePage()
-    }
-
+    /**
+     * 카카오로 시작하기
+     */
     fun login(){
-        signModel.requestLogin(typedId.value,typedPassword.value)
-        useFlag(signModel.loginSuccessFlag)
-        {
-            connect.finishPage()
-            showToast(prefs.accessToken)
-        }
-
+        connect.goRegister()
     }
 
 }

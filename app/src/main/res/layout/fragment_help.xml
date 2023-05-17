@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            style="@style/regular24"
+            style="@style/regular14"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="도와줘요 화면입니다"

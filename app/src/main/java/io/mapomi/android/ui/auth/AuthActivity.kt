@@ -1,8 +1,6 @@
 package io.mapomi.android.ui.auth
 
 import androidx.activity.viewModels
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.R
 import io.mapomi.android.databinding.ActivityAuthBinding
@@ -10,14 +8,10 @@ import io.mapomi.android.enums.AuthPage
 import io.mapomi.android.enums.AuthPage.*
 import io.mapomi.android.model.navigate.AuthNavigation
 import io.mapomi.android.system.LogDebug
-import io.mapomi.android.ui.auth.auth.AuthFragment
-import io.mapomi.android.ui.auth.certify.CertifyFragment
-import io.mapomi.android.ui.auth.info.InfoFragment
 import io.mapomi.android.ui.auth.login.LoginFragment
-import io.mapomi.android.ui.auth.type.TypeFragment
+import io.mapomi.android.ui.auth.register.RegisterFragment
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.ui.base.BaseFragment
-import io.mapomi.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 
 
@@ -43,7 +37,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
 
         }
         LogDebug(javaClass.name, "[LOGIN ACTIVITY]")
-        authConnect.registerActivity(this,navigation)
+        authConnect.registerActivity(this,this,navigation)
     }
 
 
@@ -55,10 +49,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
                     navigation.clearHistory()
                     LoginFragment()
                 }
-                REGISTER_TYPE -> TypeFragment()
-                REGISTER_AUTH -> AuthFragment()
-                REGISTER_INFO -> InfoFragment()
-                REGISTER_CERTIFY -> CertifyFragment()
+                REGISTER -> RegisterFragment()
 
             }
 

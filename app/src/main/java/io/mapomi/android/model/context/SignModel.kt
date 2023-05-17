@@ -34,9 +34,9 @@ class SignModel @Inject constructor() : BaseModel(){
     /**
      * 로그인 정보를 설정합니다
      */
-    private fun setIsLogin(status : Boolean)
+    fun setIsLogin(status : Boolean)
     {
-        LogInfo(javaClass.name, "로그인 상태 변경")
+        LogInfo(javaClass.name, "로그인 상태 변경 : $status")
         _isLogin.value = status
     }
 
@@ -62,19 +62,9 @@ class SignModel @Inject constructor() : BaseModel(){
     /**
      * 로그인을 요청합니다
      */
-    fun requestLogin(id : String, password : String)
+    fun requestLogin()
     {
-        val request = LoginRequest(
-            id = id.trim(),
-            password = password.trim()
-        )
-        CallImpl(
-            API_LOGIN_ACCOUNT,
-            this,
-            request
-        ).apply {
-            remote.sendRequestApi(this)
-        }
+
 
     }
 
@@ -82,52 +72,35 @@ class SignModel @Inject constructor() : BaseModel(){
      **** 회원가입
      ******************************************/
 
+    val nickNameValid = MutableStateFlow(false)
+    var nickname = ""
+    var phone = ""
+    var term = false
+
     /**
-     * 가입 유형
+     * 닉네임 중복 검사합니다
      */
-    val registerType = MutableStateFlow(Type.DISABLED)
-
-
-    fun changeRegisterType(type: Type)
-    {
-        registerType.value = type
-    }
-
-    private var id = ""
-    private var password =""
-    val idValidFlag = MutableStateFlow(false)
-
-    private var nickname = ""
-    private var location = ""
-    private var age = -1
-    private var disabilityInfo = ""
-    val nicknameValidFlag = MutableStateFlow(false)
-
-    fun setPassword(password: String)
-    {
-        this.password = password.trim()
-    }
-
-    fun requestCheckId(id : String)
-    {
-        this.id = id.trim()
-        idValidFlag.value = true
-    }
-
-    fun requestCheckNickname(nickname : String)
+    fun checkNicknameValid(nickname : String)
     {
         this.nickname = nickname.trim()
-        nicknameValidFlag.value = true
+        nickNameValid.value = true
     }
 
-    fun setInfo(location : String, age : Int, disabilityInfo : String)
+
+
+    val registerSuccessFlag = MutableStateFlow(false)
+
+    /**
+     * 회원가입을 요청합니다
+     */
+    fun requestRegister(phone : String, term : Boolean)
     {
-        this.location = location.trim()
-        this.age = age
-        this.disabilityInfo = disabilityInfo.trim()
+        this.phone = phone.trim()
+        this.term = term
+        registerSuccessFlag.value = true
     }
 
-    private var multiPart : MultipartBody.Part? = null
+    /*    private var multiPart : MultipartBody.Part? = null
     val uploadOnApp = MutableStateFlow(false)
 
     fun convertUriToMultiPart(uri: Uri)
@@ -142,37 +115,7 @@ class SignModel @Inject constructor() : BaseModel(){
             else uploadOnApp.value = false
 
         }
-    }
-
-    val registerSuccessFlag = MutableStateFlow(false)
-
-    /**
-     * 회원가입을 요청합니다
-     */
-    fun requestRegister()
-    {
-        val request = JoinRequest(
-            id = id,
-            password = password,
-            name = "장애인안승우",
-            phoneNum = "01025903605",
-            term = true,
-            nickname = nickname,
-            residence = if (registerType.value == Type.DISABLED) location else "",
-            age = if (registerType.value == Type.COMPANION) age else -1,
-            type = if (registerType.value == Type.DISABLED) disabilityInfo else ""
-        )
-
-        CallImpl(
-            API_JOIN_ACCOUNT,
-            this,
-            request,
-            paramStr0 = registerType.value.serverName
-        ).apply {
-            remote.sendRequestApi(this)
-        }
-
-    }
+    }*/
 
     /*******************************************
      **** 응답 처리
