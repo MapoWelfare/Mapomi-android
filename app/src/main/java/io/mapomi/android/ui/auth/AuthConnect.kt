@@ -11,10 +11,12 @@ import javax.inject.Singleton
 @Singleton
 class AuthConnect @Inject constructor() {
 
+    private lateinit var activity: AuthActivity
     private lateinit var context : Context
     private lateinit var navigation : AuthNavigation
 
-    fun registerActivity(activityContext: Context, navigation: AuthNavigation){
+    fun registerActivity( authActivity: AuthActivity ,activityContext: Context, navigation: AuthNavigation){
+        activity = authActivity
         context = activityContext
         this.navigation = navigation
     }
@@ -58,11 +60,6 @@ class AuthConnect @Inject constructor() {
      * 로그인 혹은 가입 완료
      */
     fun finishPage(){
-        context.startActivity(
-            Intent(context,MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
-        )
+        activity.finish()
     }
 }

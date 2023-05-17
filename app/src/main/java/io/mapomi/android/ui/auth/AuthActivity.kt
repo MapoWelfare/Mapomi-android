@@ -43,7 +43,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
 
         }
         LogDebug(javaClass.name, "[LOGIN ACTIVITY]")
-        authConnect.registerActivity(this,navigation)
+        authConnect.registerActivity(this,this,navigation)
     }
 
 
