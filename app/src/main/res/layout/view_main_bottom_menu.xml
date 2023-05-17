@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
             type="io.mapomi.android.ui.main.MainBottomViewModel" />
-        <variable
-            name="activity"
-            type="io.mapomi.android.ui.main.MainActivity" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/ll_bottom_menu">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,11 +18,17 @@
             android:orientation="vertical"
             android:onClick="@{v->vm.setCurrentButton(vm.PAGE_ACCOMPANY)}"
             isSelect="@{vm.currentButton == vm.PAGE_ACCOMPANY}">
-            <TextView
-                style="@style/regular14"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="동행해요"/>
+                android:src="@drawable/ic_accompany"
+                app:tint="@color/color_menu_select"/>
+            <TextView
+                style="@style/medium14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_accompany"
+                android:textColor="@color/color_menu_select"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -34,11 +38,17 @@
             android:orientation="vertical"
             android:onClick="@{v->vm.setCurrentButton(vm.PAGE_HELP)}"
             isSelect="@{vm.currentButton == vm.PAGE_HELP}">
-            <TextView
-                style="@style/regular14"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="도와줘요"/>
+                android:src="@drawable/ic_help"
+                app:tint="@color/color_menu_select"/>
+            <TextView
+                style="@style/medium14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_help"
+                android:textColor="@color/color_menu_select"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -48,11 +58,17 @@
             android:orientation="vertical"
             android:onClick="@{v->vm.setCurrentButton(vm.PAGE_PROFILE)}"
             isSelect="@{vm.currentButton == vm.PAGE_PROFILE}">
-            <TextView
-                style="@style/regular14"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="프로필"/>
+                android:src="@drawable/ic_profile"
+                app:tint="@color/color_menu_select"/>
+            <TextView
+                style="@style/medium14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_profile"
+                android:textColor="@color/color_menu_select"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
