@@ -9,6 +9,37 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="main50">#F2FAFD</color>
+    <color name="main100">#E6F6FD</color>
+    <color name="main200">#CCECF9</color>
+    <color name="main300">#B3E3F7</color>
+    <color name="main400">#99D9F4</color>
+    <color name="main500">#7FCEF0</color>
+    <color name="main600">#66C5EE</color>
+    <color name="main700">#4DBCEC</color>
+    <color name="main800">#33B2E9</color>
+    <color name="main900">#1AA9E6</color>
+    <color name="main1000">#009FE3</color>
+    <color name="main1100">#006692</color>
+    <color name="main1200">#00425E</color>
+    <color name="main1300">#002A3C</color>
+
+    <color name="sub50">#FFFAF2</color>
+    <color name="sub100">#FFF6E6</color>
+    <color name="sub200">#FFEDCD</color>
+    <color name="sub300">#FFE4B4</color>
+    <color name="sub400">#FEDA9A</color>
+    <color name="sub500">#FDD080</color>
+    <color name="sub600">#FEC868</color>
+    <color name="sub700">#FEBF4F</color>
+    <color name="sub800">#FDB535</color>
+    <color name="sub900">#FEAD1D</color>
+    <color name="sub1000">#FFB800</color>
+    <color name="sub1100">#A26802</color>
+    <color name="sub1200">#684202</color>
+    <color name="sub1300">#422A02</color>
+    <color name="sub1400">#261902</color>
+
     <color name="grey100">#FCFCFC</color>
     <color name="grey200">#F2F2F2</color>
     <color name="grey300">#E6E6E6</color>
@@ -19,4 +50,7 @@
     <color name="grey800">#666666</color>
     <color name="grey900">#4D4D4D</color>
     <color name="grey1000">#333333</color>
+
+    <color name="kakaoYellow">#FEE500</color>
+
 </resources>
