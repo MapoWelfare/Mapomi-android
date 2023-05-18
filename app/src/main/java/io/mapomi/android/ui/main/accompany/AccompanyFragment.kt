@@ -1,6 +1,7 @@
 package io.mapomi.android.ui.main.accompany
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.databinding.FragmentAccompanyBinding
 import io.mapomi.android.ui.base.BaseFragment
@@ -9,6 +10,7 @@ import io.mapomi.android.ui.base.BaseFragment
 class AccompanyFragment : BaseFragment() {
 
     lateinit var bind : FragmentAccompanyBinding
+    val viewModel by activityViewModels<AccompanyViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentAccompanyBinding.inflate(layoutInflater)
@@ -16,6 +18,10 @@ class AccompanyFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+        bind.apply {
+            vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
     override fun showBottomBar(): Boolean {
