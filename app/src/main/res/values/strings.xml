@@ -22,7 +22,17 @@
     <string name="str_request_help">도움요청</string>
     <string name="str_need_help">도움이 필요해요!</string>
 
+    <string name="str_search_hint">검색어 입력</string>
+    <string name="str_one_click_intro">음성인식으로 한번에!</string>
+    <string name="str_one_click_request">원클릭 요청</string>
+
     <string name="str_profile">프로필</string>
+    <string name="str_current_request">현재 요청</string>
+    <string name="str_current_null">현재 요청내역이 없습니다.</string>
+    <string name="str_request">요청하기</string>
+    <string name="str_process">진행중</string>
+    <string name="str_match_done">매칭 완료</string>
+    <string name="str_request_history">요청 이력</string>
 
     <string name="str_disabled">장애인</string>
     <string name="str_companion">동행자</string>
@@ -32,9 +42,9 @@
     <string name="str_check_duplication">중복 확인</string>
     <string name="str_add_file">파일 첨부</string>
     <string name="str_delete_file">파일 삭제</string>
+    <string name="str_logout">로그아웃</string>
+    <string name="str_resign">회원탈퇴</string>
+    <string name="str_horizontal_divider">|</string>
 
-    <string name="str_search_hint">검색어 입력</string>
-    <string name="str_one_click_intro">음성인식으로 한번에!</string>
-    <string name="str_one_click_request">원클릭 요청</string>
 
 </resources>

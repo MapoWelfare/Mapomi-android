@@ -6,6 +6,10 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
+
+    <style name="regular32" parent="textRegular">
+        <item name="android:textSize">32sp</item>
+    </style>
     <style name="regular16" parent="textRegular">
         <item name="android:textSize">16sp</item>
     </style>
