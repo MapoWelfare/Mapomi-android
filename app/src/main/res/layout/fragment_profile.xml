@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            style="@style/regular14"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/app_padding">
+
+        <include
+            android:id="@+id/ll_top_bar"
+            layout="@layout/view_main_top_bar"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:title="@{@string/str_profile}"/>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="프로필 화면입니다"
-            android:gravity="center"/>
+            android:layout_height="0dp"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/ll_top_bar">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="36dp"/>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
