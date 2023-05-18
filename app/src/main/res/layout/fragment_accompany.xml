@@ -24,11 +24,11 @@
                 bind:title="@{@string/str_request_accompany}" />
 
             <include
-                layout="@layout/view_main_search_bar"/>
+                layout="@layout/view_main_search_bar"
+                bind:search="@{v->vm.searchText()}"/>
 
             <include
-                layout="@layout/view_one_click"
-                bind:blue="@{true}"/>
+                layout="@layout/view_one_click_blue"/>
 
             <TextView
                 style="@style/bold16"

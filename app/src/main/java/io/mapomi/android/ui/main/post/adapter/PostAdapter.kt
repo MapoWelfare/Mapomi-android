@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.main.accompany.adapter
+package io.mapomi.android.ui.main.post.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import io.mapomi.android.R
 import io.mapomi.android.databinding.HolderMainPostBinding
 
-class AccompanyAdapter(
+class PostAdapter(
     val onItemClick : (()->Unit)? = null
-) : RecyclerView.Adapter<AccompanyAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     private var postList : List<String> = listOf("동행요청 글 1", "동행요청 글 2" ,"동행요청 글 3", "동행요청 글 4", "동행요청 글 5", "동행요청 글 6", "동행요청 글 7")
 

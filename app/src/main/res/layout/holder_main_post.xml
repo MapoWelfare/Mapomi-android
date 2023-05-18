@@ -51,9 +51,10 @@
                 <TextView
                     style="@style/regular12"
                     android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:text="채팅이 불편합니다. 전화주세요."
-                    android:maxLines="2"/>
+                    android:layout_height="32dp"
+                    android:text="채팅이 불편합니다. 전화주세요.채팅이 불편합니다. 전화주세요.채팅이 불편합니다. 전화주세요.채팅이 불편합니다. 전화주세요.채팅이 불편합니다. 전화주세요."
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
