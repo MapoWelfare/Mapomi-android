@@ -51,6 +51,10 @@
     <color name="grey900">#4D4D4D</color>
     <color name="grey1000">#333333</color>
 
+    <color name="lightgrey">#97999c</color>
+    <color name="lightergrey">#F4F6F8</color>
+    <color name="pink">#D34E8E</color>
+
     <color name="kakaoYellow">#FEE500</color>
     <color name="oneClickBlack">#001A26</color>
 
