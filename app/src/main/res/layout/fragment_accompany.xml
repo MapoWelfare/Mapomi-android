@@ -3,38 +3,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.accompany.AccompanyViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/ll_topBar"
-            layout="@layout/view_main_top_bar"
-            bind:layout_constraintTop_toTopOf="parent"
-            bind:title="@{@string/str_request_accompany}" />
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintTop_toBottomOf="@+id/ll_topBar">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll_main"
-                android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/app_padding">
+
+            <include
+                layout="@layout/view_main_top_bar"
+                bind:title="@{@string/str_request_accompany}" />
+
+            <include
+                layout="@layout/view_main_search_bar"/>
+
+            <include
+                layout="@layout/view_one_click"
+                bind:blue="@{true}"/>
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/app_padding">
+                android:text="@string/str_need_accompany"
+                android:textColor="@color/main1000"/>
 
-                <include
-                    layout="@layout/view_main_search_bar"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:paddingTop="10dp"
+                android:layout_weight="1"
+                bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:adapter="@{vm.adapter}"/>
 
-                <include
-                    layout="@layout/view_one_click"
-                    bind:blue="@{true}"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.core.widget.NestedScrollView>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="60dp"
@@ -44,7 +57,8 @@
             android:layout_marginBottom="24dp"
             android:layout_marginEnd="@dimen/app_padding"
             bind:layout_constraintBottom_toBottomOf="parent"
-            bind:layout_constraintEnd_toEndOf="parent">
+            bind:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{v -> vm.onAddPost()}">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

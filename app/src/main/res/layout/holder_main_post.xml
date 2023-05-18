@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="onItemClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:onClick="@{onItemClick}">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:background="@drawable/ll_post_holder_img"
+                android:layout_marginEnd="8dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/medium16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{title}"
+                    tools:text= "요청사항 타이틀"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    style="@style/regular12"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:text="채팅이 불편합니다. 전화주세요."
+                    android:maxLines="2"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                style="@style/regular12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="5분전"
+                android:textColor="@color/grey500"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey300"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
