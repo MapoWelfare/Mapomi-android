@@ -39,6 +39,7 @@ class RegisterFragment : BaseFragment() {
 
     fun showTermsView()
     {
+        viewModel.soft.hideKeyboard()
         termsView.show(requireActivity().supportFragmentManager,termsView.tag)
     }
 }

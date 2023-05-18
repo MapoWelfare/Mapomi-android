@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.main.accompany
+package io.mapomi.android.ui.main.help
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.model.insets.SoftKeyModel
@@ -7,8 +7,8 @@ import io.mapomi.android.ui.main.post.adapter.PostAdapter
 import javax.inject.Inject
 
 @HiltViewModel
-class AccompanyViewModel @Inject constructor(
-    val soft: SoftKeyModel
+class HelpViewModel @Inject constructor(
+    val soft : SoftKeyModel
 ) : BaseViewModel() {
 
     val adapter = PostAdapter(::onItemClick)

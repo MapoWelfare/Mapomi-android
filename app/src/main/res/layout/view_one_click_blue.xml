@@ -6,9 +6,6 @@
         <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
-        <variable
-            name="blue"
-            type="Boolean" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_one_click_request"
-            android:textColor="@{blue ? @color/main800 : @color/sub800}"
+            android:textColor="@color/main800"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

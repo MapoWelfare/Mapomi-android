@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.help.HelpViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            style="@style/regular14"
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="도와줘요 화면입니다"
-            android:gravity="center"/>
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/app_padding">
+
+            <include
+                layout="@layout/view_main_top_bar"
+                bind:title="@{@string/str_request_help}" />
+
+            <include
+                layout="@layout/view_main_search_bar"
+                bind:search="@{v->vm.searchText()}"/>
+
+            <include
+                layout="@layout/view_one_click_yellow"/>
+
+            <TextView
+                style="@style/bold16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_need_help"
+                android:textColor="@color/sub1000"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:paddingTop="10dp"
+                android:layout_weight="1"
+                bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:adapter="@{vm.adapter}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_new_post"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="@dimen/app_padding"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{v -> vm.onAddPost()}"
+            isSelect="@{true}">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
