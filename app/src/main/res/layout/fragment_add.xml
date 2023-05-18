@@ -40,7 +40,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
                     android:text="동행이 필요해요"
                     android:textColor="@color/black"
                     android:textSize="26sp"
@@ -57,7 +57,8 @@
                     android:textColor="@color/grey500"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp" />
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="10dp"/>
 
 
             </LinearLayout>
@@ -302,19 +303,18 @@
                     android:background="@color/grey400"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_margin="10dp"
-                    android:background="@color/grey100" />
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"/>
+
                 <EditText
                     android:text="도착지"
                     android:textColor="@color/white"
                     android:background="@color/grey400"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp" />
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"/>
 
 
             </LinearLayout>
