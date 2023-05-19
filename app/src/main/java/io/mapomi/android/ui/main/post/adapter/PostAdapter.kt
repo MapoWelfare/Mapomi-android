@@ -33,7 +33,7 @@ class PostAdapter(
         {
             bind.title = title
             bind.setOnItemClick {
-                onItemClick!!
+                onItemClick!!()
             }
         }
     }

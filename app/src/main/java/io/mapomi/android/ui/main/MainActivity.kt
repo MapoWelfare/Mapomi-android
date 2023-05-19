@@ -18,6 +18,8 @@ import javax.inject.Inject
 import io.mapomi.android.enums.Page.*
 import io.mapomi.android.ui.main.accompany.AccompanyFragment
 import io.mapomi.android.ui.main.help.HelpFragment
+import io.mapomi.android.ui.main.post.detail.PostDetailFragment
+import io.mapomi.android.ui.main.post.write.PostWriteFragment
 import io.mapomi.android.ui.main.profile.ProfileFragment
 
 @AndroidEntryPoint
@@ -88,6 +90,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 PROFILE -> {
                     navigator.clearHistory()
                     ProfileFragment()
+                }
+                POST_WRITE -> {
+                    PostWriteFragment()
+                }
+                POST_DETAIL -> {
+                    PostDetailFragment()
                 }
             }
 
