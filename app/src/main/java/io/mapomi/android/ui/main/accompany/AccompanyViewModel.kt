@@ -1,6 +1,7 @@
 package io.mapomi.android.ui.main.accompany
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostAdapter
@@ -20,12 +21,12 @@ class AccompanyViewModel @Inject constructor(
 
     private fun onItemClick()
     {
-
+        navigation.changePage(Page.POST_DETAIL)
     }
 
     fun onAddPost()
     {
-
+        navigation.changePage(Page.POST_WRITE)
     }
 
     fun searchText()
