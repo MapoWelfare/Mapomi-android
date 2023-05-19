@@ -1,8 +1,11 @@
 package io.mapomi.android.ui.main.profile
 
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
+import io.mapomi.android.R
 import io.mapomi.android.databinding.FragmentProfileBinding
+import io.mapomi.android.databinding.ViewAccompanyAppbarBinding
 import io.mapomi.android.databinding.ViewProfileAuthBinding
 import io.mapomi.android.databinding.ViewProfileHistoryBinding
 import io.mapomi.android.databinding.ViewProfileListBinding
@@ -39,10 +42,20 @@ class ProfileFragment : BaseFragment() {
      ***************/
     private fun inflateChild()
     {
+        inflateAppbar()
         inflateMy()
         inflateList()
         inflateHistory()
         inflateAuth()
+    }
+
+    private fun inflateAppbar()
+    {
+        DataBindingUtil.inflate<ViewAccompanyAppbarBinding>(layoutInflater, R.layout.view_accompany_appbar,null,false).apply {
+            needSearch = false
+            lifecycleOwner = viewLifecycleOwner
+            bind.flAppbar.addView(root)
+        }
     }
 
     private fun inflateMy()

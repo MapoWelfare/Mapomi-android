@@ -3,17 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable
-            name="onClick"
-            type="android.view.View.OnClickListener" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cl_one_click"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:onClick="@{onClick}">
+        android:layout_marginVertical="10dp">
 
         <TextView
             style="@style/regular12"

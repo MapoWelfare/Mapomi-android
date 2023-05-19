@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.help.HelpViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/app_padding"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="73dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_mapomi"
+            app:tint="@color/sub800"
+            android:layout_marginStart="5dp"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_search"
+            android:onClick="@{v->vm.onSearch()}"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

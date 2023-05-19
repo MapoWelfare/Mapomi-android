@@ -14,7 +14,7 @@ abstract class BaseDialog<T : ViewDataBinding>(context: Context,private val layo
         val bind = DataBindingUtil.inflate<T>(layoutInflater, layoutId,null,false)
 
         initBind(bind)
-        setCancelable(false)
+        setCancelable(true)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(bind.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

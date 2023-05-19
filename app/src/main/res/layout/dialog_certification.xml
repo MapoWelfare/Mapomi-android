@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:theme="@style/DialogStyle"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="@dimen/app_padding">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="566dp"
+            android:paddingVertical="47dp"
+            android:paddingHorizontal="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/ll_white_box">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/bold22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_certification"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:gravity="center"
+                android:text="@string/str_certification_intro"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="64dp"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/cl_grey_box"
+                    android:layout_marginEnd="4dp">
+                    <EditText
+                        style="@style/regular12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/str_certification_hint"
+                        android:textColorHint="@color/grey500"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:enabled="false"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <TextView
+                    android:id="@+id/btn_check_nickname"
+                    style="@style/regular12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_primary_small"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="@string/str_add_file"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <include
+                layout="@layout/view_primary_medium_button"
+                bind:buttonText="@{@string/str_complete}"
+                bind:enabled="@{true}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
