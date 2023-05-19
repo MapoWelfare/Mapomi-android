@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.accompany.AccompanyViewModel" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/app_padding"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_marginEnd="10dp"
+            android:onClick="@{v->vm.closeSearch()}"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cl_search_bar">
+
+            <EditText
+                android:id="@+id/et_search"
+                style="@style/regular14"
+                onActionSearch="@{v->vm.searchText()}"
+                soft="@{vm.soft}"
+                requestFocus="@{vm.searchPageOn}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/str_search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColorHint="@color/grey500"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
