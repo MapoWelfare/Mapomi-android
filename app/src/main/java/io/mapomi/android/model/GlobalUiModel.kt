@@ -1,5 +1,6 @@
 package io.mapomi.android.model
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -60,4 +61,19 @@ class GlobalUiModel @Inject constructor() {
         val imgBitmap : Bitmap = FileUtil.getBitmapFile(_context!!,uri)
         return FileUtil.getMultipart(_context!!,"multipartFile",imgBitmap)
     }
+
+
+    /*******************************************
+     **** 다이얼로그
+     ******************************************/
+
+    private var dialog : Dialog? = null
+
+    private fun isDialogOn() : Boolean {
+        dialog?.let {
+            if (it.isShowing) return true
+        }
+        return false
+    }
+
 }

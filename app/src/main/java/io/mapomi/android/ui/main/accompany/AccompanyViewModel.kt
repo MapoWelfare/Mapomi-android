@@ -1,6 +1,5 @@
 package io.mapomi.android.ui.main.accompany
 
-import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
@@ -17,6 +16,8 @@ class AccompanyViewModel @Inject constructor(
     val adapter = PostAdapter(::onItemClick)
 
     val searchPageOn = MutableStateFlow(false)
+
+    val fileName = MutableStateFlow("")
 
 
     /*******************************************
