@@ -7,6 +7,7 @@ import io.mapomi.android.databinding.FragmentRegisterBinding
 import io.mapomi.android.ui.base.BaseFragment
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment() {
 
