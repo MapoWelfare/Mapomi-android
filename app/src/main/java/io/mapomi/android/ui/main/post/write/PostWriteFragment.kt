@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.databinding.FragmentPostWriteBinding
 import io.mapomi.android.ui.base.BaseFragment
+import android.widget.DatePicker
 
 @AndroidEntryPoint
 class PostWriteFragment : BaseFragment() {
@@ -31,4 +32,9 @@ class PostWriteFragment : BaseFragment() {
     override fun navigationOnBackPressed() {
         viewModel.moveBackPage()
     }
+    // 날짜 정보
+    private var date: String? = null
+
+    // 시간 정보
+    private var time: String? = null
 }

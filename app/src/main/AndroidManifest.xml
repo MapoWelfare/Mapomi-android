@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <application
         android:name=".system.App"
         android:allowBackup="true"
@@ -34,6 +33,21 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
 
+        </activity>
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoe9c2a8bf10ae12652fdc9ee9059ac02f" />
+            </intent-filter>
         </activity>
 
     </application>
