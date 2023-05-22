@@ -22,5 +22,5 @@
         android:gravity="center"
         android:background="@drawable/btn_primary_medium"
         android:enabled="@{enabled}"
-        android:onClick="@{v->onClick}"/>
+        android:onClick="@{onClick}"/>
 </layout>

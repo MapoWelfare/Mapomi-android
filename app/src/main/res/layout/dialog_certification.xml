@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:theme="@style/DialogStyle"
         android:gravity="center_horizontal"
+        android:theme="@style/DialogStyle"
         android:paddingHorizontal="@dimen/app_padding">
 
         <androidx.appcompat.widget.LinearLayoutCompat
