@@ -9,6 +9,8 @@ import javax.inject.Inject
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import io.mapomi.android.ui.auth.login.AuthResponse
+import io.mapomi.android.ui.auth.login.AuthRequest
 import android.util.Log
 import android.widget.Toast
 import com.kakao.sdk.auth.model.OAuthToken
@@ -57,6 +59,7 @@ class LoginViewModel @Inject constructor(
                     UserApiClient.instance.me { user, error ->
                         showToast(context, "${user?.kakaoAccount?.profile?.nickname}님 반갑습니다.")
                     }
+                    val data = AuthRequest(token.accessToken)
                     connect.goRegister()
                 }
             }
@@ -76,9 +79,13 @@ class LoginViewModel @Inject constructor(
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
     private val context = application.applicationContext
+
     private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             when {
+                error is ClientError && error.reason == ClientErrorCause.Cancelled -> {
+                    showToast(context, "사용자 취소")
+                }
                 error.toString() == AuthErrorCause.AccessDenied.toString() -> {
                     showToast(context, "접근이 거부 됨(동의 취소)")
                 }
@@ -103,6 +110,12 @@ class LoginViewModel @Inject constructor(
                 error.toString() == AuthErrorCause.Unauthorized.toString() -> {
                     showToast(context, "앱이 요청 권한이 없음")
                 }
+                else -> { // Unknown
+                    showToast(context, "기타 에러")
+                    val intent = Intent(context, LoginViewModel::class.java)
+                    startActivity(context, intent, null)
+                    finish(context)
+                }
 
             }
         } else if (token != null) {
@@ -112,5 +125,16 @@ class LoginViewModel @Inject constructor(
             }
             connect.goRegister()
         }
+    }
+    private fun startActivity(context: Context, intent: Intent, options: Bundle?) {
+        // Your startActivity implementation
+        context.startActivity(intent, options)
+    }
+
+    private fun finish(context: Context) {
+        // Your finish implementation
+        // Note: ViewModel itself cannot finish an activity directly.
+        // You can create a LiveData<Boolean> flag in the ViewModel and observe it in the Activity to finish it.
+        // Alternatively, you can use an event-based communication mechanism such as LiveData<Event<Unit>> or Kotlin Flow.
     }
 }
