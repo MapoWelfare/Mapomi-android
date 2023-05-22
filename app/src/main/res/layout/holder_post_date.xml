@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="postDate"
+            type="io.mapomi.android.remote.dataclass.local.PostDate" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            style="@style/medium14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{postDate.dayOfWeek}"
+            android:textColor="@color/grey700"
+            tools:text="토"/>
+
+        <TextView
+            style="@style/medium14"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="@{postDate.day}"
+            tools:text="13"
+            android:textColor="@color/btn_post_date_select"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_post_date"
+            isSelect="@{postDate.select}"/>
+
+        <TextView
+            style="@style/regular12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_post_today"
+            android:textColor="@color/grey700"
+            android:layout_marginTop="8dp"
+            android:visibility="@{postDate.today ? 0 : 4}"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

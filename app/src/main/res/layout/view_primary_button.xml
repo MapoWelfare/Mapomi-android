@@ -9,6 +9,9 @@
             name="enabled"
             type="Boolean" />
         <variable
+            name="needSub"
+            type="Boolean" />
+        <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
     </data>
@@ -20,7 +23,7 @@
         tools:text="회원가입"
         android:textColor="@color/btn_enabled_color"
         android:gravity="center"
-        android:background="@drawable/btn_primary"
+        android:background="@{needSub ? @drawable/btn_sub : @drawable/btn_primary}"
         android:enabled="@{enabled}"
         android:onClick="@{onClick}"/>
 </layout>

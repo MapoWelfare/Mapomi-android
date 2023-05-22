@@ -19,6 +19,7 @@ class PostWriteFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
     }
