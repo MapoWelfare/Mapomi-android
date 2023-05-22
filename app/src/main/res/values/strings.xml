@@ -16,11 +16,9 @@
 
     <string name="str_accompany">동행해요</string>
     <string name="str_request_accompany">동행요청</string>
-    <string name="str_need_accompany">동행이 필요해요!</string>
 
     <string name="str_help">도와줘요</string>
     <string name="str_request_help">도움요청</string>
-    <string name="str_need_help">도움이 필요해요!</string>
 
     <string name="str_search_hint">검색어 입력</string>
     <string name="str_one_click_intro">음성인식으로 한번에!</string>
@@ -39,6 +37,22 @@
     <string name="str_certification_hint">신분증 사진 첨부</string>
     <string name="str_add_file">파일 첨부</string>
     <string name="str_delete_file">파일 삭제</string>
+    
+    <string name="str_need_accompany">동행이 필요해요</string>
+    <string name="str_need_help">도움이 필요해요</string>
+    <string name="str_post_title_hint">타이틀을 적어주세요</string>
+    <string name="str_post_date">날짜</string>
+    <string name="str_post_today">오늘</string>
+    <string name="str_post_time">시간</string>
+    <string name="str_post_am">오전</string>
+    <string name="str_post_pm">오후</string>
+    <string name="str_time_separator">:</string>
+    <string name="str_post_accompany">동행 경로</string>
+    <string name="str_post_departure">출발지</string>
+    <string name="str_post_destination">도착지</string>
+    <string name="str_post_place">장소</string>
+    <string name="str_post_request">요청 사항</string>
+    <string name="str_post_request_hint">도움 사항 및 기타 요청, 상세 내역</string>
 
     <string name="str_disabled">장애인</string>
     <string name="str_companion">동행자</string>

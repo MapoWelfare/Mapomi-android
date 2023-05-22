@@ -1,8 +1,11 @@
 package io.mapomi.android.ui.main.accompany
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.constants.POST_ACCOMPANY
+import io.mapomi.android.constants.POST_BUILD
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
+import io.mapomi.android.model.post.PostModel
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccompanyViewModel @Inject constructor(
-    val soft: SoftKeyModel
+    val soft: SoftKeyModel,
+    val postModel: PostModel
 ) : BaseViewModel() {
 
     val adapter = PostAdapter(::onItemClick)
@@ -60,6 +64,8 @@ class AccompanyViewModel @Inject constructor(
      */
     fun onAddPost()
     {
+        postModel.changePostType(POST_ACCOMPANY)
+        postModel.changePostMode(POST_BUILD)
         navigation.changePage(Page.POST_WRITE)
     }
 

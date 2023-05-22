@@ -2,8 +2,11 @@ package io.mapomi.android.ui.main.help
 
 import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.constants.POST_BUILD
+import io.mapomi.android.constants.POST_HELP
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
+import io.mapomi.android.model.post.PostModel
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HelpViewModel @Inject constructor(
-    val soft : SoftKeyModel
+    val soft : SoftKeyModel,
+    val postModel: PostModel
 ) : BaseViewModel() {
 
     val adapter = PostAdapter(::onItemClick)
@@ -61,6 +65,8 @@ class HelpViewModel @Inject constructor(
      */
     fun onAddPost()
     {
+        postModel.changePostType(POST_HELP)
+        postModel.changePostMode(POST_BUILD)
         navigation.changePage(Page.POST_WRITE)
     }
 }
