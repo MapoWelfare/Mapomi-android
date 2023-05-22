@@ -17,8 +17,6 @@ class AccompanyViewModel @Inject constructor(
 
     val searchPageOn = MutableStateFlow(false)
 
-    val fileName = MutableStateFlow("")
-
 
     /*******************************************
      **** 버튼을 누릅니다
@@ -64,6 +62,7 @@ class AccompanyViewModel @Inject constructor(
     {
         navigation.changePage(Page.POST_WRITE)
     }
+
 
 
 }
