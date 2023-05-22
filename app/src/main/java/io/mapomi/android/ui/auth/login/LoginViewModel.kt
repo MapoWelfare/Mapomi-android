@@ -33,46 +33,7 @@ class LoginViewModel @Inject constructor(
      * 카카오로 시작하기
      */
     fun login() {
-        KakaoSdk.init(application, "e9c2a8bf10ae12652fdc9ee9059ac02f")
-        val context = application.applicationContext
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                when {
-                    error.toString() == AuthErrorCause.AccessDenied.toString() -> {
-                        showToast(context, "접근이 거부 됨(동의 취소)")
-                    }
-                    error.toString() == AuthErrorCause.InvalidClient.toString() -> {
-                        showToast(context, "유효하지 않은 앱")
-                    }
-                    error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
-                        showToast(context, "인증 수단이 유효하지 않아 인증할 수 없는 상태")
-                    }
-                    error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
-                        showToast(context, "요청 파라미터 오류")
-                    }
-                    error.toString() == AuthErrorCause.InvalidScope.toString() -> {
-                        showToast(context, "유효하지 않은 scope ID")
-                    }
-                    error.toString() == AuthErrorCause.Misconfigured.toString() -> {
-                        showToast(context, "설정이 올바르지 않음(android key hash)")
-                    }
-                    error.toString() == AuthErrorCause.ServerError.toString() -> {
-                        showToast(context, "서버 내부 에러")
-                    }
-                    error.toString() == AuthErrorCause.Unauthorized.toString() -> {
-                        showToast(context, "앱이 요청 권한이 없음")
-                    }
-
-                }
-            } else if (token != null) {
-                Log.e(ContentValues.TAG, "로그인 성공, 토큰값 : ${token.accessToken}")
-                UserApiClient.instance.me { user, error ->
-                    showToast(context, "${user?.kakaoAccount?.profile?.nickname}님 반갑습니다.")
-                }
-                connect.goRegister()
-            }
-        }
-
+        KakaoSdk.init(application, "69fa956201f8bb443af7682a52b376c7")
 
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
             // 카카오톡 로그인
@@ -82,30 +43,74 @@ class LoginViewModel @Inject constructor(
                     Log.e(ContentValues.TAG, "로그인 실패 $error")
                     // 사용자가 취소
                     if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        Log.e(ContentValues.TAG, "에러 발생 $error")
                         return@loginWithKakaoTalk
                     }
                     // 다른 오류
                     else {
                         UserApiClient.instance.loginWithKakaoAccount(
-                            context,
-                            callback = callback
+                            context, callback = mCallback
                         ) // 카카오 이메일 로그인
                     }
                 } else if (token != null) {
-                    Log.e(ContentValues.TAG, "토큰값 : ${token.accessToken}")
+                    Log.e(ContentValues.TAG, "로그인 성공, 토큰값 : ${token.accessToken}")
+                    UserApiClient.instance.me { user, error ->
+                        showToast(context, "${user?.kakaoAccount?.profile?.nickname}님 반갑습니다.")
+                    }
+                    connect.goRegister()
                 }
             }
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(context, callback = mCallback) // 카카오 이메일 로그인
         }
 
         val userApiClient = UserApiClient.instance
         if (userApiClient.isKakaoTalkLoginAvailable(context)) {
-            userApiClient.loginWithKakaoTalk(context, callback = callback)
+            userApiClient.loginWithKakaoTalk(context, callback = mCallback)
         } else {
-            userApiClient.loginWithKakaoAccount(context, callback = callback)
+            userApiClient.loginWithKakaoAccount(context, callback = mCallback)
         }
     }
 
     private fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+    private val context = application.applicationContext
+    private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            when {
+                error.toString() == AuthErrorCause.AccessDenied.toString() -> {
+                    showToast(context, "접근이 거부 됨(동의 취소)")
+                }
+                error.toString() == AuthErrorCause.InvalidClient.toString() -> {
+                    showToast(context, "유효하지 않은 앱")
+                }
+                error.toString() == AuthErrorCause.InvalidGrant.toString() -> {
+                    showToast(context, "인증 수단이 유효하지 않아 인증할 수 없는 상태")
+                }
+                error.toString() == AuthErrorCause.InvalidRequest.toString() -> {
+                    showToast(context, "요청 파라미터 오류")
+                }
+                error.toString() == AuthErrorCause.InvalidScope.toString() -> {
+                    showToast(context, "유효하지 않은 scope ID")
+                }
+                error.toString() == AuthErrorCause.Misconfigured.toString() -> {
+                    showToast(context, "설정이 올바르지 않음(android key hash)")
+                }
+                error.toString() == AuthErrorCause.ServerError.toString() -> {
+                    showToast(context, "서버 내부 에러")
+                }
+                error.toString() == AuthErrorCause.Unauthorized.toString() -> {
+                    showToast(context, "앱이 요청 권한이 없음")
+                }
+
+            }
+        } else if (token != null) {
+            Log.e(ContentValues.TAG, "로그인 성공, 토큰값 : ${token.accessToken}")
+            UserApiClient.instance.me { user, error ->
+                showToast(context, "${user?.kakaoAccount?.profile?.nickname}님 반갑습니다.")
+            }
+            connect.goRegister()
+        }
     }
 }
