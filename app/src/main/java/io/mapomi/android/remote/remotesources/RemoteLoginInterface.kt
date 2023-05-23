@@ -26,7 +26,4 @@ interface RemoteLoginInterface {
 
     @POST("check/nickname")
     fun checkRegisterNickname(@Body body: JsonObject) : Call<CResponse>
-
-    @POST("reissue")
-    fun refreshToken(@HeaderMap header: HashMap<String, String>, @Body body: TokenRequest) : Call<CResponse>
 }
