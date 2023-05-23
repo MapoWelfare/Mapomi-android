@@ -1,6 +1,7 @@
 package io.mapomi.android.ui.main.post.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -27,10 +28,19 @@ class PostAdapter(
         return postList.size
     }
 
+    private fun setMatchParentToRecyclerView(view: View) {
+        val layoutParams = RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        view.layoutParams = layoutParams
+    }
+
     inner class ViewHolder(val bind : HolderMainPostBinding) : RecyclerView.ViewHolder(bind.root)
     {
         fun bind(title : String)
         {
+            setMatchParentToRecyclerView(bind.root)
             bind.title = title
             bind.setOnItemClick {
                 onItemClick!!()
