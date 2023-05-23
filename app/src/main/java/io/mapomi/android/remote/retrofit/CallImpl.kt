@@ -1,5 +1,6 @@
 package io.mapomi.android.remote.retrofit
 
+import com.google.gson.JsonObject
 import io.mapomi.android.constants.*
 import io.mapomi.android.remote.dataclass.CRequest
 import io.mapomi.android.remote.dataclass.CResponse
@@ -41,6 +42,10 @@ class CallImpl(
             API_LOGIN_ACCOUNT -> remoteApi.loginAccount(header, requestBody as LoginRequest)
 
             API_JOIN_ACCOUNT -> remoteApi.joinAccount(header, paramStr0!!, requestBody as JoinRequest)
+
+            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply {
+                addProperty("accessToken", paramStr0)
+            })
 
             else -> throw NoSuchMethodException()
 
