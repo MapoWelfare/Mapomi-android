@@ -21,7 +21,7 @@ object TimeUtil {
     {
         val endDate = now.plusWeeks(2)
 
-        val dayPatter = DateTimeFormatter.ofPattern(DAY_FORMAT)
+        val dayPatter = DateTimeFormatter.ofPattern(POST_DATE_FORMAT)
         val dayOfWeekPattern = DateTimeFormatter.ofPattern(DAY_OF_WEEK_FORMAT, Locale.KOREA)
 
         val postDates = mutableListOf<PostDate>()
@@ -29,13 +29,16 @@ object TimeUtil {
 
         while (!currentDate.isAfter(endDate))
         {
-            val day = currentDate.format(dayPatter)
+            val fullDate = currentDate.format(dayPatter)
             val dayOfWeek = currentDate.format(dayOfWeekPattern)
-            var postDate : PostDate
-            if (currentDate== now) postDate = PostDate(dayOfWeek,day, today = true, select = true)
-            else postDate = PostDate(dayOfWeek,day, today = false, select = false)
+            val postDate = PostDate(fullDate,dayOfWeek,fullDate.split("-")[2], today = false, select = false)
             postDates.add(postDate)
             currentDate = currentDate.plusDays(1)
+        }
+
+        postDates[0].apply {
+            this.select = true
+            this.today = true
         }
 
         callback(postDates)
@@ -47,4 +50,5 @@ object TimeUtil {
     const val HOUR_FORMAT = "hh"
     const val MINUTE_FORMAT = "mm"
     const val DAY_OF_WEEK_FORMAT = "EE"
+    const val POST_DATE_FORMAT = "yyyy-MM-dd"
 }

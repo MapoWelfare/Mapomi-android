@@ -20,8 +20,8 @@ class PostWriteViewModel @Inject constructor(
 
     val title = MutableStateFlow("")
     val timeState = MutableStateFlow(MORNING)
-    val hh = MutableStateFlow("")
-    val mm = MutableStateFlow("")
+    val hh = MutableStateFlow(TimeUtil.getDateTime(TimeUtil.HOUR_FORMAT))
+    val mm = MutableStateFlow(TimeUtil.getDateTime(TimeUtil.MINUTE_FORMAT))
     val departure = MutableStateFlow("")
     val destination = MutableStateFlow("")
     val location = MutableStateFlow("")
@@ -33,14 +33,6 @@ class PostWriteViewModel @Inject constructor(
         }
     }
 
-    /*******************************************
-     **** 시작시 실행합니다
-     ******************************************/
-
-    init {
-        hh.value = TimeUtil.getDateTime(TimeUtil.HOUR_FORMAT)
-        mm.value = TimeUtil.getDateTime(TimeUtil.MINUTE_FORMAT)
-    }
 
     /*******************************************
      **** 입력을 받습니다
