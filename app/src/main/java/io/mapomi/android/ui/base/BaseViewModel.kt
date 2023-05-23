@@ -41,7 +41,7 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    fun invokeBooleanFlow(state: StateFlow<Boolean>, onFalse : ()->Unit, onTrue : ()->Unit){
+    fun invokeBooleanFlow(state: StateFlow<Boolean>, onFalse : ()->Unit = {}, onTrue : ()->Unit){
         invokeStateFlow(state){
             if (it)
                 onTrue()
@@ -51,7 +51,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun useFlag(state : MutableStateFlow<Boolean>, onFlag : ()->Unit){
-        invokeStateFlow(state){
+        invokeBooleanFlow(state){
             onFlag()
             state.value = false
         }

@@ -9,6 +9,9 @@
         <variable
             name="fg"
             type="io.mapomi.android.ui.auth.register.RegisterFragment" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,14 +40,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_ask_info"
-                android:layout_marginTop="25dp"/>
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_register_type"
+                android:layout_marginTop="40dp"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    style="@style/medium16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_disabled"
+                    android:background="@drawable/btn_register_type"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/btn_selected_color"
+                    isSelect="@{vm.type == type.DISABLED}"
+                    android:onClick="@{v->vm.changeType(type.DISABLED)}"/>
+                <TextView
+                    style="@style/medium16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_companion"
+                    android:background="@drawable/btn_register_type"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/btn_selected_color"
+                    isSelect="@{vm.type == type.COMPANION}"
+                    android:onClick="@{v->vm.changeType(type.COMPANION)}"/>
+                <TextView
+                    style="@style/medium16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_related"
+                    android:background="@drawable/btn_register_type"
+                    android:textColor="@color/btn_selected_color"
+                    isSelect="@{vm.type == type.RELATED}"
+                    android:onClick="@{v->vm.changeType(type.RELATED)}"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
                 style="@style/medium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_nickname"
-                android:layout_marginTop="44dp"/>
+                android:layout_marginTop="20dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -91,9 +139,9 @@
                 style="@style/regular12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_nickname_valid"
+                android:text="@{vm.nickNameStatus == vm.VALID ? @string/str_nickname_valid : @string/str_nickname_invalid}"
                 android:layout_marginTop="4dp"
-                android:visibility="@{vm.nickNameValid ? 0 : 4}"/>
+                android:visibility="@{vm.nickNameStatus==vm.INIT ? 4 : 0}"/>
 
             <TextView
                 style="@style/medium16"

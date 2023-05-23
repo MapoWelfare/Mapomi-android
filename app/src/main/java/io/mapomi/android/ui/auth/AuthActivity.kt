@@ -1,11 +1,14 @@
 package io.mapomi.android.ui.auth
 
 import androidx.activity.viewModels
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.R
 import io.mapomi.android.databinding.ActivityAuthBinding
 import io.mapomi.android.enums.AuthPage
 import io.mapomi.android.enums.AuthPage.*
+import io.mapomi.android.model.context.SignModel
 import io.mapomi.android.model.navigate.AuthNavigation
 import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.auth.login.LoginFragment
@@ -22,6 +25,9 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
     lateinit var navigation : AuthNavigation
 
     @Inject
+    lateinit var signModel: SignModel
+
+    @Inject
     lateinit var authConnect: AuthConnect
 
     private val viewModel by viewModels<AuthViewModel>()
@@ -36,10 +42,16 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
             lifecycleOwner = this@AuthActivity
 
         }
-        LogDebug(javaClass.name, "[LOGIN ACTIVITY]")
-        authConnect.registerActivity(this,this,navigation)
+        LogDebug(javaClass.name, "[AUTH ACTIVITY]")
+        viewModel.signModel.registerAuthActivity(this)
+
+        signModel.checkToken()
     }
 
+    override fun onResume() {
+        super.onResume()
+        authConnect.registerActivity(this,this,navigation)
+    }
 
     fun inflateFragment(page : AuthPage) : Boolean {
 
@@ -64,5 +76,13 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
     override fun onBackPressed() {
         if (navigation.revealHistory()) return
         else super.onBackPressed()
+    }
+
+    fun requestKakaoLoginActivity(userClient : UserApiClient, callback : (OAuthToken?, Throwable?)->Unit, forceWeb: Boolean = false)
+    {
+        if(!userClient.isKakaoTalkLoginAvailable(this) || forceWeb)
+            userClient.loginWithKakaoAccount(this, callback = callback)
+        else
+            userClient.loginWithKakaoTalk(this, callback = callback)
     }
 }

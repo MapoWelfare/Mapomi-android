@@ -2,6 +2,7 @@ package io.mapomi.android.ui.auth.register
 
 import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.enums.Type
 import io.mapomi.android.model.insets.SoftKeyModel
 import io.mapomi.android.ui.auth.AuthConnect
 import io.mapomi.android.ui.base.BaseViewModel
@@ -14,11 +15,13 @@ class RegisterViewModel @Inject constructor(
     val soft : SoftKeyModel
 ) : BaseViewModel() {
 
+    val type get() = signModel.registerType
     val nickname = MutableStateFlow("")
     val phone = MutableStateFlow("")
     val terms = MutableStateFlow(false)
 
     val nickNameValid get() = signModel.nickNameValid
+    val nickNameStatus = MutableStateFlow(INIT)
 
     private val regex = Regex("[^0-9]")
 
@@ -29,7 +32,13 @@ class RegisterViewModel @Inject constructor(
 
     fun typeNickname(text : CharSequence)
     {
-        nickname.value = text.toString()
+        text.toString().let {
+            if (it != nickname.value)
+            {
+                nickname.value = it
+                nickNameStatus.value = INIT
+            }
+        }
     }
 
     fun typePhone(text: CharSequence, editText: EditText)
@@ -47,11 +56,27 @@ class RegisterViewModel @Inject constructor(
      ******************************************/
 
     /**
+     * 가입 유형을 변경합니다
+     */
+    fun changeType(type: Type)
+    {
+        signModel.changeRegisterType(type)
+    }
+
+    /**
      * 닉네임 중복확인
      */
     fun checkNickname()
     {
         signModel.checkNicknameValid(nickname.value)
+        invokeBooleanFlow(signModel.nickNameValid,
+            {
+                nickNameStatus.value = INVALID
+            },
+            {
+                nickNameStatus.value = VALID
+            }
+        )
     }
 
     /**
@@ -68,11 +93,16 @@ class RegisterViewModel @Inject constructor(
      */
     fun onComplete()
     {
-        signModel.requestRegister(phone.value,true)
+        signModel.requestRegister(phone.value)
         useFlag(signModel.registerSuccessFlag){
-            signModel.setIsLogin(true)
             connect.finishPage()
         }
+    }
+
+    companion object {
+        const val INIT = 0
+        const val VALID = 1
+        const val INVALID = 2
     }
 
 }
