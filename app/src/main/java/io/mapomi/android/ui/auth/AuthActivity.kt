@@ -8,6 +8,7 @@ import io.mapomi.android.R
 import io.mapomi.android.databinding.ActivityAuthBinding
 import io.mapomi.android.enums.AuthPage
 import io.mapomi.android.enums.AuthPage.*
+import io.mapomi.android.model.context.SignModel
 import io.mapomi.android.model.navigate.AuthNavigation
 import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.auth.login.LoginFragment
@@ -22,6 +23,9 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
 
     @Inject
     lateinit var navigation : AuthNavigation
+
+    @Inject
+    lateinit var signModel: SignModel
 
     @Inject
     lateinit var authConnect: AuthConnect
@@ -40,6 +44,8 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
         }
         LogDebug(javaClass.name, "[AUTH ACTIVITY]")
         viewModel.signModel.registerAuthActivity(this)
+
+        signModel.checkToken()
     }
 
     override fun onResume() {

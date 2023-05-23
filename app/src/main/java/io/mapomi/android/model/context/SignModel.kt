@@ -1,6 +1,5 @@
 package io.mapomi.android.model.context
 
-import android.net.Uri
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
@@ -9,26 +8,19 @@ import io.mapomi.android.enums.Type
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.JoinRequest
-import io.mapomi.android.remote.dataclass.request.LoginRequest
-import io.mapomi.android.remote.dataclass.response.login.JoinResponse
+import io.mapomi.android.remote.dataclass.request.TokenRequest
 import io.mapomi.android.remote.dataclass.response.login.LoginResponse
 import io.mapomi.android.remote.dataclass.response.login.OAuthGetResponse
 import io.mapomi.android.remote.dataclass.response.login.Token
 import io.mapomi.android.remote.retrofit.CallImpl
 import io.mapomi.android.system.App.Companion.prefs
-import io.mapomi.android.system.LogDebug
 import io.mapomi.android.system.LogError
 import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.auth.AuthActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.log
 
 @Singleton
 class SignModel @Inject constructor() : BaseModel(){
@@ -139,18 +131,33 @@ class SignModel @Inject constructor() : BaseModel(){
      **** 회원가입
      ******************************************/
 
+    val registerType = MutableStateFlow(Type.DISABLED)
     val nickNameValid = MutableStateFlow(false)
     var nickname = ""
     var phone = ""
     var term = false
 
     /**
+     * 가입 유형을 변경합니다
+     */
+    fun changeRegisterType(type: Type)
+    {
+        registerType.value = type
+    }
+
+    /**
      * 닉네임 중복 검사합니다
      */
     fun checkNicknameValid(nickname : String)
     {
-        this.nickname = nickname.trim()
-        nickNameValid.value = true
+        this.nickname = nickname
+        CallImpl(
+            API_CHECK_NICKNAME,
+            this,
+            paramStr0 = nickname.trim()
+        ).apply {
+            remote.sendRequestApi(this)
+        }
     }
 
 
@@ -160,11 +167,17 @@ class SignModel @Inject constructor() : BaseModel(){
     /**
      * 회원가입을 요청합니다
      */
-    fun requestRegister(phone : String, term : Boolean)
+    fun requestRegister(phone : String)
     {
-        this.phone = phone.trim()
-        this.term = term
-        registerSuccessFlag.value = true
+        val request = JoinRequest(nickname = nickname.trim(), phoneNum = phone.trim())
+        CallImpl(
+            API_JOIN_ACCOUNT,
+            this,
+            paramStr0 = registerType.value.serverName,
+            requestBody = request
+        ).apply {
+            remote.sendRequestApi(this)
+        }
     }
 
     /*    private var multiPart : MultipartBody.Part? = null
@@ -183,6 +196,28 @@ class SignModel @Inject constructor() : BaseModel(){
 
         }
     }*/
+
+    /*******************************************
+     **** REISSUE
+     ******************************************/
+
+    fun checkToken()
+    {
+        if (_isLogin.value) return
+
+        setIsLogin(false)
+
+        CallImpl(
+            API_REFRESH_TOKEN,
+            this,
+            TokenRequest(
+                accessToken = prefs.accessToken,
+                refreshToken = prefs.refreshToken
+            )
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
 
     /*******************************************
      **** 응답 처리
@@ -223,16 +258,16 @@ class SignModel @Inject constructor() : BaseModel(){
     private fun onOAuthResponse(response: OAuthGetResponse)
     {
         response.data?.let { token ->
+
+            saveToken(token)
+
             token.joined?.let {
                 if (it) { //이미 유저인 경우
-                    saveToken(token)
                     setIsLogin(true)
                     loginSuccessFlag.value = true
-                    LogDebug(javaClass.name,"이미 회원가입")
                 }
                 else {//새로운 유저인 경우
                     needJoinFlag.value = true
-                    LogDebug(javaClass.name,"회원가입 필요 ${loginSuccessFlag.value}")
                 }
             }
         }
@@ -245,13 +280,20 @@ class SignModel @Inject constructor() : BaseModel(){
                 onResponseLogin(body as LoginResponse)
             }
 
-            API_JOIN_ACCOUNT -> {
-                body as JoinResponse
-                registerSuccessFlag.value = body.success!!
-            }
-
             API_POST_OAUTH_TOKEN -> {
                 onOAuthResponse(body as OAuthGetResponse)
+            }
+
+            API_CHECK_NICKNAME -> {
+                nickNameValid.value = body.success!!
+            }
+
+            API_JOIN_ACCOUNT -> {
+                body.success?.let {
+                    registerSuccessFlag.value = it
+                    setIsLogin(it)
+                    if (it) prefs.setString(REGISTER_TYPE,registerType.value.serverName)
+                }
             }
         }
     }

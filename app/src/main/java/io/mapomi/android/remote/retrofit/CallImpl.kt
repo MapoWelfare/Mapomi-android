@@ -6,6 +6,7 @@ import io.mapomi.android.remote.dataclass.CRequest
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.JoinRequest
 import io.mapomi.android.remote.dataclass.request.LoginRequest
+import io.mapomi.android.remote.dataclass.request.TokenRequest
 import io.mapomi.android.remote.remotesources.RemoteInterface
 import io.mapomi.android.remote.remotesources.RemoteListener
 import okhttp3.MultipartBody
@@ -39,13 +40,20 @@ class CallImpl(
         return when(apiNum)
         {
 
+            API_REFRESH_TOKEN -> remoteApi.refreshToken(header, requestBody as TokenRequest)
+
             API_LOGIN_ACCOUNT -> remoteApi.loginAccount(header, requestBody as LoginRequest)
 
-            API_JOIN_ACCOUNT -> remoteApi.joinAccount(header, paramStr0!!, requestBody as JoinRequest)
-
-            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken(header, JsonObject().apply {
+            API_POST_OAUTH_TOKEN -> remoteApi.postAccessToken( JsonObject().apply {
                 addProperty("accessToken", paramStr0)
             })
+
+            API_JOIN_ACCOUNT -> remoteApi.joinAccount(paramStr0!!, requestBody as JoinRequest)
+
+            API_CHECK_NICKNAME -> remoteApi.checkRegisterNickname(JsonObject().apply {
+                addProperty("nickName",paramStr0)
+            })
+
 
             else -> throw NoSuchMethodException()
 
