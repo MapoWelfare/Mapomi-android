@@ -16,10 +16,11 @@
         android:layout_height="match_parent">
 
 
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -31,147 +32,187 @@
                     style="@style/bold22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.postType == postCont.POST_ACCOMPANY ? @string/str_need_accompany : @string/str_need_help}"
                     android:layout_marginTop="24dp"
-                    app:drawableEndCompat="@drawable/ic_down"
                     android:drawablePadding="16dp"
-                    android:onClick="@{v->vm.openTypeBox()}"/>
+                    android:onClick="@{v->vm.openTypeBox()}"
+                    android:text="@{vm.postType == postCont.POST_ACCOMPANY ? @string/str_need_accompany : @string/str_need_help}"
+                    app:drawableEndCompat="@drawable/ic_down" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey300"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey300" />
 
                 <EditText
                     android:id="@+id/et_title"
                     style="@style/medium16"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:hint="@string/str_post_title_hint"
-                    android:textColorHint="@color/grey500"
-                    android:gravity="top"
                     android:background="@null"
-                    android:paddingVertical="15dp"
+                    android:gravity="top"
+                    android:hint="@string/str_post_title_hint"
                     android:inputType="textMultiLine"
                     android:maxLines="2"
                     android:onTextChanged="@{(cs,s,e,c)->vm.typeTitle(cs,etTitle)}"
-                    android:text="@{vm.title}"/>
+                    android:paddingVertical="15dp"
+                    android:text="@{vm.title}"
+                    android:textColorHint="@color/grey500" />
 
                 <TextView
                     style="@style/medium14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_post_date"
-                    android:textColor="@color/grey700"/>
+                    android:textColor="@color/grey700" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey300"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey300" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:adapter="@{vm.adapter}"
                     android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:adapter="@{vm.adapter}"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey300"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey300" />
 
                 <TextView
                     style="@style/medium14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_post_time"
                     android:layout_marginTop="20dp"
-                    android:textColor="@color/grey700"/>
+                    android:text="@string/str_post_time"
+                    android:textColor="@color/grey700" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         style="@style/medium14"
-                        android:background="@drawable/btn_post_input"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_post_am"
-                        android:textColor="@color/btn_post_color_select"
-                        android:paddingVertical="5dp"
-                        android:paddingHorizontal="16dp"
-                        android:layout_marginEnd="4dp"
                         isSelect="@{vm.timeState == vm.MORNING}"
-                        android:onClick="@{v->vm.changeTimeState(vm.MORNING)}"/>
-                    <TextView
-                        style="@style/medium14"
-                        android:background="@drawable/btn_post_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_post_pm"
-                        android:textColor="@color/btn_post_color_select"
-                        android:paddingVertical="5dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/btn_post_input"
+                        android:onClick="@{v->vm.changeTimeState(vm.MORNING)}"
                         android:paddingHorizontal="16dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/str_post_am"
+                        android:textColor="@color/btn_post_color_select" />
+
+                    <TextView
+                        style="@style/medium14"
                         isSelect="@{vm.timeState == vm.AFTERNOON}"
-                        android:onClick="@{v->vm.changeTimeState(vm.AFTERNOON)}"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_post_input"
+                        android:onClick="@{v->vm.changeTimeState(vm.AFTERNOON)}"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/str_post_pm"
+                        android:textColor="@color/btn_post_color_select" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <EditText
                         style="@style/medium16"
+                        isSelect="@{true}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/btn_post_input"
-                        isSelect="@{true}"
                         android:gravity="center"
                         android:inputType="time"
                         android:maxLength="2"
-                        android:paddingVertical="4dp"
                         android:onTextChanged="@{(cs,s,e,c)->vm.typeHH(cs)}"
-                        android:text="@{vm.hh}"/>
+                        android:paddingVertical="4dp"
+                        android:text="@{vm.hh}"
+                        android:nextFocusDown="@id/et_mm"/>
 
                     <TextView
                         style="@style/medium14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_time_separator"
-                        android:layout_marginHorizontal="12dp"/>
+                        android:layout_marginHorizontal="12dp"
+                        android:text="@string/str_time_separator" />
 
                     <EditText
+                        android:id="@+id/et_mm"
                         style="@style/medium16"
+                        isSelect="@{true}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/btn_post_input"
-                        isSelect="@{true}"
                         android:gravity="center"
                         android:inputType="time"
                         android:maxLength="2"
-                        android:paddingVertical="4dp"
                         android:onTextChanged="@{(cs,s,e,c)->vm.typeMM(cs)}"
+                        android:paddingVertical="4dp"
                         android:text="@{vm.mm}"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <TextView
+                    style="@style/medium14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/str_post_duration"
+                    android:textColor="@color/grey700" />
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <EditText
+                        style="@style/regular22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:maxLength="3"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/str_post_duration_hint"
+                        android:textColorHint="@color/grey500"
+                        android:text="@{vm.duration}"
+                        android:onTextChanged="@{(cs,s,e,c)->vm.typeDuration(cs)}"/>
+
+                    <TextView
+                        style="@style/regular22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="분"
+                        android:visibility="@{!vm.duration.empty ? 0 : 8}"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
+                    android:orientation="vertical"
                     android:visibility="@{vm.postType == postCont.POST_ACCOMPANY ? 0 : 8}">
 
                     <TextView
@@ -179,43 +220,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_post_accompany"
-                        android:textColor="@color/grey700"/>
+                        android:textColor="@color/grey700" />
 
                     <EditText
                         style="@style/regular14"
+                        isSelect="@{true}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/btn_post_input"
-                        isSelect="@{true}"
                         android:hint="@string/str_post_departure"
                         android:inputType="text"
-                        android:textColorHint="@color/grey500"
-                        android:layout_marginTop="10dp"
-                        android:paddingVertical="15dp"
-                        android:paddingHorizontal="12dp"
                         android:onTextChanged="@{(cs,s,e,c)->vm.typeDeparture(cs)}"
-                        android:text="@{vm.departure}"/>
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="15dp"
+                        android:text="@{vm.departure}"
+                        android:textColorHint="@color/grey500" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_place_arrow"
-                        android:layout_marginVertical="8dp"/>
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_place_arrow" />
 
                     <EditText
                         style="@style/regular14"
+                        isSelect="@{true}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/btn_post_input"
-                        isSelect="@{true}"
                         android:hint="@string/str_post_destination"
                         android:inputType="text"
-                        android:textColorHint="@color/grey500"
-                        android:layout_marginTop="10dp"
-                        android:paddingVertical="15dp"
-                        android:paddingHorizontal="12dp"
                         android:onTextChanged="@{(cs,s,e,c)->vm.typeDestination(cs)}"
-                        android:text="@{vm.destination}"/>
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="15dp"
+                        android:text="@{vm.destination}"
+                        android:textColorHint="@color/grey500" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -230,54 +271,54 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/str_post_place"
-                        android:textColor="@color/grey700"/>
+                        android:textColor="@color/grey700" />
 
                     <EditText
                         style="@style/regular14"
+                        isSelect="@{true}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/btn_post_input"
-                        isSelect="@{true}"
                         android:hint="@string/str_post_place"
                         android:inputType="text"
-                        android:textColorHint="@color/grey500"
-                        android:layout_marginTop="10dp"
-                        android:paddingVertical="15dp"
-                        android:paddingHorizontal="12dp"
                         android:onTextChanged="@{(cs,s,e,c)->vm.typeLocation(cs)}"
-                        android:text="@{vm.location}"/>
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="15dp"
+                        android:text="@{vm.location}"
+                        android:textColorHint="@color/grey500" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey300"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:background="@color/grey300" />
 
                 <TextView
                     style="@style/medium14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_post_request"
                     android:layout_marginTop="20dp"
-                    android:textColor="@color/grey700"/>
+                    android:text="@string/str_post_request"
+                    android:textColor="@color/grey700" />
 
                 <EditText
                     android:id="@+id/et_content"
                     style="@style/medium16"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:hint="@string/str_post_request_hint"
-                    android:textColorHint="@color/grey500"
-                    android:gravity="top"
                     android:background="@null"
-                    android:paddingVertical="15dp"
+                    android:gravity="top"
+                    android:hint="@string/str_post_request_hint"
                     android:inputType="textMultiLine"
-                    android:maxLines="5"
                     android:maxLength="200"
+                    android:maxLines="5"
                     android:onTextChanged="@{(cs,s,e,c)->vm.typeContent(cs, etContent)}"
-                    android:text="@{vm.content}"/>
+                    android:paddingVertical="15dp"
+                    android:text="@{vm.content}"
+                    android:textColorHint="@color/grey500" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/linearLayoutCompat"
@@ -290,8 +331,9 @@
                     <include
                         layout="@layout/view_primary_button"
                         app:buttonText="@{@string/str_complete}"
+                        app:enabled="@{vm.title.length() >= 2}"
                         app:needSub="@{vm.postType == postCont.POST_HELP}"
-                        app:enabled="@{true}"/>
+                        app:onClick="@{v->vm.onSubmit()}"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

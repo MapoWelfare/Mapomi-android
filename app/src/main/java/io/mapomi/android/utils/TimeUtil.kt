@@ -7,12 +7,12 @@ import java.util.*
 
 object TimeUtil {
 
-    private val now = LocalDateTime.now()
+    private var now = LocalDateTime.now()
 
-    fun getDateTime(pattern : String) : String
+    private fun getDateTime(pattern : String) : String
     {
         val formatter = DateTimeFormatter.ofPattern(pattern)
-        return now.format(formatter)
+        return LocalDateTime.now().format(formatter)
     }
 
     fun getPostDateList(
@@ -45,10 +45,33 @@ object TimeUtil {
 
     }
 
-    const val MONTH_FORMAT = "MM"
-    const val DAY_FORMAT = "dd"
-    const val HOUR_FORMAT = "hh"
-    const val MINUTE_FORMAT = "mm"
-    const val DAY_OF_WEEK_FORMAT = "EE"
+    fun makeRequestSchedule(date : String, timeState : Boolean, hh : String, mm : String?) : String
+    {
+        val hour = if (timeState) hh + 12 else hh
+        val minute = if (mm.isNullOrEmpty()) "00" else mm
+        return "$date $hour:$minute"
+    }
+
+    fun makeRequestSchedule() : String
+    {
+        return "${getDateTime(POST_DATE_FORMAT)} ${getDateTime(TIME_FORMAT)}"
+    }
+
+    fun splitSchedule(schedule : String) : List<Any>
+    {
+        val dateTimeRegex = """\d{4}-(\d{2})-\d{2} (\d{2}):(\d{2})""".toRegex()
+        val matchResult = dateTimeRegex.find(schedule)
+
+        return if (matchResult != null && matchResult.groupValues.size >= 4) {
+            val hh = matchResult.groupValues[2].toInt()
+            val hour = if (hh>12) hh - 12 else hh
+            listOf(matchResult.groupValues[1], hh > 12, hour , matchResult.groupValues[3])
+        }
+        else emptyList()
+
+    }
+
+    private const val TIME_FORMAT = "hh:mm"
+    private const val DAY_OF_WEEK_FORMAT = "EE"
     const val POST_DATE_FORMAT = "yyyy-MM-dd"
 }

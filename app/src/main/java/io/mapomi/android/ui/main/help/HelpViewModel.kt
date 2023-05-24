@@ -65,8 +65,7 @@ class HelpViewModel @Inject constructor(
      */
     fun onAddPost()
     {
-        postModel.changePostType(POST_HELP)
-        postModel.changePostMode(POST_BUILD)
+        postModel.startBuild(POST_HELP)
         navigation.changePage(Page.POST_WRITE)
     }
 }

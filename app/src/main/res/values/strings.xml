@@ -51,6 +51,8 @@
     <string name="str_post_am">오전</string>
     <string name="str_post_pm">오후</string>
     <string name="str_time_separator">:</string>
+    <string name="str_post_duration">소요시간</string>
+    <string name="str_post_duration_hint">30분</string>
     <string name="str_post_accompany">동행 경로</string>
     <string name="str_post_departure">출발지</string>
     <string name="str_post_destination">도착지</string>

@@ -35,6 +35,11 @@ class PostDateAdapter(
         dateList = postDates
     }
 
+    fun getSelectedDate() : String
+    {
+        return dateList[selectPosition].fullDate
+    }
+
     inner class ViewHolder(val bind : HolderPostDateBinding) : RecyclerView.ViewHolder(bind.root)
     {
         fun bind(postDate : PostDate)
