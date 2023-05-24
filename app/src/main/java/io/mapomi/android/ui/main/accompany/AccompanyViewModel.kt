@@ -64,8 +64,7 @@ class AccompanyViewModel @Inject constructor(
      */
     fun onAddPost()
     {
-        postModel.changePostType(POST_ACCOMPANY)
-        postModel.changePostMode(POST_BUILD)
+        postModel.startBuild(POST_ACCOMPANY)
         navigation.changePage(Page.POST_WRITE)
     }
 

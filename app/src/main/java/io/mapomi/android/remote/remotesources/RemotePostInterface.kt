@@ -2,6 +2,7 @@ package io.mapomi.android.remote.remotesources
 
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
+import io.mapomi.android.remote.dataclass.response.post.PostResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -25,6 +26,6 @@ interface RemotePostInterface {
     fun readPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
 
     @GET("posts")
-    fun getAllPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<CResponse>
+    fun getAllPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
 
 }

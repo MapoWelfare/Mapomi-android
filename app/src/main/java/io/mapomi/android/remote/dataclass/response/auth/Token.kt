@@ -1,4 +1,4 @@
-package io.mapomi.android.remote.dataclass.response.login
+package io.mapomi.android.remote.dataclass.response.auth
 
 import com.google.gson.annotations.SerializedName
 
