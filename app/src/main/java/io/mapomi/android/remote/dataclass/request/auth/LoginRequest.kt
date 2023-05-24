@@ -1,4 +1,4 @@
-package io.mapomi.android.remote.dataclass.request
+package io.mapomi.android.remote.dataclass.request.auth
 
 import com.google.gson.annotations.SerializedName
 import io.mapomi.android.remote.dataclass.CRequest

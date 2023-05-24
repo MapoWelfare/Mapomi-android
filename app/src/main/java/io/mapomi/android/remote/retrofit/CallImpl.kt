@@ -4,9 +4,10 @@ import com.google.gson.JsonObject
 import io.mapomi.android.constants.*
 import io.mapomi.android.remote.dataclass.CRequest
 import io.mapomi.android.remote.dataclass.CResponse
-import io.mapomi.android.remote.dataclass.request.JoinRequest
-import io.mapomi.android.remote.dataclass.request.LoginRequest
+import io.mapomi.android.remote.dataclass.request.auth.JoinRequest
+import io.mapomi.android.remote.dataclass.request.auth.LoginRequest
 import io.mapomi.android.remote.dataclass.request.TokenRequest
+import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
 import io.mapomi.android.remote.remotesources.RemoteInterface
 import io.mapomi.android.remote.remotesources.RemoteListener
 import okhttp3.MultipartBody
@@ -53,6 +54,16 @@ class CallImpl(
             API_CHECK_NICKNAME -> remoteApi.checkRegisterNickname(JsonObject().apply {
                 addProperty("nickName",paramStr0)
             })
+
+            API_BUILD_POST -> remoteApi.buildPost(header, requestBody as PostBuildRequest)
+
+            API_EDIT_POST -> remoteApi.editPost(header , paramStr0!!, requestBody as PostBuildRequest)
+
+            API_DELETE_POST -> remoteApi.deletePost(header, paramStr0!!)
+
+            API_POST_DETAIL -> remoteApi.readPostDetail(header, paramStr0!!)
+
+            API_POST_LIST -> remoteApi.getAllPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
 
 
             else -> throw NoSuchMethodException()

@@ -7,11 +7,11 @@ import io.mapomi.android.constants.*
 import io.mapomi.android.enums.Type
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
-import io.mapomi.android.remote.dataclass.request.JoinRequest
+import io.mapomi.android.remote.dataclass.request.auth.JoinRequest
 import io.mapomi.android.remote.dataclass.request.TokenRequest
-import io.mapomi.android.remote.dataclass.response.login.LoginResponse
-import io.mapomi.android.remote.dataclass.response.login.OAuthGetResponse
-import io.mapomi.android.remote.dataclass.response.login.Token
+import io.mapomi.android.remote.dataclass.response.auth.LoginResponse
+import io.mapomi.android.remote.dataclass.response.auth.OAuthGetResponse
+import io.mapomi.android.remote.dataclass.response.auth.Token
 import io.mapomi.android.remote.retrofit.CallImpl
 import io.mapomi.android.system.App.Companion.prefs
 import io.mapomi.android.system.LogError
