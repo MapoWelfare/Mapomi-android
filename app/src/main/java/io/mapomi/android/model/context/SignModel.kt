@@ -23,7 +23,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SignModel @Inject constructor() : BaseModel(){
+class SignModel @Inject constructor(
+) : BaseModel(){
 
     private val _isLogin = MutableStateFlow(false)
     val isLogin : StateFlow<Boolean> get() = _isLogin
@@ -88,12 +89,12 @@ class SignModel @Inject constructor() : BaseModel(){
             oAuthTokenTaken = token.accessToken
             LogInfo(javaClass.name,"카카오 로그인 성공 : $token")
             getKaKaoEmail(token.accessToken)
-
         }?:run{
             _errorString.value = "토큰 존재하지 않음"
             LogError(javaClass.name,"토큰이 존재하지 않습니다.")
         }
     }
+
 
     private fun getKaKaoEmail(accessToken : String){
         loginKaKao.me { user, error ->
