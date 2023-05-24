@@ -51,7 +51,7 @@ class PostWriteViewModel @Inject constructor(
          * EDIT 모드일 때
          */
         invokeBooleanFlow(postModel.flagPrepareEdit) {
-
+            initDataByMode(postModel.getRequestForEdit())
         }
 
         useFlag(postModel.flagUploadSuccess){

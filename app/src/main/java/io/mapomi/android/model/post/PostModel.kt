@@ -1,14 +1,14 @@
 package io.mapomi.android.model.post
 
-import io.mapomi.android.constants.API_BUILD_POST
-import io.mapomi.android.constants.POST_ACCOMPANY
-import io.mapomi.android.constants.POST_BUILD
-import io.mapomi.android.constants.POST_EDIT
+import io.mapomi.android.constants.*
 import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
+import io.mapomi.android.remote.dataclass.post.Post
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
+import io.mapomi.android.remote.dataclass.response.post.PostResponse
 import io.mapomi.android.remote.retrofit.CallImpl
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,6 +23,8 @@ class PostModel @Inject constructor() : BaseModel() {
     val flagPrepareEdit = MutableStateFlow(false)
     val flagUploadSuccess = MutableStateFlow(false)
 
+    private var editRequest : PostBuildRequest? = null
+
     val postType = MutableStateFlow(POST_ACCOMPANY)
     private val postMode = MutableStateFlow(POST_BUILD)
 
@@ -36,9 +38,10 @@ class PostModel @Inject constructor() : BaseModel() {
         postMode.value = mode
     }
 
-    /*******************************************
-     **** 플래그
-     ******************************************/
+    fun getRequestForEdit() : PostBuildRequest
+    {
+        return editRequest!!
+    }
 
     fun startBuild(type : Boolean)
     {
@@ -48,8 +51,9 @@ class PostModel @Inject constructor() : BaseModel() {
         flagPrepareBuild.value = true
     }
 
-    fun startEdit(type : Boolean)
+    fun startEdit(type : Boolean, buildRequest: PostBuildRequest)
     {
+        editRequest = buildRequest
         flagPrepareEdit.value = false
         changePostType(type)
         changePostMode(POST_EDIT)
@@ -68,8 +72,113 @@ class PostModel @Inject constructor() : BaseModel() {
         flagUploadSuccess.value = true
     }
 
+    /*******************************************
+     **** DELETE
+     ******************************************/
+
+    val flagDeleteSuccess = MutableStateFlow(false)
+
+    fun requestDeletePost(id : String)
+    {
+        CallImpl(
+            API_DELETE_POST,
+            this,
+            paramStr0 = id
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+    /*******************************************
+     **** LIST
+     ******************************************/
+
+    private val _posts = MutableStateFlow(mutableListOf<Post>())
+    val post : StateFlow<List<Post>> get() = _posts
+
+    private var currentPage = 0
+    private var maxPage = 9999
+    private var searchKeyword = ""
+
+    fun getRemotePosts(refresh : Boolean = false)
+    {
+        getRemotePosts(refresh,"")
+    }
+
+    fun getRemotePosts(refresh : Boolean = false, search : String = "")
+    {
+        val pageSize = 10
+
+        val page = if (refresh) {
+            _posts.value = mutableListOf()
+            maxPage = 9999
+            searchKeyword = search
+            0
+        }
+        else currentPage + 1
+
+        if (page > maxPage) return
+
+        CallImpl(
+            API_POST_LIST,
+            this,
+            paramInt0 = page,
+            paramInt1 = pageSize,
+            paramStr0 = searchKeyword
+        )
+    }
+
+    /*******************************************
+     **** DETAIL
+     ******************************************/
+
+    val flagLoadSuccess = MutableStateFlow(false)
+
+    fun loadPost(id : String)
+    {
+        CallImpl(
+            API_POST_DETAIL,
+            this,
+            paramStr0 = id
+        ).apply {
+            remote.sendRequestApi(this)
+        }
+    }
+
+
+    /*******************************************
+     **** 응답 처리
+     ******************************************/
+
+    private fun onPostListResponse(response : PostResponse)
+    {
+        response.pageable?.pageNumber?.let {
+            currentPage = it
+        }
+
+        response.totalPages?.let {
+            maxPage = it
+        }
+
+        response.content?.let { postList ->
+            val list = mutableListOf<Post>()
+            list.addAll(_posts.value)
+            list.addAll(postList)
+            _posts.value = list.toMutableList()
+        }
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
+
+        when(api)
+        {
+
+            API_POST_LIST -> {
+                onPostListResponse(body as PostResponse)
+            }
+
+        }
 
     }
 
