@@ -137,13 +137,13 @@ class PostModel @Inject constructor() : BaseModel() {
     fun loadPost(id : String, type : Boolean)
     {
         changePostType(type)
-        CallImpl(
+/*        CallImpl(
             if (postType.value == POST_ACCOMPANY) API_POST_ACCOMPANY_DETAIL else API_POST_HELP_DETAIL,
             this,
             paramStr0 = id
         ).apply {
             remote.sendRequestApi(this)
-        }
+        }*/
     }
 
 
