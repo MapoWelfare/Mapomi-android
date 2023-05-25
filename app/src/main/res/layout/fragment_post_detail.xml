@@ -28,6 +28,51 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/app_padding">
 
+                <TextView
+                    style="@style/bold22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="마포 중앙도서관에 가고싶어요!"
+                    android:maxLines="1"
+                    android:layout_marginTop="22.5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="113dp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutCompat2"
+                        android:layout_width="63dp"
+                        android:layout_height="63dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="44dp"
+                        android:background="@drawable/ll_round_img"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <TextView
+                        style="@style/regular16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:maxLines="1"
+                        android:text="닉네임"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <View
                     android:layout_width="match_parent"
@@ -116,7 +161,7 @@
                         android:textColor="@color/grey500" />
 
                     <TextView
-                        style="@style/regular14"
+                        style="@style/bold22"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
