@@ -155,7 +155,7 @@ class PostWriteViewModel @Inject constructor(
             content = content.value
         )
         uiModel.showToast(request.schedule)
-        postModel.requestUploadPost(request)
+/*        postModel.requestUploadPost(request)*/
     }
 
 
