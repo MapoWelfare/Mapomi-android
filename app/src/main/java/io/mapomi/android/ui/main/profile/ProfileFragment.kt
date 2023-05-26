@@ -2,6 +2,7 @@ package io.mapomi.android.ui.main.profile
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.R
 import io.mapomi.android.databinding.FragmentProfileBinding
@@ -16,7 +17,8 @@ import io.mapomi.android.ui.base.BaseFragment
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
 
-    lateinit var bind : FragmentProfileBinding
+    private lateinit var bind : FragmentProfileBinding
+    val viewModel by activityViewModels<ProfileViewModel>()
 
     override fun getFragmentRoot(): View {
         bind = FragmentProfileBinding.inflate(layoutInflater)
@@ -61,6 +63,7 @@ class ProfileFragment : BaseFragment() {
     private fun inflateMy()
     {
         ViewProfileMyBinding.inflate(layoutInflater).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.llProfile.addView(root)
         }
