@@ -11,22 +11,36 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/app_padding"
-        android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="73dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_mapomi"
-            app:tint="@color/sub800"
-            android:layout_marginStart="5dp"/>
-        <Space
-            android:layout_width="0dp"
+        android:orientation="vertical"
+        android:padding="@dimen/app_padding">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/ic_search"
-            android:onClick="@{v->vm.onSearch()}"/>
+            android:paddingTop="2dp">
+            <ImageView
+                android:layout_width="73dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_mapomi_sub"
+                android:layout_marginStart="5dp"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_search"
+                android:onClick="@{v->vm.onSearch()}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            style="@style/bold22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_request_help"
+            android:layout_marginTop="13dp"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

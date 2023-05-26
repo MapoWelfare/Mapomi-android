@@ -46,8 +46,8 @@ class ProfileFragment : BaseFragment() {
     {
         inflateAppbar()
         inflateMy()
-        inflateList()
         inflateHistory()
+        inflateList()
         inflateAuth()
     }
 
