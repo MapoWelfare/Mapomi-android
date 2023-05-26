@@ -62,13 +62,13 @@ class PostModel @Inject constructor() : BaseModel() {
 
     fun requestUploadPost(buildRequest: PostBuildRequest)
     {
-/*        CallImpl(
-            API_BUILD_POST,
+        CallImpl(
+            if (postType.value == POST_ACCOMPANY) API_BUILD_ACCOMPANY_POST else API_BUILD_HELP_POST,
             this,
             buildRequest
         ).apply {
             remote.sendRequestApi(this)
-        }*/
+        }
         flagUploadSuccess.value = true
     }
 
@@ -81,7 +81,7 @@ class PostModel @Inject constructor() : BaseModel() {
     fun requestDeletePost(id : String)
     {
         CallImpl(
-            API_DELETE_POST,
+            if (postType.value == POST_ACCOMPANY) API_DELETE_ACCOMPANY_POST else API_DELETE_HELP_POST,
             this,
             paramStr0 = id
         ).apply {
@@ -120,7 +120,7 @@ class PostModel @Inject constructor() : BaseModel() {
         if (page > maxPage) return
 
         CallImpl(
-            API_POST_LIST,
+            if (postType.value == POST_ACCOMPANY) API_POST_ACCOMPANY_LIST else API_POST_HELP_LIST,
             this,
             paramInt0 = page,
             paramInt1 = pageSize,
@@ -134,15 +134,16 @@ class PostModel @Inject constructor() : BaseModel() {
 
     val flagLoadSuccess = MutableStateFlow(false)
 
-    fun loadPost(id : String)
+    fun loadPost(id : String, type : Boolean)
     {
-        CallImpl(
-            API_POST_DETAIL,
+        changePostType(type)
+/*        CallImpl(
+            if (postType.value == POST_ACCOMPANY) API_POST_ACCOMPANY_DETAIL else API_POST_HELP_DETAIL,
             this,
             paramStr0 = id
         ).apply {
             remote.sendRequestApi(this)
-        }
+        }*/
     }
 
 
@@ -174,7 +175,8 @@ class PostModel @Inject constructor() : BaseModel() {
         when(api)
         {
 
-            API_POST_LIST -> {
+            API_POST_ACCOMPANY_LIST,
+            API_POST_HELP_LIST-> {
                 onPostListResponse(body as PostResponse)
             }
 

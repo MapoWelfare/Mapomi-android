@@ -56,6 +56,7 @@ class AccompanyViewModel @Inject constructor(
      */
     private fun onItemClick()
     {
+        postModel.loadPost("0", POST_ACCOMPANY)
         navigation.changePage(Page.POST_DETAIL)
     }
 

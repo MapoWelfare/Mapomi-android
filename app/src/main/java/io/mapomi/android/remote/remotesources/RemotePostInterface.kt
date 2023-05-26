@@ -13,19 +13,34 @@ import retrofit2.http.Query
 
 interface RemotePostInterface {
 
-    @POST("post/build")
-    fun buildPost(@HeaderMap header : HashMap<String,String>, @Body body : PostBuildRequest) : Call<CResponse>
+    @POST("accompany/build")
+    fun buildAccompanyPost(@HeaderMap header : HashMap<String,String>, @Body body : PostBuildRequest) : Call<CResponse>
 
-    @POST("post/{id}/edit")
-    fun editPost(@HeaderMap header: HashMap<String, String>, @Path("id") id : String, @Body body: PostBuildRequest) : Call<CResponse>
+    @POST("accompany/{id}/edit")
+    fun editAccompanyPost(@HeaderMap header: HashMap<String, String>, @Path("id") id : String, @Body body: PostBuildRequest) : Call<CResponse>
 
-    @POST("post/{id}/delete")
-    fun deletePost(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+    @POST("accompany/{id}/delete")
+    fun deleteAccompanyPost(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
 
-    @POST("post/{id}")
-    fun readPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+    @POST("accompany/{id}")
+    fun readAccompanyPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
 
-    @GET("posts")
-    fun getAllPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
+    @GET("accompanies")
+    fun getAllAccompanyPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
+
+    @POST("help/build")
+    fun buildHelpPost(@HeaderMap header : HashMap<String,String>, @Body body : PostBuildRequest) : Call<CResponse>
+
+    @POST("help/{id}/edit")
+    fun editHelpPost(@HeaderMap header: HashMap<String, String>, @Path("id") id : String, @Body body: PostBuildRequest) : Call<CResponse>
+
+    @POST("help/{id}/delete")
+    fun deleteHelpPost(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+
+    @POST("help/{id}")
+    fun readHelpPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+
+    @GET("helps")
+    fun getAllHelpPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
 
 }

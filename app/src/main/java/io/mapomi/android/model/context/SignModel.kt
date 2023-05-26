@@ -135,8 +135,6 @@ class SignModel @Inject constructor(
     val registerType = MutableStateFlow(Type.DISABLED)
     val nickNameValid = MutableStateFlow(false)
     var nickname = ""
-    var phone = ""
-    var term = false
 
     /**
      * 가입 유형을 변경합니다
