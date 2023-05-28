@@ -21,7 +21,7 @@ import io.mapomi.android.ui.main.help.HelpFragment
 import io.mapomi.android.ui.main.post.detail.PostDetailFragment
 import io.mapomi.android.ui.main.post.write.PostWriteFragment
 import io.mapomi.android.ui.main.profile.ProfileFragment
-import io.mapomi.android.ui.main.profile.ProfileMatchFragment
+import io.mapomi.android.ui.main.profile.match.ProfileMatchFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {

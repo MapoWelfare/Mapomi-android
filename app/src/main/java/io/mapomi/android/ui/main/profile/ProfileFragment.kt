@@ -5,12 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.R
-import io.mapomi.android.databinding.FragmentProfileBinding
-import io.mapomi.android.databinding.ViewAccompanyAppbarBinding
-import io.mapomi.android.databinding.ViewProfileAuthBinding
-import io.mapomi.android.databinding.ViewProfileHistoryBinding
-import io.mapomi.android.databinding.ViewProfileListBinding
-import io.mapomi.android.databinding.ViewProfileMyBinding
+import io.mapomi.android.databinding.*
 
 import io.mapomi.android.ui.base.BaseFragment
 
@@ -72,6 +67,7 @@ class ProfileFragment : BaseFragment() {
     private fun inflateList()
     {
         ViewProfileListBinding.inflate(layoutInflater).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.llProfile.addView(root)
         }
@@ -80,6 +76,7 @@ class ProfileFragment : BaseFragment() {
     private fun inflateHistory()
     {
         ViewProfileHistoryBinding.inflate(layoutInflater).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.llProfile.addView(root)
         }

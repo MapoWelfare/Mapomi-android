@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.main.profile
+package io.mapomi.android.ui.main.profile.match
 
 import android.view.View
 import androidx.fragment.app.activityViewModels

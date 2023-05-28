@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.main.profile
+package io.mapomi.android.ui.main.profile.match
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.ui.base.BaseViewModel
