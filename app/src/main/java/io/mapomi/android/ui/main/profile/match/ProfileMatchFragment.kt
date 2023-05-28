@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.mapomi.android.databinding.FragmentProfileMatchBinding
+import io.mapomi.android.databinding.ViewMatchProgressBinding
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -22,6 +23,8 @@ class ProfileMatchFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
+
+        inflateProgress()
     }
 
     override fun showBottomBar(): Boolean {
@@ -30,5 +33,14 @@ class ProfileMatchFragment : BaseFragment() {
 
     override fun navigationOnBackPressed() {
         viewModel.moveBackPage()
+    }
+
+    private fun inflateProgress()
+    {
+        ViewMatchProgressBinding.inflate(layoutInflater).apply {
+            vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
+            bind.flMatchProgress.addView(root)
+        }
     }
 }

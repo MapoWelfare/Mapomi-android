@@ -33,7 +33,6 @@
     <string name="str_current_null">현재 요청내역이 없습니다.</string>
     <string name="str_request">함께하기</string>
     <string name="str_process">진행중</string>
-    <string name="str_match_done">매칭 완료</string>
     <string name="str_request_history">요청 내역</string>
     <string name="str_show_more">더보기</string>
 
@@ -76,5 +75,10 @@
     <string name="str_horizontal_divider">|</string>
     <string name="str_accept">수락하기</string>
     <string name="str_with">함께하기</string>
+
+    <string name="str_match_ready">요청 중</string>
+    <string name="str_match_matching">매칭 완료</string>
+    <string name="str_match_progress">동행 시작</string>
+    <string name="str_match_done">도착</string>
 
 </resources>
