@@ -32,7 +32,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_search"
-                android:visibility="@{needSearch ? 0 : 8}"
+                android:visibility="@{needSearch ? 0 : 4}"
                 android:onClick="@{v->vm.onSearch()}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

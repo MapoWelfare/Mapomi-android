@@ -28,7 +28,7 @@ class ProfileViewModel @Inject constructor() : BaseViewModel() {
      */
     fun onShowMoreHistory()
     {
-
+        navigation.changePage(Page.PROFILE_HISTORY)
     }
 
 
