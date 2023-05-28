@@ -6,5 +6,7 @@ enum class Page {
     PROFILE,
     POST_WRITE,
     POST_DETAIL,
-    PROFILE_MATCH
+    POST_SELECT,
+    PROFILE_MATCH,
+    PROFILE_HISTORY
 }

@@ -19,9 +19,11 @@ import io.mapomi.android.enums.Page.*
 import io.mapomi.android.ui.main.accompany.AccompanyFragment
 import io.mapomi.android.ui.main.help.HelpFragment
 import io.mapomi.android.ui.main.post.detail.PostDetailFragment
+import io.mapomi.android.ui.main.post.select.PostSelectFragment
 import io.mapomi.android.ui.main.post.write.PostWriteFragment
 import io.mapomi.android.ui.main.profile.ProfileFragment
-import io.mapomi.android.ui.main.profile.ProfileMatchFragment
+import io.mapomi.android.ui.main.profile.history.ProfileHistoryFragment
+import io.mapomi.android.ui.main.profile.match.ProfileMatchFragment
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -98,8 +100,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 POST_DETAIL -> {
                     PostDetailFragment()
                 }
+                POST_SELECT -> {
+                    PostSelectFragment()
+                }
                 PROFILE_MATCH -> {
                     ProfileMatchFragment()
+                }
+                PROFILE_HISTORY -> {
+                    ProfileHistoryFragment()
                 }
             }
 

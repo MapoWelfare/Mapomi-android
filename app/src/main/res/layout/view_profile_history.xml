@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"
             android:paddingVertical="24dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:onClick="@{v->vm.onShowMoreHistory()}">
 
             <TextView
                 style="@style/medium16"
@@ -28,10 +30,18 @@
                 android:layout_weight="1"
                 android:text="@string/str_request_history"/>
 
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_show_more"
+                android:textColor="@color/grey500"/>
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_right"/>
+                android:src="@drawable/ic_right"
+                app:tint="@color/grey500"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,19 +1,19 @@
-package io.mapomi.android.ui.main.profile
+package io.mapomi.android.ui.main.post.select
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import io.mapomi.android.databinding.FragmentProfileMatchBinding
+import io.mapomi.android.databinding.FragmentPostSelectBinding
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
-class ProfileMatchFragment : BaseFragment() {
+class PostSelectFragment : BaseFragment() {
 
-    private lateinit var bind : FragmentProfileMatchBinding
-    val viewModel by activityViewModels<ProfileMatchViewModel>()
+    private lateinit var bind : FragmentPostSelectBinding
+    val viewModel by activityViewModels<PostSelectViewModel>()
 
     override fun getFragmentRoot(): View {
-        bind = FragmentProfileMatchBinding.inflate(layoutInflater)
+        bind = FragmentPostSelectBinding.inflate(layoutInflater)
         return bind.root
     }
 
