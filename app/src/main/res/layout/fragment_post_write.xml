@@ -28,11 +28,18 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/app_padding">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    android:onClick="@{v->vm.moveBackPage()}"
+                    android:layout_marginTop="16dp"/>
+
                 <TextView
                     style="@style/bold22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="22dp"
                     android:drawablePadding="16dp"
                     android:onClick="@{v->vm.openTypeBox()}"
                     android:text="@{vm.postType == postCont.POST_ACCOMPANY ? @string/str_need_accompany : @string/str_need_help}"
@@ -346,6 +353,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/app_padding"
             android:paddingVertical="24dp"
+            android:layout_marginStart="@dimen/app_padding"
+            android:layout_marginTop="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/cl_post_type"
