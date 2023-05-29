@@ -1,8 +1,6 @@
 package io.mapomi.android.ui.main.help
 
-import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.mapomi.android.constants.POST_BUILD
 import io.mapomi.android.constants.POST_HELP
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
@@ -57,6 +55,7 @@ class HelpViewModel @Inject constructor(
      */
     private fun onItemClick()
     {
+        postModel.loadPost("0", POST_HELP)
         navigation.changePage(Page.POST_DETAIL)
     }
 

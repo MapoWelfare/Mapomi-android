@@ -28,13 +28,19 @@
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/app_padding">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    android:onClick="@{v->vm.moveBackPage()}"
+                    android:layout_marginTop="16dp"/>
+
                 <TextView
                     style="@style/bold22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="마포 중앙도서관에 가고싶어요!"
-                    android:maxLines="1"
-                    android:layout_marginTop="22.5dp"
+                    android:layout_marginTop="22dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2"/>
 
@@ -64,7 +70,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginBottom="24dp"
-                        android:maxLines="1"
                         android:text="닉네임"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2" />
@@ -137,9 +142,8 @@
 
                     <TextView
                         style="@style/medium16"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:paddingVertical="4dp"
                         android:layout_marginTop="5dp"
                         android:text="오후 03:00" />
@@ -166,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:text="30분"
-                        android:textColor="@color/main700" />
+                        android:textColor="@{vm.postType == postCont.POST_ACCOMPANY ? @color/main700 : @color/sub700}" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -175,7 +179,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="@{vm.postType == postCont.POST_ACCOMPANY ? 0 : 8}">
 
                     <TextView
                         style="@style/medium14"
@@ -190,35 +195,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_post_input"
-                        android:hint="@string/str_post_departure"
-                        android:inputType="text"
+                        android:background="@drawable/tv_grey_box"
                         android:paddingHorizontal="12dp"
-                        android:paddingVertical="15dp"
-                        android:text=""
-                        android:textColorHint="@color/grey500" />
+                        android:paddingVertical="15dp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="8dp"
-                        android:src="@drawable/ic_place_arrow" />
+                        android:src="@drawable/ic_place_arrow"
+                        app:tint="@color/main900"/>
 
-                    <EditText
+                    <TextView
                         style="@style/regular14"
-                        isSelect="@{true}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/btn_post_input"
-                        android:hint="@string/str_post_destination"
-                        android:inputType="text"
+                        android:background="@drawable/tv_grey_box"
                         android:paddingHorizontal="12dp"
-                        android:paddingVertical="15dp"
-                        android:textColorHint="@color/grey500" />
+                        android:paddingVertical="15dp"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.postType == postCont.POST_ACCOMPANY ? 8 : 0}">
+
+                    <TextView
+                        style="@style/medium14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_post_place"
+                        android:textColor="@color/grey700" />
+
+                    <TextView
+                        style="@style/regular14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btn_post_input_sub"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="15dp"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                 <View
@@ -236,37 +258,34 @@
                     android:textColor="@color/grey700" />
 
                 <TextView
-                    android:id="@+id/et_content"
                     style="@style/medium16"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="@null"
                     android:gravity="top"
-                    android:hint="@string/str_post_request_hint"
-                    android:inputType="textMultiLine"
-                    android:maxLength="200"
-                    android:maxLines="5"
                     android:paddingVertical="15dp"
                     android:textColorHint="@color/grey500" />
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linearLayoutCompat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingVertical="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <include
-                        layout="@layout/view_primary_button"
-                        app:buttonText="@{@string/str_complete}"
-                        app:enabled="@{true}" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="@dimen/app_padding"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <include
+                layout="@layout/view_primary_button"
+                app:buttonText="@{@string/str_with}"
+                app:enabled="@{true}"
+                app:needSub="@{vm.postType == postCont.POST_HELP}"
+                app:onClick="@{v->vm.onMoveSelect()}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

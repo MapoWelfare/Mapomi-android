@@ -19,6 +19,7 @@ class PostDetailFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         bind.apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
     }

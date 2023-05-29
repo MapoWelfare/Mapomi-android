@@ -55,15 +55,29 @@ class CallImpl(
                 addProperty("nickName",paramStr0)
             })
 
-            API_BUILD_POST -> remoteApi.buildPost(header, requestBody as PostBuildRequest)
 
-            API_EDIT_POST -> remoteApi.editPost(header , paramStr0!!, requestBody as PostBuildRequest)
 
-            API_DELETE_POST -> remoteApi.deletePost(header, paramStr0!!)
+            API_BUILD_ACCOMPANY_POST -> remoteApi.buildAccompanyPost(header, requestBody as PostBuildRequest)
 
-            API_POST_DETAIL -> remoteApi.readPostDetail(header, paramStr0!!)
+            API_EDIT_ACCOMPANY_POST -> remoteApi.editAccompanyPost(header , paramStr0!!, requestBody as PostBuildRequest)
 
-            API_POST_LIST -> remoteApi.getAllPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
+            API_DELETE_ACCOMPANY_POST -> remoteApi.deleteAccompanyPost(header, paramStr0!!)
+
+            API_POST_ACCOMPANY_DETAIL -> remoteApi.readAccompanyPostDetail(header, paramStr0!!)
+
+            API_POST_ACCOMPANY_LIST -> remoteApi.getAllAccompanyPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
+
+
+
+            API_BUILD_HELP_POST -> remoteApi.buildHelpPost(header, requestBody as PostBuildRequest)
+
+            API_EDIT_HELP_POST -> remoteApi.editHelpPost(header , paramStr0!!, requestBody as PostBuildRequest)
+
+            API_DELETE_HELP_POST -> remoteApi.deleteHelpPost(header, paramStr0!!)
+
+            API_POST_HELP_DETAIL -> remoteApi.readHelpPostDetail(header, paramStr0!!)
+
+            API_POST_HELP_LIST -> remoteApi.getAllHelpPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
 
 
             else -> throw NoSuchMethodException()

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="nickName"
+            type="String" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        isSelect="@{true}">
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:gravity="center"
+            android:background="@drawable/ll_radio_box"
+            android:layout_marginEnd="12dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/ll_radio_select"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <ImageView
+            android:background="@drawable/ll_round_img"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="12dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{nickName}"
+                tools:text="닉네임"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="성별"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                style="@style/medium16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나이"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                android:layout_marginStart="48dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
