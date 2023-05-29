@@ -24,7 +24,6 @@ abstract class BottomDialog : BottomSheetDialogFragment() {
 
     abstract fun createDialogView(inflater: LayoutInflater, container: ViewGroup?) : View
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBehavior()
@@ -34,7 +33,10 @@ abstract class BottomDialog : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.DialogStyle)
+        onCreateDialog()
     }
+
+    abstract fun onCreateDialog()
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

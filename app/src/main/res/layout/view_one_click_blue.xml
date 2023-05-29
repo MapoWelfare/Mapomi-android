@@ -6,13 +6,16 @@
         <variable
             name="vm"
             type="io.mapomi.android.ui.main.accompany.AccompanyViewModel" />
+        <variable
+            name="fg"
+            type="io.mapomi.android.ui.main.accompany.AccompanyFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/cl_one_click"
         android:layout_marginVertical="10dp"
-        android:onClick="@{v->vm.onOneClickRequest()}">
+        android:onClick="@{v->fg.showRecordView()}">
 
         <TextView
             style="@style/regular12"

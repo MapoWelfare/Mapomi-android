@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.speech.RecognizerIntent
@@ -35,17 +37,43 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
      **** 원클릭 요청 시나리오
      ******************************************/
 
+    private var flowOrder = ANNOUNCE_TITLE
 
+    /**
+     * 1. 권한 체크를 한다 (음성녹음)
+     * 2. 음성 녹음 다이얼로그를 연다
+     * 3. 안내 -> 요청 타이틀 -> 진동
+     * 4. 타이틀 녹음
+     * 5. 안내 -> 출발지 -> 진동
+     * 6. 출발지 녹음
+     * 7. 안내 -> 목적지 -> 진동
+     * 8. 목적지 녹음
+     * 9. 녹음이 끝나면 서버로 전송
+     * 10. 원클릭 요청 중 뒤로가기 시, 녹음/안내/다이얼로그 종료
+     */
+    fun startOneClickFlow()
+    {
+        checkPermission()
+        speakMsg(ANNOUNCE_VIBRATE)
+        Handler(Looper.getMainLooper()).postDelayed({
+            requestRecord(ANNOUNCE_TITLE)
+        },4000)
+    }
 
+    private fun requestRecord(order : String)
+    {
+        this.flowOrder = order
+        speakMsg(order)
+        waitSpeaking(::startRecord,2000)
+    }
 
     /*******************************************
      **** 진동
      ******************************************/
 
-    private val vibrator = _activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
-    fun vibrate()
+    private fun vibrate()
     {
+        val vibrator = _activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         vibrator.vibrate(VibrationEffect.createOneShot(300,100))
     }
 
@@ -55,7 +83,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     var speechRecognizer : SpeechRecognizer? = null
 
-    fun startRecord()
+    private fun startRecord()
     {
         val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, `package`)
@@ -69,7 +97,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     }
 
     override fun onReady() {
-        LogDebug(javaClass.name, "녹음 시작")
+        vibrate()
     }
 
     override fun onError() {
@@ -77,8 +105,19 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     }
 
     override fun onResult(result: Bundle?) {
-        val results = result?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0]
-        showToast(results)
+        val recordResult = result?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0]
+        showToast(recordResult)
+        if (flowOrder == ANNOUNCE_TITLE) requestRecord(ANNOUNCE_DEPARTURE)
+        else if(flowOrder == ANNOUNCE_DEPARTURE) requestRecord(ANNOUNCE_DESTINATION)
+        else showToast("녹음 종료")
+    }
+
+    fun destroySTTEngine()
+    {
+        speechRecognizer?.let {
+            it.stopListening()
+            it.destroy()
+        }
     }
 
     /*******************************************
@@ -108,9 +147,16 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
         }
     }
 
-    private fun startTTS(msg : String)
+    private fun speakMsg(msg : String)
     {
         tts?.speak(msg,TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    private fun waitSpeaking(callback : ()->Unit, delay : Long)
+    {
+        Handler(Looper.getMainLooper()).postDelayed({
+            callback()
+        },delay)
     }
 
     fun destroyTTSEngine()
@@ -125,13 +171,20 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
         Toast.makeText(_activity ,msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(_activity!!,Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+    private fun checkPermission() : Boolean {
+        val granted = ContextCompat.checkSelfPermission(_activity!!,Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        if (!granted)
             ActivityCompat.requestPermissions(_activity!!, arrayOf(Manifest.permission.RECORD_AUDIO),0)
+        return granted
     }
 
     companion object {
         const val TTS_ENGINE = "com.google.android.tts"
+        const val ANNOUNCE_VIBRATE = "진동이 울리면 말해주세요. 녹음을 시작할게요."
+        const val ANNOUNCE_TITLE = "요청 사항을 알려주세요."
+        const val ANNOUNCE_DEPARTURE = "출발지를 알려주세요."
+        const val ANNOUNCE_DESTINATION = "도착지를 알려주세요."
+
     }
 
 }

@@ -11,12 +11,17 @@ import io.mapomi.android.databinding.ViewAccompanyListBinding
 import io.mapomi.android.databinding.ViewAccompanySearchbarBinding
 import io.mapomi.android.databinding.ViewOneClickBlueBinding
 import io.mapomi.android.ui.base.BaseFragment
+import io.mapomi.android.ui.main.post.oneclick.OneClickBottom
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccompanyFragment : BaseFragment() {
 
     lateinit var bind : FragmentAccompanyBinding
     val viewModel by activityViewModels<AccompanyViewModel>()
+
+    @Inject
+    lateinit var recordView : OneClickBottom
 
     override fun getFragmentRoot(): View {
         bind = FragmentAccompanyBinding.inflate(layoutInflater)
@@ -70,6 +75,7 @@ class AccompanyFragment : BaseFragment() {
     {
         DataBindingUtil.inflate<ViewOneClickBlueBinding>(layoutInflater,R.layout.view_one_click_blue,null,false).apply {
             vm = viewModel
+            fg = this@AccompanyFragment
             lifecycleOwner = viewLifecycleOwner
             bind.flOneClick.addView(root)
         }
@@ -82,5 +88,10 @@ class AccompanyFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             bind.flList.addView(root)
         }
+    }
+
+    fun showRecordView()
+    {
+        recordView.show(requireActivity().supportFragmentManager, recordView.tag)
     }
 }
