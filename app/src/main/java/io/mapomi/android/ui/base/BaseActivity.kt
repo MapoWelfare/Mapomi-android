@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import io.mapomi.android.model.GlobalSystemModel
 import io.mapomi.android.model.GlobalUiModel
 import io.mapomi.android.model.insets.SoftKeyModel
 import io.mapomi.android.system.LogDebug
@@ -19,13 +20,13 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
 
     @Inject lateinit var softKey : SoftKeyModel
     @Inject lateinit var uiModel : GlobalUiModel
+    @Inject lateinit var systemModel: GlobalSystemModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this,layoutId)
         bind.lifecycleOwner = this
-        softKey.registerActivity(this)
-        uiModel.registerActivity(this,this)
+        registerModels()
         LogDebug(javaClass.name, "ACTIVITY CREATED")
         onActivityCreate()
     }
@@ -35,10 +36,16 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
         _bind(bind)
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun registerModels()
+    {
         softKey.registerActivity(this)
         uiModel.registerActivity(this,this)
+        systemModel.registerActivity(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerModels()
     }
 
     private lateinit var launcherResponse : (Intent?)->Unit

@@ -69,6 +69,7 @@ class AccompanyFragment : BaseFragment() {
     private fun inflateOneClick()
     {
         DataBindingUtil.inflate<ViewOneClickBlueBinding>(layoutInflater,R.layout.view_one_click_blue,null,false).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.flOneClick.addView(root)
         }

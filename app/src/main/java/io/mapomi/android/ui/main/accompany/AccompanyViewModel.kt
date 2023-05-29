@@ -69,6 +69,9 @@ class AccompanyViewModel @Inject constructor(
         navigation.changePage(Page.POST_WRITE)
     }
 
-
+    fun onOneClickRequest()
+    {
+        systemModel.vibrate()
+    }
 
 }

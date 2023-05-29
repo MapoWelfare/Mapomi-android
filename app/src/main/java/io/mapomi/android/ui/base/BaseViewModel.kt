@@ -2,6 +2,7 @@ package io.mapomi.android.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.mapomi.android.model.GlobalSystemModel
 import io.mapomi.android.model.GlobalUiModel
 import io.mapomi.android.model.context.SignModel
 import io.mapomi.android.model.navigate.Navigation
@@ -19,6 +20,8 @@ abstract class BaseViewModel : ViewModel() {
     @Inject lateinit var navigation : Navigation
 
     @Inject lateinit var uiModel : GlobalUiModel
+
+    @Inject lateinit var systemModel: GlobalSystemModel
 
     val valueModel = App.valueModel
 
