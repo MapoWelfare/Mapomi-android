@@ -9,6 +9,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,36 +21,48 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GlobalSystemModel @Inject constructor() : STTUtil() {
+class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitListener {
 
     private var _activity : BaseActivity<*>? = null
+
 
     fun registerActivity(activity: BaseActivity<*>)
     {
         _activity = activity
     }
 
-    private fun checkPermission() {
-        if (ContextCompat.checkSelfPermission(_activity!!,Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(_activity!!, arrayOf(Manifest.permission.RECORD_AUDIO),0)
-    }
+    /*******************************************
+     **** 원클릭 요청 시나리오
+     ******************************************/
+
+
+
+
+    /*******************************************
+     **** 진동
+     ******************************************/
+
+    private val vibrator = _activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
     fun vibrate()
     {
-        val vibrator = _activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         vibrator.vibrate(VibrationEffect.createOneShot(300,100))
     }
 
+    /*******************************************
+     **** STT
+     ******************************************/
+
+    var speechRecognizer : SpeechRecognizer? = null
+
     fun startRecord()
     {
-        checkPermission()
-
         val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, `package`)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREAN)
         }
 
-        val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(_activity).apply {
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(_activity).apply {
             setRecognitionListener(this@GlobalSystemModel)
             startListening(sttIntent)
         }
@@ -68,8 +81,57 @@ class GlobalSystemModel @Inject constructor() : STTUtil() {
         showToast(results)
     }
 
+    /*******************************************
+     **** TTS
+     ******************************************/
+
+    private var tts : TextToSpeech? = null
+
+    fun initTTSEngine(context: Context)
+    {
+        tts = TextToSpeech(context, this, TTS_ENGINE)
+    }
+
+    override fun onInit(p0: Int) {
+
+        if (p0 == TextToSpeech.SUCCESS) {
+
+            val result = tts!!.setLanguage(Locale.KOREAN)
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                LogDebug(javaClass.name, "[TTS] 지원 언어 오류")
+            }
+            else LogDebug(javaClass.name, "[TTS] 성공")
+        }
+        else {
+            LogDebug(javaClass.name, "[TTS] 실패")
+        }
+    }
+
+    private fun startTTS(msg : String)
+    {
+        tts?.speak(msg,TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    fun destroyTTSEngine()
+    {
+        tts?.let {
+            it.stop()
+            it.shutdown()
+        }
+    }
+
     private fun showToast(msg : String) {
         Toast.makeText(_activity ,msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(_activity!!,Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(_activity!!, arrayOf(Manifest.permission.RECORD_AUDIO),0)
+    }
+
+    companion object {
+        const val TTS_ENGINE = "com.google.android.tts"
     }
 
 }

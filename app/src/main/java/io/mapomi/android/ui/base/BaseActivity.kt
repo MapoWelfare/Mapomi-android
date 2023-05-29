@@ -41,11 +41,17 @@ abstract class BaseActivity<T : ViewDataBinding>(private val layoutId : Int) : A
         softKey.registerActivity(this)
         uiModel.registerActivity(this,this)
         systemModel.registerActivity(this)
+        systemModel.initTTSEngine(this)
     }
 
     override fun onResume() {
         super.onResume()
         registerModels()
+    }
+
+    override fun onDestroy() {
+        systemModel.destroyTTSEngine()
+        super.onDestroy()
     }
 
     private lateinit var launcherResponse : (Intent?)->Unit
