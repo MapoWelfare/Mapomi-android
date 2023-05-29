@@ -69,9 +69,14 @@ class AccompanyViewModel @Inject constructor(
         navigation.changePage(Page.POST_WRITE)
     }
 
+
+    /**
+     * 원클릭 요청을 누릅니다
+     */
     fun onOneClickRequest()
     {
         systemModel.vibrate()
+        systemModel.startRecord()
     }
 
 }
