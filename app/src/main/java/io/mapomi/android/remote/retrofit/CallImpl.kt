@@ -49,7 +49,7 @@ class CallImpl(
                 addProperty("accessToken", paramStr0)
             })
 
-            API_JOIN_ACCOUNT -> remoteApi.joinAccount(paramStr0!!, requestBody as JoinRequest)
+            API_JOIN_ACCOUNT -> remoteApi.joinAccount(header, paramStr0!!, requestBody as JoinRequest)
 
             API_CHECK_NICKNAME -> remoteApi.checkRegisterNickname(JsonObject().apply {
                 addProperty("nickName",paramStr0)
