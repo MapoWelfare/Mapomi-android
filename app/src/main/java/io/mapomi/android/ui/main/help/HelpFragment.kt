@@ -25,6 +25,7 @@ class HelpFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         inflateChild()
+/*        viewModel.requestRemotePostList()*/
     }
 
     override fun showBottomBar(): Boolean {

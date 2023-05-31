@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="title"
-            type="String" />
+            name="post"
+            type="io.mapomi.android.remote.dataclass.post.Post" />
         <variable
             name="onItemClick"
             type="android.view.View.OnClickListener" />
@@ -42,7 +42,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{title}"
+                    android:text="@{post.title}"
                     tools:text="요청 타이틀"
                     android:maxLines="1"
                     android:ellipsize="end"

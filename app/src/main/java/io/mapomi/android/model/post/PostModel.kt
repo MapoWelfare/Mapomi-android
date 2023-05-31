@@ -94,18 +94,23 @@ class PostModel @Inject constructor() : BaseModel() {
      ******************************************/
 
     private val _posts = MutableStateFlow(mutableListOf<Post>())
-    val post : StateFlow<List<Post>> get() = _posts
+    val posts : StateFlow<List<Post>> get() = _posts
 
     private var currentPage = 0
     private var maxPage = 9999
     private var searchKeyword = ""
+
+    fun searchPosts(keyword : String)
+    {
+        getRemotePosts(true,keyword.trim())
+    }
 
     fun getRemotePosts(refresh : Boolean = false)
     {
         getRemotePosts(refresh,"")
     }
 
-    fun getRemotePosts(refresh : Boolean = false, search : String = "")
+    private fun getRemotePosts(refresh : Boolean = false, search : String = "")
     {
         val pageSize = 10
 
@@ -133,6 +138,8 @@ class PostModel @Inject constructor() : BaseModel() {
      ******************************************/
 
     val flagLoadSuccess = MutableStateFlow(false)
+    private val _currentPost = MutableStateFlow<Post?>(Post("1","홍대입구에 가고싶어요","2023-05-31 15:10","연남동","홍대입구 4번 출구",null,null,false,"30분","빨리 가고 싶어요"))
+    val currentPost : StateFlow<Post?> get() = _currentPost
 
     fun loadPost(id : String, type : Boolean)
     {
@@ -169,6 +176,11 @@ class PostModel @Inject constructor() : BaseModel() {
         }
     }
 
+    private fun onPostDetailResponse(response : CResponse)
+    {
+
+    }
+
 
     override fun onConnectionSuccess(api: Int, body: CResponse) {
 
@@ -178,6 +190,11 @@ class PostModel @Inject constructor() : BaseModel() {
             API_POST_ACCOMPANY_LIST,
             API_POST_HELP_LIST-> {
                 onPostListResponse(body as PostResponse)
+            }
+
+            API_POST_ACCOMPANY_DETAIL,
+            API_POST_HELP_DETAIL -> {
+                onPostDetailResponse(body)
             }
 
         }

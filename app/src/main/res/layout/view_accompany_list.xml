@@ -11,5 +11,6 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="@dimen/app_padding"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:adapter="@{vm.adapter}"/>
+        android:adapter="@{vm.adapter}"
+        app:bottomReached="@{v->vm.postModel.getRemotePosts(false)}"/>
 </layout>
