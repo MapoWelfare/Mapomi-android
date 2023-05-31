@@ -12,6 +12,7 @@ import io.mapomi.android.remote.dataclass.request.TokenRequest
 import io.mapomi.android.remote.dataclass.response.auth.LoginResponse
 import io.mapomi.android.remote.dataclass.response.auth.OAuthGetResponse
 import io.mapomi.android.remote.dataclass.response.auth.Token
+import io.mapomi.android.remote.dataclass.response.auth.TokenResponse
 import io.mapomi.android.remote.retrofit.CallImpl
 import io.mapomi.android.system.App.Companion.prefs
 import io.mapomi.android.system.LogError
@@ -47,6 +48,8 @@ class SignModel @Inject constructor(
 
     private var oAuthTokenTaken = ""
     private val _errorString = MutableStateFlow("")
+
+    var userName : String? = null
 
     fun registerAuthActivity(activity: AuthActivity)
     {
@@ -104,9 +107,8 @@ class SignModel @Inject constructor(
 
             }
 
-            user?.kakaoAccount?.let{/*
-                loginEmail = it.email.toString()
-                username = it.name.toString()*/
+            user?.kakaoAccount?.let{
+                userName = it.name.toString()
                 requestOAuth(accessToken)
                 return@me
             }
@@ -225,7 +227,7 @@ class SignModel @Inject constructor(
     /**
      * 로그인 정보를 설정합니다
      */
-    fun setIsLogin(status : Boolean)
+    private fun setIsLogin(status : Boolean)
     {
         LogInfo(javaClass.name, "로그인 상태 변경 : $status")
         _isLogin.value = status
@@ -272,9 +274,22 @@ class SignModel @Inject constructor(
         }
     }
 
+    private fun onTokenResponse(response: TokenResponse)
+    {
+        response.data?.let {
+            saveToken(it)
+            setIsLogin(it.accessToken!=null && it.refreshToken!=null)
+        }
+    }
+
     override fun onConnectionSuccess(api: Int, body: CResponse) {
         when(api)
         {
+
+            API_REFRESH_TOKEN -> {
+                onTokenResponse(body as TokenResponse)
+            }
+
             API_LOGIN_ACCOUNT -> {
                 onResponseLogin(body as LoginResponse)
             }

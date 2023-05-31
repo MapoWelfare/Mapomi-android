@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface RemoteLoginInterface {
 
     @POST("join")
-    fun joinAccount(@Query("type") type : String, @Body body: JoinRequest) : Call<CResponse>
+    fun joinAccount(@HeaderMap header: HashMap<String, String>, @Query("type") type : String, @Body body: JoinRequest) : Call<CResponse>
 
     @POST("login")
     fun loginAccount(@HeaderMap header: HashMap<String, String>, @Body body : LoginRequest) : Call<LoginResponse>

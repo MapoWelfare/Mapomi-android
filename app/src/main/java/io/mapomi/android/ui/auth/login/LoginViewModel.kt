@@ -1,18 +1,14 @@
 package io.mapomi.android.ui.auth.login
 
-import android.content.Context
-import android.widget.Toast
-import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.ui.auth.AuthConnect
 import io.mapomi.android.ui.base.BaseViewModel
 import javax.inject.Inject
-import android.app.Application
+import io.mapomi.android.R
 
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val application: Application,
     val connect : AuthConnect
 ) : BaseViewModel() {
 
@@ -27,18 +23,16 @@ class LoginViewModel @Inject constructor(
 
         signModel.loginViaKaKao()
         useFlag(signModel.needJoinFlag){
-            UserApiClient.instance.me { user, error ->
-                showToast(context, "${user?.kakaoAccount?.profile?.nickname}님 반갑습니다.")
-            }
             connect.goRegister()
+            signModel.userName?.let {
+                uiModel.showToast("${it}님 가입을 완료해주세요")
+            }
         }
 
         useFlag(signModel.loginSuccessFlag){
             connect.finishPage()
+            uiModel.showToast(valueModel.getString(R.string.str_welcome))
         }
     }
-    private fun showToast(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-    private val context = application.applicationContext
+
 }

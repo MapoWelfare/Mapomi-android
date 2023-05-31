@@ -6,6 +6,7 @@
 
     <string name="app_intro">서비스 한 줄 소개 생각해주세요</string>
     <string name="str_login_kakao">카카오로 시작하기</string>
+    <string name="str_welcome">로그인에 성공했어요</string>
 
     <string name="str_ask_info">추가 정보를 입력해주세요</string>
     <string name="str_register_type">가입 유형</string>
