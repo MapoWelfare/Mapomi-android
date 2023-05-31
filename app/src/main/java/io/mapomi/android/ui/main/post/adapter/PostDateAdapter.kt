@@ -58,7 +58,6 @@ class PostDateAdapter(
         selectPosition = position
         dateList[selectPosition].select = true
         notifyItemChanged(selectPosition)
-
     }
 
 }

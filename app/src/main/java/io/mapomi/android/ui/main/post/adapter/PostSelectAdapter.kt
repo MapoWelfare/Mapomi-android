@@ -6,12 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.mapomi.android.R
 import io.mapomi.android.databinding.HolderPostSelectBinding
+import io.mapomi.android.remote.dataclass.post.PostVolunteer
 
 class PostSelectAdapter(
 
 ) : RecyclerView.Adapter<PostSelectAdapter.ViewHolder>() {
 
-    private var applyList : List<String> = listOf("동행 지원자 1","동행 지원자 2","동행 지원자 3")
+    private var applyList : List<PostVolunteer> = listOf(PostVolunteer("지원자1","남","26",true),PostVolunteer("지원자2","여","28",false),PostVolunteer("지원자3","남","32",false))
+    private var selectPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,10 +31,22 @@ class PostSelectAdapter(
 
     inner class ViewHolder(val bind : HolderPostSelectBinding) : RecyclerView.ViewHolder(bind.root)
     {
-        fun bind(nickname : String)
+        fun bind(volunteer: PostVolunteer)
         {
-            bind.nickName = nickname
+            bind.volunteer = volunteer
+            bind.root.setOnClickListener {
+                onClickVolunteer(adapterPosition)
+            }
         }
+    }
+
+    private fun onClickVolunteer(position : Int)
+    {
+        applyList[selectPosition].isSelect =false
+        notifyItemChanged(selectPosition)
+        selectPosition = position
+        applyList[selectPosition].isSelect = true
+        notifyItemChanged(selectPosition)
     }
 
 }
