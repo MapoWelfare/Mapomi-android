@@ -4,6 +4,7 @@ import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.model.post.PostModel
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
+import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostDateAdapter
 import io.mapomi.android.utils.TimeUtil
@@ -29,7 +30,7 @@ class PostWriteViewModel @Inject constructor(
     val location = MutableStateFlow("")
     val content = MutableStateFlow("")
 
-    val adapter = PostDateAdapter().apply {
+    val adapter = PostDateAdapter(this).apply {
         TimeUtil.getPostDateList {
             setDateList(it)
         }
@@ -54,6 +55,9 @@ class PostWriteViewModel @Inject constructor(
             initDataByMode(postModel.getRequestForEdit())
         }
 
+        /**
+         * 글 업로드 성공했을 때
+         */
         useFlag(postModel.flagUploadSuccess){
             navigation.revealHistory()
         }
@@ -66,9 +70,8 @@ class PostWriteViewModel @Inject constructor(
         buildRequest.let {
 
             val schedule = TimeUtil.splitSchedule(it.schedule)
-
             title.value = it.title
-            timeState.value = if(schedule[1].toString().toBoolean()) AFTERNOON else MORNING
+            timeState.value = if(schedule[1] as Boolean) AFTERNOON else MORNING
             hh.value = schedule[2].toString()
             mm.value = schedule[3].toString()
             departure.value = it.departure ?: ""
@@ -142,6 +145,7 @@ class PostWriteViewModel @Inject constructor(
     {
         typeBoxVisible.value = false
         postModel.changePostType(type)
+        adapter.updateSelectedItem()
     }
 
     fun onSubmit()
@@ -154,8 +158,7 @@ class PostWriteViewModel @Inject constructor(
             destination = destination.value,
             content = content.value
         )
-        uiModel.showToast(request.schedule)
-/*        postModel.requestUploadPost(request)*/
+        postModel.requestUploadPost(request)
     }
 
 

@@ -36,6 +36,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/str_search_hint"
+                android:text="@{vm.searchKeyword}"
+                android:onTextChanged="@{(cs,s,e,c) -> vm.typeKeyword(cs)}"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColorHint="@color/grey500"

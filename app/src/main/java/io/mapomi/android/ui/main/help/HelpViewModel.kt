@@ -1,5 +1,6 @@
 package io.mapomi.android.ui.main.help
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.constants.POST_HELP
 import io.mapomi.android.enums.Page
@@ -8,6 +9,8 @@ import io.mapomi.android.model.post.PostModel
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +22,28 @@ class HelpViewModel @Inject constructor(
     val adapter = PostAdapter(::onItemClick)
 
     val searchPageOn = MutableStateFlow(false)
+    val searchKeyword = MutableStateFlow("")
 
+    val type get() = signModel.registerType
+
+    init {
+        postModel.posts.onEach { adapter.setPosts(it) }.launchIn(viewModelScope)
+    }
+
+    /*******************************************
+     **** 입력을 받습니다
+     ******************************************/
+
+    fun typeKeyword(cs : CharSequence)
+    {
+        searchKeyword.value = cs.toString()
+    }
+
+    /*******************************************
+     **** 데이터를 요청합니다
+     ******************************************/
+
+    fun requestRemotePostList() = postModel.getRemotePosts(true)
 
     /*******************************************
      **** 버튼을 누릅니다
@@ -47,6 +71,7 @@ class HelpViewModel @Inject constructor(
      */
     fun searchText()
     {
+        /*        postModel.searchPosts(searchKeyword.value)*/
         soft.hideKeyboard()
     }
 
@@ -55,6 +80,10 @@ class HelpViewModel @Inject constructor(
      */
     private fun onItemClick()
     {
+        /*        useFlag(postModel.flagLoadSuccess){
+            postModel.loadPost("0", POST_HELP)
+            navigation.changePage(Page.POST_DETAIL)
+        }*/
         postModel.loadPost("0", POST_HELP)
         navigation.changePage(Page.POST_DETAIL)
     }

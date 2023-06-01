@@ -7,12 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.mapomi.android.R
 import io.mapomi.android.databinding.HolderMainPostBinding
+import io.mapomi.android.remote.dataclass.post.Post
+import io.mapomi.android.system.LogDebug
 
 class PostAdapter(
     val onItemClick : (()->Unit)? = null
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
-    private var postList : List<String> = listOf("동행요청 글 1", "동행요청 글 2" ,"동행요청 글 3", "동행요청 글 4", "동행요청 글 5", "동행요청 글 6", "동행요청 글 7")
+    private var postList : List<Post> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,6 +30,24 @@ class PostAdapter(
         return postList.size
     }
 
+    fun setPosts(posts : List<Post>)
+    {
+        if(this.postList != posts)
+        {
+            val oldSize = itemCount
+            this.postList = posts
+            if(oldSize >= itemCount)
+                notifyDataSetChanged()
+            else
+                notifyItemRangeInserted(oldSize,itemCount - oldSize)
+            LogDebug(javaClass.name,"[POST ADAPTER] 새로운 데이터 수신 $itemCount 개")
+        }
+
+        postList = listOf(Post("1","홍대입구에 가고싶어요","2023-05-31 15:10","연남동","홍대입구 4번 출구",null,null,false,"30분","빨리 가고 싶어요"))
+        notifyDataSetChanged()
+
+    }
+
     private fun setMatchParentToRecyclerView(view: View) {
         val layoutParams = RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -38,10 +58,10 @@ class PostAdapter(
 
     inner class ViewHolder(val bind : HolderMainPostBinding) : RecyclerView.ViewHolder(bind.root)
     {
-        fun bind(title : String)
+        fun bind(post : Post)
         {
             setMatchParentToRecyclerView(bind.root)
-            bind.title = title
+            bind.post = post
             bind.setOnItemClick {
                 onItemClick!!()
             }

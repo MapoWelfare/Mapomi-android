@@ -65,13 +65,13 @@ object TimeUtil {
         return if (matchResult != null && matchResult.groupValues.size >= 4) {
             val hh = matchResult.groupValues[2].toInt()
             val hour = if (hh>12) hh - 12 else hh
-            listOf(matchResult.groupValues[1], hh > 12, hour , matchResult.groupValues[3])
+            listOf(matchResult.groupValues[1], hh>12, hour , matchResult.groupValues[3])
         }
         else emptyList()
 
     }
 
-    private const val TIME_FORMAT = "hh:mm"
+    private const val TIME_FORMAT = "HH:mm"
     private const val DAY_OF_WEEK_FORMAT = "EE"
     const val POST_DATE_FORMAT = "yyyy-MM-dd"
 }

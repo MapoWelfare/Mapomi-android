@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="io.mapomi.android.ui.main.help.HelpViewModel" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +61,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{v -> vm.onAddPost()}"
-            isSelect="@{true}">
+            isSelect="@{true}"
+            android:visibility="@{vm.type == type.COMPANION ? 8 : 0}">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
