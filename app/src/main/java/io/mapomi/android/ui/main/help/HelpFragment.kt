@@ -67,6 +67,7 @@ class HelpFragment : BaseFragment() {
     {
         DataBindingUtil.inflate<ViewOneClickYellowBinding>(layoutInflater,
             R.layout.view_one_click_yellow,null,false).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.flOneClick.addView(root)
         }

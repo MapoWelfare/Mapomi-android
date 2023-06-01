@@ -25,6 +25,8 @@ class AccompanyViewModel @Inject constructor(
     val searchPageOn = MutableStateFlow(false)
     val searchKeyword = MutableStateFlow("")
 
+    val type get() = signModel.registerType
+
     init {
         postModel.posts.onEach { adapter.setPosts(it) }.launchIn(viewModelScope)
     }

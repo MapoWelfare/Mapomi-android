@@ -245,6 +245,14 @@ class SignModel @Inject constructor(
 
     }
 
+    /**
+     * 가입 유형을 저장합니다
+     */
+    private fun saveRegisterType(type: Type)
+    {
+        registerType.value = type
+    }
+
     private fun onResponseLogin(response: LoginResponse)
     {
         response.let {

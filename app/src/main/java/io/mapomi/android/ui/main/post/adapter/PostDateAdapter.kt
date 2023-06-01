@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import io.mapomi.android.R
 import io.mapomi.android.databinding.HolderPostDateBinding
 import io.mapomi.android.remote.dataclass.local.PostDate
+import io.mapomi.android.ui.main.post.write.PostWriteViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class PostDateAdapter(
-
+    val viewModel: PostWriteViewModel
 ) : RecyclerView.Adapter<PostDateAdapter.ViewHolder>() {
 
     private var dateList : List<PostDate> = listOf()
@@ -40,11 +41,17 @@ class PostDateAdapter(
         return dateList[selectPosition].fullDate
     }
 
+    fun updateSelectedItem()
+    {
+        notifyItemChanged(selectPosition)
+    }
+
     inner class ViewHolder(val bind : HolderPostDateBinding) : RecyclerView.ViewHolder(bind.root)
     {
         fun bind(postDate : PostDate)
         {
             bind.postDate = postDate
+            bind.vm = viewModel
             bind.root.setOnClickListener{
                 onClickDate(adapterPosition)
             }

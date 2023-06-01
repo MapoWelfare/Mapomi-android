@@ -5,6 +5,12 @@
         <variable
             name="postDate"
             type="io.mapomi.android.remote.dataclass.local.PostDate" />
+        <variable
+            name="postType"
+            type="Boolean" />
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.post.write.PostWriteViewModel" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -31,7 +37,7 @@
             android:textColor="@color/btn_post_date_select"
             android:gravity="center"
             android:layout_marginTop="8dp"
-            android:background="@drawable/btn_post_date"
+            android:background="@{vm.postType ? @drawable/btn_post_date : @drawable/btn_post_date_sub}"
             isSelect="@{postDate.select}"/>
 
         <TextView

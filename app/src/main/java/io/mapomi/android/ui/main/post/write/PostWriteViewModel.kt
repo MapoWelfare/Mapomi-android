@@ -30,7 +30,7 @@ class PostWriteViewModel @Inject constructor(
     val location = MutableStateFlow("")
     val content = MutableStateFlow("")
 
-    val adapter = PostDateAdapter().apply {
+    val adapter = PostDateAdapter(this).apply {
         TimeUtil.getPostDateList {
             setDateList(it)
         }
@@ -145,6 +145,7 @@ class PostWriteViewModel @Inject constructor(
     {
         typeBoxVisible.value = false
         postModel.changePostType(type)
+        adapter.updateSelectedItem()
     }
 
     fun onSubmit()
