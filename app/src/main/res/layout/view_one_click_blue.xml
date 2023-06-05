@@ -7,6 +7,9 @@
             name="vm"
             type="io.mapomi.android.ui.main.accompany.AccompanyViewModel" />
         <variable
+            name="fg"
+            type="io.mapomi.android.ui.main.accompany.AccompanyFragment" />
+        <variable
             name="type"
             type="io.mapomi.android.enums.Type" />
     </data>
@@ -15,6 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/cl_one_click"
         android:layout_marginVertical="10dp"
+        android:onClick="@{v->fg.showRecordView()}"
         android:visibility="@{vm.type == type.COMPANION ? 8 : 0}">
 
         <TextView

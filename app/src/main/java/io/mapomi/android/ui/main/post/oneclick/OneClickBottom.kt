@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.auth.register
+package io.mapomi.android.ui.main.post.oneclick
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,34 +8,34 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.components.FragmentComponent
-import io.mapomi.android.databinding.BtmRegisterTermBinding
+import io.mapomi.android.databinding.BtmOnclickRecordBinding
 import io.mapomi.android.ui.base.BottomDialog
 
 @AndroidEntryPoint
-class TermBottom : BottomDialog() {
+class OneClickBottom : BottomDialog() {
 
-    private lateinit var bind : BtmRegisterTermBinding
-    private val viewModel : RegisterViewModel by activityViewModels()
+    private lateinit var bind : BtmOnclickRecordBinding
+    val viewModel : OneClickViewModel by activityViewModels()
 
     override fun createDialogView(inflater: LayoutInflater, container: ViewGroup?): View {
-        bind = BtmRegisterTermBinding.inflate(inflater)
+        bind = BtmOnclickRecordBinding.inflate(inflater)
         bind.apply {
-            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
         return bind.root
     }
 
     override fun onCreateDialog() {
-
+        viewModel.startRecord()
     }
+
 
     @dagger.Module
     @InstallIn(FragmentComponent::class)
-    internal object Module{
+    internal object Module {
         @Provides
-        internal fun provideBottomView() : TermBottom{
-            return TermBottom()
+        internal fun provideBottomView() : OneClickBottom {
+            return OneClickBottom()
         }
     }
 }
