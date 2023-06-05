@@ -10,7 +10,6 @@ import io.mapomi.android.databinding.ViewAccompanyAppbarBinding
 import io.mapomi.android.databinding.ViewAccompanyListBinding
 import io.mapomi.android.databinding.ViewAccompanySearchbarBinding
 import io.mapomi.android.databinding.ViewOneClickBlueBinding
-import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -29,7 +28,6 @@ class AccompanyFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
-        LogInfo(javaClass.name,"프래그먼트 생성")
         inflateChild()
 /*        viewModel.requestRemotePostList()*/
     }
@@ -42,10 +40,6 @@ class AccompanyFragment : BaseFragment() {
         if (viewModel.searchPageOn.value) viewModel.closeSearch()
     }
 
-    override fun onResume() {
-        super.onResume()
-        LogInfo(javaClass.name,"프래그먼트 onResume")
-    }
 
     private fun inflateChild()
     {

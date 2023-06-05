@@ -46,6 +46,8 @@ class PostDateAdapter(
         notifyItemChanged(selectPosition)
     }
 
+    fun isTodaySelected() : Boolean = selectPosition == 0
+
     inner class ViewHolder(val bind : HolderPostDateBinding) : RecyclerView.ViewHolder(bind.root)
     {
         fun bind(postDate : PostDate)
