@@ -44,8 +44,6 @@ class AuthActivity : BaseActivity<ActivityAuthBinding>(R.layout.activity_auth) {
         }
         LogDebug(javaClass.name, "[AUTH ACTIVITY]")
         viewModel.signModel.registerAuthActivity(this)
-
-        signModel.checkToken()
     }
 
     override fun onResume() {

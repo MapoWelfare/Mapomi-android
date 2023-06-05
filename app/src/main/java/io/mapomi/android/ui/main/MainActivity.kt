@@ -16,6 +16,7 @@ import io.mapomi.android.ui.base.BaseFragment
 import io.mapomi.android.utils.RootViewDeferringInsetsCallback
 import javax.inject.Inject
 import io.mapomi.android.enums.Page.*
+import io.mapomi.android.model.context.SignModel
 import io.mapomi.android.ui.main.accompany.AccompanyFragment
 import io.mapomi.android.ui.main.help.HelpFragment
 import io.mapomi.android.ui.main.post.detail.PostDetailFragment
@@ -28,7 +29,11 @@ import io.mapomi.android.ui.main.profile.match.ProfileMatchFragment
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    @Inject lateinit var navigator : Navigation
+    @Inject
+    lateinit var navigator : Navigation
+
+    @Inject
+    lateinit var signModel: SignModel
 
     private val mainViewModel : MainViewModel by viewModels()
 
@@ -44,9 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             viewModel = mainViewModel
         }
 
+        signModel.checkToken()
         inflateBottomMenu()
-
         attachInsetsCallback()
+
 
     }
 

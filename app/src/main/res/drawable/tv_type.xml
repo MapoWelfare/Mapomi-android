@@ -5,6 +5,5 @@
 
     <solid android:color="@color/main500"/>
     <corners android:radius="@dimen/corner_radius"/>
-    <padding android:top="4dp" android:bottom="4dp" android:right="12dp" android:left="12dp"/>
 
 </shape>

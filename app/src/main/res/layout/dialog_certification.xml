@@ -4,7 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.post.certification.CertificationViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -52,7 +54,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/cl_grey_box"
-                    android:layout_marginEnd="4dp">
+                    android:layout_marginEnd="4dp"
+                    android:paddingVertical="0dp">
                     <EditText
                         style="@style/regular12"
                         android:layout_width="match_parent"
@@ -61,7 +64,8 @@
                         android:textColorHint="@color/grey500"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:enabled="false"/>
+                        android:enabled="false"
+                        android:text="@{vm.fileName}"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -72,7 +76,9 @@
                     android:background="@drawable/btn_primary_small"
                     android:gravity="center"
                     android:paddingVertical="10dp"
-                    android:text="@string/str_add_file"/>
+                    android:text="@string/str_add_file"
+                    android:onClick="@{v->vm.onLoadFile()}"/>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <Space
@@ -83,7 +89,7 @@
             <include
                 layout="@layout/view_primary_medium_button"
                 bind:buttonText="@{@string/str_complete}"
-                bind:enabled="@{true}"/>
+                bind:enabled="@{vm.fileUploaded}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -9,6 +9,8 @@ data class Post(
     @SerializedName("departure") val departure : String? = null,
     @SerializedName("destination") val destination : String? = null,
     @SerializedName("picture") val picture : String? = null,
-    @SerializedName("data") val date : String? = null,
-    @SerializedName("complete") val complete : Boolean? = null
+    @SerializedName("date") val date : String? = null,
+    @SerializedName("complete") val complete : Boolean? = null,
+    @SerializedName("duration") val duration : String? = null,
+    @SerializedName("content") val content : String? = null
 )

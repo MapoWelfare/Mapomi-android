@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="nickName"
-            type="String" />
+            name="volunteer"
+            type="io.mapomi.android.remote.dataclass.post.PostVolunteer" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        isSelect="@{true}">
+        isSelect="@{volunteer.select}">
         
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="16dp"
@@ -43,7 +43,7 @@
                 style="@style/medium16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{nickName}"
+                android:text="@{volunteer.nickname}"
                 tools:text="닉네임"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,8 @@
                 style="@style/medium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="성별"
+                android:text="@{volunteer.gender}"
+                tools:text="성별"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,7 +64,8 @@
                 style="@style/medium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="나이"
+                android:text="@{volunteer.age}"
+                tools:text="나이"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 android:layout_marginStart="48dp"/>

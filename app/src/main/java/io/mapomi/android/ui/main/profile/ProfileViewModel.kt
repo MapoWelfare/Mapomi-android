@@ -1,7 +1,9 @@
 package io.mapomi.android.ui.main.profile
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.mapomi.android.R
 import io.mapomi.android.enums.Page
+import io.mapomi.android.enums.Type
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.profile.adapter.MatchHistoryAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +16,18 @@ class ProfileViewModel @Inject constructor() : BaseViewModel() {
 
     val adapter = MatchHistoryAdapter(::onItemClick)
 
+    val type get() = signModel.registerType
 
     init {
         itemEmpty.value = adapter.itemCount == 0
+    }
+
+    fun typeString(type: Type) : String {
+        return when(type) {
+            Type.DISABLED -> valueModel.getString(R.string.str_disabled)
+            Type.COMPANION -> valueModel.getString(R.string.str_companion)
+            Type.RELATED -> valueModel.getString(R.string.str_related)
+        }
     }
 
     /*******************************************

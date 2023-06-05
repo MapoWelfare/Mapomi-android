@@ -34,6 +34,7 @@ class AccompanyFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         inflateChild()
+/*        viewModel.requestRemotePostList()*/
     }
 
     override fun showBottomBar(): Boolean {
@@ -43,6 +44,7 @@ class AccompanyFragment : BaseFragment() {
     override fun navigationOnBackPressed() {
         if (viewModel.searchPageOn.value) viewModel.closeSearch()
     }
+
 
     private fun inflateChild()
     {
@@ -57,10 +59,12 @@ class AccompanyFragment : BaseFragment() {
         DataBindingUtil.inflate<ViewAccompanyAppbarBinding>(layoutInflater, R.layout.view_accompany_appbar,null,false).apply {
             vm = viewModel
             needSearch = true
+            fg = this@AccompanyFragment
             lifecycleOwner = viewLifecycleOwner
             bind.flAppbar.addView(root)
         }
     }
+
 
     private fun inflateSearchbar()
     {
@@ -90,8 +94,15 @@ class AccompanyFragment : BaseFragment() {
         }
     }
 
+
     fun showRecordView()
     {
         recordView.show(requireActivity().supportFragmentManager, recordView.tag)
     }
+    
+    fun showDialog()
+    {
+        viewModel.openDialog(childFragmentManager)
+    }
+
 }

@@ -2,6 +2,7 @@ package io.mapomi.android.utils
 
 import io.mapomi.android.remote.dataclass.local.PostDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -21,7 +22,7 @@ object TimeUtil {
     {
         val endDate = now.plusWeeks(2)
 
-        val dayPatter = DateTimeFormatter.ofPattern(POST_DATE_FORMAT)
+        val dayPattern = DateTimeFormatter.ofPattern(POST_DATE_FORMAT)
         val dayOfWeekPattern = DateTimeFormatter.ofPattern(DAY_OF_WEEK_FORMAT, Locale.KOREA)
 
         val postDates = mutableListOf<PostDate>()
@@ -29,7 +30,7 @@ object TimeUtil {
 
         while (!currentDate.isAfter(endDate))
         {
-            val fullDate = currentDate.format(dayPatter)
+            val fullDate = currentDate.format(dayPattern)
             val dayOfWeek = currentDate.format(dayOfWeekPattern)
             val postDate = PostDate(fullDate,dayOfWeek,fullDate.split("-")[2], today = false, select = false)
             postDates.add(postDate)
@@ -48,7 +49,7 @@ object TimeUtil {
     fun makeRequestSchedule(date : String, timeState : Boolean, hh : String, mm : String?) : String
     {
         val hour = if (timeState) hh + 12 else hh
-        val minute = if (mm.isNullOrEmpty()) "00" else mm
+        val minute = if (mm.isNullOrEmpty()||mm=="0") "00" else mm
         return "$date $hour:$minute"
     }
 
@@ -65,13 +66,21 @@ object TimeUtil {
         return if (matchResult != null && matchResult.groupValues.size >= 4) {
             val hh = matchResult.groupValues[2].toInt()
             val hour = if (hh>12) hh - 12 else hh
-            listOf(matchResult.groupValues[1], hh > 12, hour , matchResult.groupValues[3])
+            listOf(matchResult.groupValues[1], hh>12, hour , matchResult.groupValues[3])
         }
         else emptyList()
 
     }
 
-    private const val TIME_FORMAT = "hh:mm"
+    fun isTimeBeforeCurrent(hh:String,mm:String, isAfternoon:Boolean) : Boolean {
+        val hour = if (isAfternoon) hh.toInt()+12 else hh.toInt()
+        val minute = if (mm.isNotEmpty()) mm.toInt() else 0
+        val compareTime = LocalTime.of(hour,minute)
+        return compareTime.isBefore(LocalTime.now())
+    }
+
+
+    private const val TIME_FORMAT = "HH:mm"
     private const val DAY_OF_WEEK_FORMAT = "EE"
-    const val POST_DATE_FORMAT = "yyyy-MM-dd"
+    private const val POST_DATE_FORMAT = "yyyy-MM-dd"
 }

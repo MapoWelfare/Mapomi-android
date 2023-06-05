@@ -12,6 +12,7 @@ class PostDetailViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val postType get() = postModel.postType
+    val post get() = postModel.currentPost
 
     /*******************************************
      **** 버튼을 누릅니다

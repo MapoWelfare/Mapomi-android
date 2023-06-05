@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="io.mapomi.android.ui.main.accompany.AccompanyViewModel" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +60,8 @@
             android:layout_marginEnd="@dimen/app_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{v -> vm.onAddPost()}">
+            android:onClick="@{v -> vm.onAddPost()}"
+            android:visibility="@{vm.type == type.COMPANION ? 8 : 0}">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
