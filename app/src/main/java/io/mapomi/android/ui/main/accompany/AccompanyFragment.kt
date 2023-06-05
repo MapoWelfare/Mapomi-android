@@ -40,6 +40,7 @@ class AccompanyFragment : BaseFragment() {
         if (viewModel.searchPageOn.value) viewModel.closeSearch()
     }
 
+
     private fun inflateChild()
     {
         inflateAppbar()
@@ -53,10 +54,12 @@ class AccompanyFragment : BaseFragment() {
         DataBindingUtil.inflate<ViewAccompanyAppbarBinding>(layoutInflater, R.layout.view_accompany_appbar,null,false).apply {
             vm = viewModel
             needSearch = true
+            fg = this@AccompanyFragment
             lifecycleOwner = viewLifecycleOwner
             bind.flAppbar.addView(root)
         }
     }
+
 
     private fun inflateSearchbar()
     {
@@ -84,4 +87,12 @@ class AccompanyFragment : BaseFragment() {
             bind.flList.addView(root)
         }
     }
+
+    fun showDialog()
+    {
+        viewModel.openDialog(childFragmentManager)
+    }
+
+
+
 }

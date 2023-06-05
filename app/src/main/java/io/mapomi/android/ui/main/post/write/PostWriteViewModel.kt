@@ -4,7 +4,6 @@ import android.widget.EditText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.model.post.PostModel
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
-import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostDateAdapter
 import io.mapomi.android.utils.TimeUtil
@@ -29,6 +28,8 @@ class PostWriteViewModel @Inject constructor(
     val duration = MutableStateFlow("")
     val location = MutableStateFlow("")
     val content = MutableStateFlow("")
+
+    private val regex = Regex("[^0-9]")
 
     val adapter = PostDateAdapter(this).apply {
         TimeUtil.getPostDateList {
@@ -91,11 +92,17 @@ class PostWriteViewModel @Inject constructor(
             type(title,cs)
     }
 
-    fun typeHH(cs : CharSequence) = type(hh,cs)
+    fun typeHH(cs : CharSequence, editText: EditText) {
+        hh.value = filterOnlyNumber(cs,editText)
+    }
 
-    fun typeMM(cs : CharSequence) = type(mm,cs)
+    fun typeMM(cs : CharSequence, editText: EditText) {
+        mm.value = filterOnlyNumber(cs,editText)
+    }
 
-    fun typeDuration(cs : CharSequence) = type(duration,cs)
+    fun typeDuration(cs : CharSequence, editText: EditText) {
+        duration.value = filterOnlyNumber(cs,editText)
+    }
 
     fun typeDeparture(cs : CharSequence) = type(departure,cs)
 
@@ -150,6 +157,7 @@ class PostWriteViewModel @Inject constructor(
 
     fun onSubmit()
     {
+        if (!isTimeValidate()) return
         val request = PostBuildRequest(
             title = title.value,
             schedule = TimeUtil.makeRequestSchedule(adapter.getSelectedDate(),timeState.value,hh.value,mm.value),
@@ -159,6 +167,50 @@ class PostWriteViewModel @Inject constructor(
             content = content.value
         )
         postModel.requestUploadPost(request)
+    }
+
+    /*******************************************
+     **** 유효성을 검사합니다
+     ******************************************/
+
+    /**
+     * 숫자 외 다른 문자는 받지 않습니다
+     */
+    private fun filterOnlyNumber(text: CharSequence, editText: EditText) : String {
+        val filteredText = text.toString().replace(regex,"")
+        if (filteredText != text.toString()) {
+            editText.setText(filteredText)
+            editText.setSelection(filteredText.length)
+        }
+        return filteredText
+    }
+
+    /**
+     * 시간이 유효한지 검사합니다
+     */
+    private fun isTimeValidate() : Boolean
+    {
+        if (hh.value.isEmpty()&&mm.value.isNotEmpty()){
+            uiModel.showToast("시간을 입력해주세요")
+            return false
+        }
+
+        if (hh.value.toInt() >= 12) {
+            uiModel.showToast("0~11 사이의 시간을 입력해주세요")
+            return false
+        }
+
+        if (mm.value.toInt() >= 60){
+            uiModel.showToast("0~59 사이의 분을 입력해주세요")
+            return false
+        }
+
+        if (adapter.isTodaySelected() && TimeUtil.isTimeBeforeCurrent(hh.value,mm.value,timeState.value)) {
+            uiModel.showToast("지난 시간은 입력할 수 없습니다")
+            return false
+        }
+
+        return true
     }
 
 
