@@ -6,10 +6,13 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import io.mapomi.android.ui.auth.AuthActivity
 import io.mapomi.android.ui.base.BaseActivity
+import io.mapomi.android.ui.main.post.certification.CertificationDialog
 import io.mapomi.android.utils.FileUtil
+import kotlinx.coroutines.flow.MutableStateFlow
 import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -22,10 +25,6 @@ class GlobalUiModel @Inject constructor() {
     fun registerActivity(activity: BaseActivity<*>, context: Context){
         _activity = activity
         _context = context
-    }
-
-    fun getActivity() : AppCompatActivity? {
-        return _activity
     }
 
     fun showToast(msg : String) {
@@ -74,6 +73,16 @@ class GlobalUiModel @Inject constructor() {
             if (it.isShowing) return true
         }
         return false
+    }
+
+    private var dialogFragment : DialogFragment? = null
+    val isMoveGallery = MutableStateFlow(false)
+
+    fun showCertificationDialog(manager : FragmentManager)
+    {
+        dialogFragment = CertificationDialog().apply {
+            show(manager, this.tag)
+        }
     }
 
 

@@ -7,6 +7,9 @@
         <variable
             name="needSearch"
             type="Boolean" />
+        <variable
+            name="fg"
+            type="io.mapomi.android.ui.main.accompany.AccompanyFragment" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -23,7 +26,8 @@
                 android:layout_width="73dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_mapomi"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginStart="5dp"
+                android:onClick="@{v->fg.showDialog()}"/>
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

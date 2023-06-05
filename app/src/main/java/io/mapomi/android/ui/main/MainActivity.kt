@@ -49,9 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             viewModel = mainViewModel
         }
 
+        signModel.checkToken()
         inflateBottomMenu()
         attachInsetsCallback()
-        signModel.checkToken()
+
 
     }
 

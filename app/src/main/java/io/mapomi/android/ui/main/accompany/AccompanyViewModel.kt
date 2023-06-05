@@ -1,17 +1,23 @@
 package io.mapomi.android.ui.main.accompany
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.constants.POST_ACCOMPANY
-import io.mapomi.android.constants.POST_BUILD
 import io.mapomi.android.enums.Page
 import io.mapomi.android.model.insets.SoftKeyModel
 import io.mapomi.android.model.post.PostModel
+import io.mapomi.android.system.LogDebug
+import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.post.adapter.PostAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -98,6 +104,11 @@ class AccompanyViewModel @Inject constructor(
     {
         postModel.startBuild(POST_ACCOMPANY)
         navigation.changePage(Page.POST_WRITE)
+    }
+
+    fun openDialog(manager: FragmentManager)
+    {
+        uiModel.showCertificationDialog(manager)
     }
 
 

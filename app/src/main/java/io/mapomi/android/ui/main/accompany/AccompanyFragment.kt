@@ -10,6 +10,7 @@ import io.mapomi.android.databinding.ViewAccompanyAppbarBinding
 import io.mapomi.android.databinding.ViewAccompanyListBinding
 import io.mapomi.android.databinding.ViewAccompanySearchbarBinding
 import io.mapomi.android.databinding.ViewOneClickBlueBinding
+import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseFragment
 
 @AndroidEntryPoint
@@ -28,6 +29,7 @@ class AccompanyFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+        LogInfo(javaClass.name,"프래그먼트 생성")
         inflateChild()
 /*        viewModel.requestRemotePostList()*/
     }
@@ -38,6 +40,11 @@ class AccompanyFragment : BaseFragment() {
 
     override fun navigationOnBackPressed() {
         if (viewModel.searchPageOn.value) viewModel.closeSearch()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LogInfo(javaClass.name,"프래그먼트 onResume")
     }
 
     private fun inflateChild()
@@ -53,10 +60,12 @@ class AccompanyFragment : BaseFragment() {
         DataBindingUtil.inflate<ViewAccompanyAppbarBinding>(layoutInflater, R.layout.view_accompany_appbar,null,false).apply {
             vm = viewModel
             needSearch = true
+            fg = this@AccompanyFragment
             lifecycleOwner = viewLifecycleOwner
             bind.flAppbar.addView(root)
         }
     }
+
 
     private fun inflateSearchbar()
     {
@@ -84,4 +93,12 @@ class AccompanyFragment : BaseFragment() {
             bind.flList.addView(root)
         }
     }
+
+    fun showDialog()
+    {
+        viewModel.openDialog(childFragmentManager)
+    }
+
+
+
 }
