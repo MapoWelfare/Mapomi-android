@@ -77,6 +77,9 @@
     <string name="str_accept">수락하기</string>
     <string name="str_with">함께하기</string>
 
+    <string name="str_hello_one_click">안녕하세요.\n원클릭 요청입니다.</string>
+    <string name="str_stop">그만하기</string>
+
     <string name="str_match_ready">요청 중</string>
     <string name="str_match_matching">매칭 완료</string>
     <string name="str_match_progress">동행 시작</string>
