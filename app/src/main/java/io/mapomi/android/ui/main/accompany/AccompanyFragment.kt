@@ -11,7 +11,7 @@ import io.mapomi.android.databinding.ViewAccompanyListBinding
 import io.mapomi.android.databinding.ViewAccompanySearchbarBinding
 import io.mapomi.android.databinding.ViewOneClickBlueBinding
 import io.mapomi.android.ui.base.BaseFragment
-import io.mapomi.android.ui.main.post.oneclick.OneClickBottom
+import io.mapomi.android.ui.main.post.oneClick.OneClickBottom
 import javax.inject.Inject
 
 @AndroidEntryPoint

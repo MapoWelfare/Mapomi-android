@@ -24,9 +24,7 @@ class LoginViewModel @Inject constructor(
         signModel.loginViaKaKao()
         useFlag(signModel.needJoinFlag){
             connect.goRegister()
-            signModel.userName?.let {
-                uiModel.showToast("${it}님 가입을 완료해주세요")
-            }
+            uiModel.showToast("반갑습니다. 가입을 완료해주세요")
         }
 
         useFlag(signModel.loginSuccessFlag){

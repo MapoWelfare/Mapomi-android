@@ -1,4 +1,4 @@
-package io.mapomi.android.ui.main.post.oneclick
+package io.mapomi.android.ui.main.post.oneClick
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +20,7 @@ class OneClickBottom : BottomDialog() {
     override fun createDialogView(inflater: LayoutInflater, container: ViewGroup?): View {
         bind = BtmOnclickRecordBinding.inflate(inflater)
         bind.apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
         return bind.root

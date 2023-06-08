@@ -15,10 +15,14 @@ import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import io.mapomi.android.remote.dataclass.local.PostVoice
 import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.utils.STTUtil
+import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.LinkedList
 import java.util.Locale
+import java.util.Queue
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,7 +41,8 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
      **** 원클릭 요청 시나리오
      ******************************************/
 
-    private var flowOrder = ANNOUNCE_TITLE
+    private var voiceList : Queue<PostVoice>? = null
+    val currentPostVoice = MutableStateFlow<PostVoice?>(null)
 
     /**
      * 1. 권한 체크를 한다 (음성녹음)
@@ -51,19 +56,25 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
      * 9. 녹음이 끝나면 서버로 전송
      * 10. 원클릭 요청 중 뒤로가기 시, 녹음/안내/다이얼로그 종료
      */
-    fun startOneClickFlow()
+    fun initVoiceList(list : LinkedList<PostVoice>)
     {
-        checkPermission()
-        speakMsg(ANNOUNCE_VIBRATE)
+        voiceList = null
+        voiceList = list
+        startOneClickFlow()
+    }
+
+    private fun startOneClickFlow()
+    {
+        speakMsg(voiceList!!.poll()!!)
         Handler(Looper.getMainLooper()).postDelayed({
-            requestRecord(ANNOUNCE_TITLE)
+            requestRecord(voiceList!!.poll()!!)
         },4000)
     }
 
-    private fun requestRecord(order : String)
+    private fun requestRecord(postVoice : PostVoice)
     {
-        this.flowOrder = order
-        speakMsg(order)
+        currentPostVoice.value = postVoice
+        speakMsg(postVoice)
         waitSpeaking(::startRecord,2000)
     }
 
@@ -81,7 +92,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
      **** STT
      ******************************************/
 
-    var speechRecognizer : SpeechRecognizer? = null
+    private var speechRecognizer : SpeechRecognizer? = null
 
     private fun startRecord()
     {
@@ -106,10 +117,6 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     override fun onResult(result: Bundle?) {
         val recordResult = result?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0]
-        showToast(recordResult)
-        if (flowOrder == ANNOUNCE_TITLE) requestRecord(ANNOUNCE_DEPARTURE)
-        else if(flowOrder == ANNOUNCE_DEPARTURE) requestRecord(ANNOUNCE_DESTINATION)
-        else showToast("녹음 종료")
     }
 
     fun destroySTTEngine()
@@ -147,9 +154,9 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
         }
     }
 
-    private fun speakMsg(msg : String)
+    private fun speakMsg(postVoice : PostVoice)
     {
-        tts?.speak(msg,TextToSpeech.QUEUE_FLUSH, null, "")
+        tts?.speak(postVoice.announce,TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun waitSpeaking(callback : ()->Unit, delay : Long)

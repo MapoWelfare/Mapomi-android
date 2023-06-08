@@ -251,6 +251,7 @@ class SignModel @Inject constructor(
     private fun saveRegisterType(type: Type)
     {
         registerType.value = type
+        LogInfo(javaClass.name,"가입유형: ${type.name}")
     }
 
     private fun onResponseLogin(response: LoginResponse)
@@ -274,6 +275,7 @@ class SignModel @Inject constructor(
                 if (it) { //이미 유저인 경우
                     setIsLogin(true)
                     loginSuccessFlag.value = true
+                    saveRegisterType(token.type!!)
                 }
                 else {//새로운 유저인 경우
                     needJoinFlag.value = true
@@ -286,6 +288,7 @@ class SignModel @Inject constructor(
     {
         response.data?.let {
             saveToken(it)
+            saveRegisterType(it.type!!)
             setIsLogin(it.accessToken!=null && it.refreshToken!=null)
         }
     }
