@@ -7,6 +7,7 @@ import io.mapomi.android.remote.dataclass.post.Post
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
 import io.mapomi.android.remote.dataclass.response.post.PostResponse
 import io.mapomi.android.remote.retrofit.CallImpl
+import io.mapomi.android.system.LogInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -130,7 +131,9 @@ class PostModel @Inject constructor() : BaseModel() {
             paramInt0 = page,
             paramInt1 = pageSize,
             paramStr0 = searchKeyword
-        )
+        ).apply {
+            remote.sendRequestApi(this)
+        }
     }
 
     /*******************************************
@@ -144,13 +147,13 @@ class PostModel @Inject constructor() : BaseModel() {
     fun loadPost(id : String, type : Boolean)
     {
         changePostType(type)
-/*        CallImpl(
+        CallImpl(
             if (postType.value == POST_ACCOMPANY) API_POST_ACCOMPANY_DETAIL else API_POST_HELP_DETAIL,
             this,
             paramStr0 = id
         ).apply {
             remote.sendRequestApi(this)
-        }*/
+        }
     }
 
 
@@ -172,13 +175,15 @@ class PostModel @Inject constructor() : BaseModel() {
             val list = mutableListOf<Post>()
             list.addAll(_posts.value)
             list.addAll(postList)
-            _posts.value = list.toMutableList()
+            _posts.value = list.distinctBy { it.postId }.toMutableList()
         }
     }
 
     private fun onPostDetailResponse(response : CResponse)
     {
-
+        response.success?.let {
+            flagLoadSuccess.value = it
+        }
     }
 
 

@@ -12,5 +12,5 @@
         android:paddingHorizontal="@dimen/app_padding"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:adapter="@{vm.adapter}"
-        app:bottomReached="@{v->vm.postModel.getRemotePosts(false)}"/>
+        app:bottomReached="@{v->vm.requestRemotePostList(true)}"/>
 </layout>

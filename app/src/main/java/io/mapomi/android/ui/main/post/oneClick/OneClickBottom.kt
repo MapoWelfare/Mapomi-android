@@ -1,5 +1,6 @@
 package io.mapomi.android.ui.main.post.oneClick
 
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class OneClickBottom : BottomDialog() {
         bind = BtmOnclickRecordBinding.inflate(inflater)
         bind.apply {
             vm = viewModel
+            btm = this@OneClickBottom
             lifecycleOwner = viewLifecycleOwner
         }
         return bind.root
@@ -28,6 +30,17 @@ class OneClickBottom : BottomDialog() {
 
     override fun onCreateDialog() {
         viewModel.startRecord()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        viewModel.systemModel.stopRecord()
+        super.onDismiss(dialog)
+    }
+
+    fun onStopRecord()
+    {
+        dismiss()
+        viewModel.systemModel.stopRecord()
     }
 
 

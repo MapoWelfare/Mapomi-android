@@ -6,4 +6,5 @@ import io.mapomi.android.remote.dataclass.CRequest
 data class JoinRequest(
     @SerializedName("nickname") val nickname : String = "",
     @SerializedName("phoneNum") val phoneNum : String = "",
+    @SerializedName("accessToken") val accessToken : String = ""
 ) : CRequest()

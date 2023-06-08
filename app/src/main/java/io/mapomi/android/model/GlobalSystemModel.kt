@@ -19,7 +19,11 @@ import io.mapomi.android.remote.dataclass.local.PostVoice
 import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.utils.STTUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.util.LinkedList
 import java.util.Locale
 import java.util.Queue
@@ -43,6 +47,8 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     private var voiceList : Queue<PostVoice>? = null
     val currentPostVoice = MutableStateFlow<PostVoice?>(null)
+    val voiceResponse = MutableStateFlow("")
+    val recordDone = MutableStateFlow(false)
 
     /**
      * 1. 권한 체크를 한다 (음성녹음)
@@ -56,9 +62,18 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
      * 9. 녹음이 끝나면 서버로 전송
      * 10. 원클릭 요청 중 뒤로가기 시, 녹음/안내/다이얼로그 종료
      */
-    fun initVoiceList(list : LinkedList<PostVoice>)
+
+    private fun initVoiceStatus()
     {
         voiceList = null
+        currentPostVoice.value = null
+        voiceResponse.value = ""
+        recordDone.value = false
+    }
+
+    fun initVoiceList(list : LinkedList<PostVoice>)
+    {
+        initVoiceStatus()
         voiceList = list
         startOneClickFlow()
     }
@@ -66,16 +81,18 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     private fun startOneClickFlow()
     {
         speakMsg(voiceList!!.poll()!!)
-        Handler(Looper.getMainLooper()).postDelayed({
-            requestRecord(voiceList!!.poll()!!)
-        },4000)
+        waitSpeaking({requestRecord(voiceList!!.poll()!!)},4000)
     }
 
     private fun requestRecord(postVoice : PostVoice)
     {
-        currentPostVoice.value = postVoice
-        speakMsg(postVoice)
-        waitSpeaking(::startRecord,2000)
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            voiceResponse.value = ""
+            speakMsg(postVoice)
+            waitSpeaking(::startRecord, delay = postVoice.delay)
+        }
+
     }
 
     /*******************************************
@@ -117,6 +134,16 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     override fun onResult(result: Bundle?) {
         val recordResult = result?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0]
+        voiceResponse.value = recordResult
+        voiceList?.let {
+
+            it.peek()?.let { front ->
+                if (front.needInput) requestRecord(front)
+                else speakMsg(front)
+            } ?: run {
+                recordDone.value = true
+            }
+        }
     }
 
     fun destroySTTEngine()
@@ -156,14 +183,16 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     private fun speakMsg(postVoice : PostVoice)
     {
-        tts?.speak(postVoice.announce,TextToSpeech.QUEUE_FLUSH, null, "")
+        currentPostVoice.value = postVoice
+        tts?.speak(postVoice.voice,TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun waitSpeaking(callback : ()->Unit, delay : Long)
     {
-        Handler(Looper.getMainLooper()).postDelayed({
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(delay)
             callback()
-        },delay)
+        }
     }
 
     fun destroyTTSEngine()
@@ -172,6 +201,13 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
             it.stop()
             it.shutdown()
         }
+    }
+
+    fun stopRecord()
+    {
+        initVoiceStatus()
+        destroyTTSEngine()
+        destroySTTEngine()
     }
 
     private fun showToast(msg : String) {
@@ -187,11 +223,6 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     companion object {
         const val TTS_ENGINE = "com.google.android.tts"
-        const val ANNOUNCE_VIBRATE = "진동이 울리면 말해주세요. 녹음을 시작할게요."
-        const val ANNOUNCE_TITLE = "요청 사항을 알려주세요."
-        const val ANNOUNCE_DEPARTURE = "출발지를 알려주세요."
-        const val ANNOUNCE_DESTINATION = "도착지를 알려주세요."
-
     }
 
 }

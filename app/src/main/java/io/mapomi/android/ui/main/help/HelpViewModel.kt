@@ -78,14 +78,12 @@ class HelpViewModel @Inject constructor(
     /**
      * 리스트 아이템을 누릅니다
      */
-    private fun onItemClick()
+    private fun onItemClick(id : String)
     {
-        /*        useFlag(postModel.flagLoadSuccess){
-            postModel.loadPost("0", POST_HELP)
+        useFlag(postModel.flagLoadSuccess){
+            postModel.loadPost(id, POST_HELP)
             navigation.changePage(Page.POST_DETAIL)
-        }*/
-        postModel.loadPost("0", POST_HELP)
-        navigation.changePage(Page.POST_DETAIL)
+        }
     }
 
     /**

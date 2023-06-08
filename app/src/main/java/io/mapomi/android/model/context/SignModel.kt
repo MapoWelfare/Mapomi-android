@@ -9,10 +9,7 @@ import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.auth.JoinRequest
 import io.mapomi.android.remote.dataclass.request.TokenRequest
-import io.mapomi.android.remote.dataclass.response.auth.LoginResponse
-import io.mapomi.android.remote.dataclass.response.auth.OAuthGetResponse
-import io.mapomi.android.remote.dataclass.response.auth.Token
-import io.mapomi.android.remote.dataclass.response.auth.TokenResponse
+import io.mapomi.android.remote.dataclass.response.auth.*
 import io.mapomi.android.remote.retrofit.CallImpl
 import io.mapomi.android.system.App.Companion.prefs
 import io.mapomi.android.system.LogError
@@ -48,8 +45,6 @@ class SignModel @Inject constructor(
 
     private var oAuthTokenTaken = ""
     private val _errorString = MutableStateFlow("")
-
-    var userName : String? = null
 
     fun registerAuthActivity(activity: AuthActivity)
     {
@@ -108,7 +103,6 @@ class SignModel @Inject constructor(
             }
 
             user?.kakaoAccount?.let{
-                userName = it.name.toString()
                 requestOAuth(accessToken)
                 return@me
             }
@@ -170,7 +164,7 @@ class SignModel @Inject constructor(
      */
     fun requestRegister(phone : String)
     {
-        val request = JoinRequest(nickname = nickname.trim(), phoneNum = phone.trim())
+        val request = JoinRequest(nickname = nickname.trim(), phoneNum = phone.trim(), accessToken = oAuthTokenTaken)
         CallImpl(
             API_JOIN_ACCOUNT,
             this,
@@ -267,6 +261,7 @@ class SignModel @Inject constructor(
 
     private fun onOAuthResponse(response: OAuthGetResponse)
     {
+
         response.data?.let { token ->
 
             saveToken(token)
@@ -275,7 +270,7 @@ class SignModel @Inject constructor(
                 if (it) { //이미 유저인 경우
                     setIsLogin(true)
                     loginSuccessFlag.value = true
-                    saveRegisterType(token.type!!)
+                    saveRegisterType(token.type ?: Type.DISABLED)
                 }
                 else {//새로운 유저인 경우
                     needJoinFlag.value = true
@@ -290,6 +285,16 @@ class SignModel @Inject constructor(
             saveToken(it)
             saveRegisterType(it.type!!)
             setIsLogin(it.accessToken!=null && it.refreshToken!=null)
+        }
+    }
+
+    private fun onJoinResponse(response: TokenResponse)
+    {
+        response.success?.let {
+            registerSuccessFlag.value = it
+            setIsLogin(it)
+            if (it) prefs.setString(REGISTER_TYPE,registerType.value.serverName)
+            saveToken(response.data)
         }
     }
 
@@ -314,11 +319,7 @@ class SignModel @Inject constructor(
             }
 
             API_JOIN_ACCOUNT -> {
-                body.success?.let {
-                    registerSuccessFlag.value = it
-                    setIsLogin(it)
-                    if (it) prefs.setString(REGISTER_TYPE,registerType.value.serverName)
-                }
+                onJoinResponse(body as TokenResponse)
             }
         }
     }
