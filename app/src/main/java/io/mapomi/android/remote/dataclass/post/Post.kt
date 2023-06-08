@@ -14,6 +14,10 @@ data class Post(
     @SerializedName("complete") val complete : Boolean? = null,
     @SerializedName("duration") val duration : String? = null,
     @SerializedName("content") val content : String? = null,
+    @SerializedName("userId") val userId : String,
+    @SerializedName("author") val author : String? = null,
+    @SerializedName("views") val views : Int? = null,
+    @SerializedName("type") val type : String? = null
 ) {
 
     fun getYear() : String? {
@@ -31,7 +35,7 @@ data class Post(
             val timeStatus = if (afternoon) "오후" else "오전"
             val hh = if (afternoon) timeStr[0].toInt()-12 else timeStr[0]
             val mm = timeStr[1]
-            return "$timeStatus ${hh}시 ${mm}분"
+            return "$timeStatus ${hh}:${mm}"
         }
         return null
     }
@@ -39,6 +43,13 @@ data class Post(
     fun getTimePassed() : String? {
         date?.let {
             return TimeUtil.getTimePassed(it)
+        }
+        return null
+    }
+
+    fun getDurationStr() : String? {
+        duration?.let {
+            return "${it}분"
         }
         return null
     }

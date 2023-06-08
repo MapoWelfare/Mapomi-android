@@ -90,8 +90,8 @@ class AccompanyViewModel @Inject constructor(
      */
     private fun onItemClick(id : String)
     {
+        postModel.loadPost(id, POST_ACCOMPANY)
         useFlag(postModel.flagLoadSuccess){
-            postModel.loadPost(id, POST_ACCOMPANY)
             navigation.changePage(Page.POST_DETAIL)
         }
     }

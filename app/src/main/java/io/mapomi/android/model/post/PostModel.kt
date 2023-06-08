@@ -5,6 +5,7 @@ import io.mapomi.android.model.BaseModel
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.post.Post
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
+import io.mapomi.android.remote.dataclass.response.post.PostDetailResponse
 import io.mapomi.android.remote.dataclass.response.post.PostResponse
 import io.mapomi.android.remote.retrofit.CallImpl
 import io.mapomi.android.system.LogInfo
@@ -141,11 +142,12 @@ class PostModel @Inject constructor() : BaseModel() {
      ******************************************/
 
     val flagLoadSuccess = MutableStateFlow(false)
-    private val _currentPost = MutableStateFlow<Post?>(Post("1","홍대입구에 가고싶어요","2023-05-31 15:10","연남동","홍대입구 4번 출구",null,null,false,"30분","빨리 가고 싶어요"))
+    private val _currentPost = MutableStateFlow<Post?>(null)
     val currentPost : StateFlow<Post?> get() = _currentPost
 
     fun loadPost(id : String, type : Boolean)
     {
+        _currentPost.value = null
         changePostType(type)
         CallImpl(
             if (postType.value == POST_ACCOMPANY) API_POST_ACCOMPANY_DETAIL else API_POST_HELP_DETAIL,
@@ -179,11 +181,10 @@ class PostModel @Inject constructor() : BaseModel() {
         }
     }
 
-    private fun onPostDetailResponse(response : CResponse)
+    private fun onPostDetailResponse(response : PostDetailResponse)
     {
-        response.success?.let {
-            flagLoadSuccess.value = it
-        }
+        _currentPost.value = response.data
+        flagLoadSuccess.value = response.success!!
     }
 
 
@@ -199,7 +200,7 @@ class PostModel @Inject constructor() : BaseModel() {
 
             API_POST_ACCOMPANY_DETAIL,
             API_POST_HELP_DETAIL -> {
-                onPostDetailResponse(body)
+                onPostDetailResponse(body as PostDetailResponse)
             }
 
         }

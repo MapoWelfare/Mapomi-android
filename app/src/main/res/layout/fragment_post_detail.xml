@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginBottom="24dp"
-                        android:text="닉네임"
+                        android:text="@{vm.post.author}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2" />
 
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingVertical="4dp"
-                        android:text="@{vm.post.schedule}"
+                        android:text="@{vm.post.year}"
                         tools:text="2023년 5월 13일 토"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:paddingVertical="4dp"
                         android:layout_marginTop="5dp"
-                        android:text="@{vm.post.schedule}"
+                        android:text="@{vm.post.time}"
                         tools:text="오후 03:00"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -165,14 +165,14 @@
                         android:layout_height="wrap_content"
                         android:text="소요시간"
                         android:layout_marginBottom="7dp"
-                        android:textColor="@color/grey500" />
+                        android:textColor="@color/grey700" />
 
                     <TextView
                         style="@style/bold22"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:text="@{vm.post.duration}"
+                        android:text="@{vm.post.durationStr}"
                         tools:text="30분"
                         android:textColor="@{vm.postType == postCont.POST_ACCOMPANY ? @color/main700 : @color/sub700}" />
 
