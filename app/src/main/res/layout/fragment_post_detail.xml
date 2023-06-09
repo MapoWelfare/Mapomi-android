@@ -65,7 +65,9 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            remoteImgUrl="@{vm.post.picture}"
+                            imgRadius="@{40f}"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
