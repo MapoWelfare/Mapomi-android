@@ -175,22 +175,6 @@ class SignModel @Inject constructor(
         }
     }
 
-    /*    private var multiPart : MultipartBody.Part? = null
-    val uploadOnApp = MutableStateFlow(false)
-
-    fun convertUriToMultiPart(uri: Uri)
-    {
-        CoroutineScope(Dispatchers.IO).launch {
-            if (!uri.toString().contains("http"))
-            {
-                multiPart = uiModel.convertImgToUpload(uri)
-                uploadOnApp.value = true
-            }
-
-            else uploadOnApp.value = false
-
-        }
-    }*/
 
     /*******************************************
      **** REISSUE

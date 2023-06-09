@@ -4,19 +4,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.R
 import io.mapomi.android.enums.Page
 import io.mapomi.android.enums.Type
+import io.mapomi.android.model.profile.ProfileModel
 import io.mapomi.android.ui.base.BaseViewModel
 import io.mapomi.android.ui.main.profile.adapter.MatchHistoryAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor() : BaseViewModel() {
+class ProfileViewModel @Inject constructor(
+    val model : ProfileModel
+) : BaseViewModel() {
 
     val itemEmpty = MutableStateFlow(false)
 
     val adapter = MatchHistoryAdapter(::onItemClick)
 
     val type get() = signModel.registerType
+
+    val profile get() = model.profile
 
     init {
         itemEmpty.value = adapter.itemCount == 0
@@ -29,6 +34,14 @@ class ProfileViewModel @Inject constructor() : BaseViewModel() {
             Type.RELATED -> valueModel.getString(R.string.str_related)
         }
     }
+
+    /*******************************************
+     **** 데이터를 요청합니다
+     ******************************************/
+
+    fun getRemoteMyProfile() = model.getMyProfile()
+
+
 
     /*******************************************
      **** 버튼을 누릅니다

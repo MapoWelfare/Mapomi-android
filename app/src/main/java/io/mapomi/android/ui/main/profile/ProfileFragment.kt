@@ -22,6 +22,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         inflateChild()
+        viewModel.getRemoteMyProfile()
     }
 
     override fun showBottomBar(): Boolean {

@@ -80,6 +80,11 @@ class CallImpl(
             API_POST_HELP_LIST -> remoteApi.getAllHelpPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
 
 
+            API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
+
+            API_EDIT_PROFILE_IMAGE -> remoteApi.editProfileImage(header, multipart!!)
+
+
             else -> throw NoSuchMethodException()
 
         } as Call<CResponse>
