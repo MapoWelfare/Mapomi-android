@@ -8,10 +8,19 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import io.mapomi.android.R
 import io.mapomi.android.model.insets.SoftKeyModel
 import io.mapomi.android.system.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @BindingAdapter("isSelect")
 fun setIsSelect(view: View, status : Boolean){
@@ -88,4 +97,27 @@ fun recyclerViewBottomReached(view: RecyclerView, listener: View.OnClickListener
             }
         }
     )
+}
+
+@BindingAdapter("remoteImgUrl","imgRadius")
+fun setImg(view: ImageView, url : String?, radius : Float)
+{
+    if (url.isNullOrEmpty()){
+        view.setImageDrawable(
+            AppCompatResources.getDrawable(
+                view.context,
+                R.drawable.ic_default_picture
+            )
+        )
+        return
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        Glide.with(view).asBitmap().load(GlideUrl(url))
+            .transform(CenterCrop(), RoundedCorners(radius.dp.toInt())).apply {
+                CoroutineScope(Dispatchers.Main).launch {
+                    into(view)
+                }
+            }
+    }
 }

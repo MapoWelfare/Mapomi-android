@@ -33,6 +33,7 @@ class AccompanyViewModel @Inject constructor(
 
     val type get() = signModel.registerType
 
+
     init {
         postModel.posts.onEach { adapter.setPosts(it) }.launchIn(viewModelScope)
     }
@@ -51,7 +52,7 @@ class AccompanyViewModel @Inject constructor(
      **** 데이터를 요청합니다
      ******************************************/
 
-    fun requestRemotePostList() = postModel.getRemotePosts(true)
+    fun requestRemotePostList(refresh : Boolean) = postModel.getRemotePosts(refresh)
 
 
     /*******************************************
@@ -87,14 +88,12 @@ class AccompanyViewModel @Inject constructor(
     /**
      * 리스트 아이템을 누릅니다
      */
-    private fun onItemClick()
+    private fun onItemClick(id : String)
     {
-/*        useFlag(postModel.flagLoadSuccess){
-            postModel.loadPost("0", POST_ACCOMPANY)
+        postModel.loadPost(id, POST_ACCOMPANY)
+        useFlag(postModel.flagLoadSuccess){
             navigation.changePage(Page.POST_DETAIL)
-        }*/
-        postModel.loadPost("0", POST_ACCOMPANY)
-        navigation.changePage(Page.POST_DETAIL)
+        }
     }
 
     /**
@@ -102,6 +101,11 @@ class AccompanyViewModel @Inject constructor(
      */
     fun onAddPost()
     {
+        if (!signModel.isLogin.value){
+            uiModel.goToLogin()
+            return
+        }
+
         postModel.startBuild(POST_ACCOMPANY)
         navigation.changePage(Page.POST_WRITE)
     }

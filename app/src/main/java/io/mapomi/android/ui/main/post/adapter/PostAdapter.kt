@@ -11,7 +11,7 @@ import io.mapomi.android.remote.dataclass.post.Post
 import io.mapomi.android.system.LogDebug
 
 class PostAdapter(
-    val onItemClick : (()->Unit)? = null
+    val onItemClick : ((String)->Unit)? = null
 ) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     private var postList : List<Post> = listOf()
@@ -43,9 +43,6 @@ class PostAdapter(
             LogDebug(javaClass.name,"[POST ADAPTER] 새로운 데이터 수신 $itemCount 개")
         }
 
-        postList = listOf(Post("1","홍대입구에 가고싶어요","2023-05-31 15:10","연남동","홍대입구 4번 출구",null,null,false,"30분","빨리 가고 싶어요"))
-        notifyDataSetChanged()
-
     }
 
     private fun setMatchParentToRecyclerView(view: View) {
@@ -63,7 +60,7 @@ class PostAdapter(
             setMatchParentToRecyclerView(bind.root)
             bind.post = post
             bind.setOnItemClick {
-                onItemClick!!()
+                onItemClick!!(post.postId)
             }
         }
     }

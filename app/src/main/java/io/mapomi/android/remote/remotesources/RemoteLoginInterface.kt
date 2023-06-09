@@ -6,6 +6,7 @@ import io.mapomi.android.remote.dataclass.request.auth.JoinRequest
 import io.mapomi.android.remote.dataclass.request.auth.LoginRequest
 import io.mapomi.android.remote.dataclass.response.auth.LoginResponse
 import io.mapomi.android.remote.dataclass.response.auth.OAuthGetResponse
+import io.mapomi.android.remote.dataclass.response.auth.TokenResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
@@ -15,7 +16,7 @@ import retrofit2.http.Query
 interface RemoteLoginInterface {
 
     @POST("join")
-    fun joinAccount(@HeaderMap header: HashMap<String, String>, @Query("type") type : String, @Body body: JoinRequest) : Call<CResponse>
+    fun joinAccount(@HeaderMap header: HashMap<String, String>, @Query("type") type : String, @Body body: JoinRequest) : Call<TokenResponse>
 
     @POST("login")
     fun loginAccount(@HeaderMap header: HashMap<String, String>, @Body body : LoginRequest) : Call<LoginResponse>

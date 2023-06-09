@@ -13,19 +13,30 @@
         android:layout_height="113dp"
         android:onClick="@{v->vm.onMoveMatchPage()}">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutCompat2"
             android:layout_width="113dp"
             android:layout_height="113dp"
-            android:background="@drawable/ll_round_img"
-            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                imgRadius="@{100f}"
+                remoteImgUrl="@{vm.profile.picture}"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayoutCompat3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="match_parent"
+                android:background="@drawable/ll_round_img" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView9"
@@ -35,7 +46,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:maxLines="1"
-            android:text="닉네임"
+            android:text="@{vm.profile.nickName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2" />
 
