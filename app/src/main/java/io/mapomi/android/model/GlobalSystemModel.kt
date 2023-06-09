@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import io.mapomi.android.remote.dataclass.local.PostVoice
 import io.mapomi.android.system.LogDebug
+import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseActivity
 import io.mapomi.android.utils.STTUtil
 import kotlinx.coroutines.CoroutineScope
@@ -135,13 +136,13 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     override fun onResult(result: Bundle?) {
         val recordResult = result?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)!![0]
         voiceResponse.value = recordResult
-        voiceList?.let {
-
-            it.peek()?.let { front ->
+        voiceList?.let { queue->
+            queue.peek()?.let {
+                val front = queue.poll()!!
                 if (front.needInput) requestRecord(front)
                 else speakMsg(front)
             } ?: run {
-                recordDone.value = true
+                LogInfo(javaClass.name, "녹음 내용 끝")
             }
         }
     }
@@ -185,6 +186,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     {
         currentPostVoice.value = postVoice
         tts?.speak(postVoice.voice,TextToSpeech.QUEUE_FLUSH, null, "")
+        if (postVoice.id==4) waitSpeaking({recordDone.value=true}, delay = 2500)
     }
 
     private fun waitSpeaking(callback : ()->Unit, delay : Long)

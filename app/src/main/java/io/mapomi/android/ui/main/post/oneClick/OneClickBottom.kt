@@ -11,12 +11,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.components.FragmentComponent
 import io.mapomi.android.databinding.BtmOnclickRecordBinding
 import io.mapomi.android.ui.base.BottomDialog
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OneClickBottom : BottomDialog() {
 
     private lateinit var bind : BtmOnclickRecordBinding
     val viewModel : OneClickViewModel by activityViewModels()
+
+    @Inject
+    lateinit var connect: OneClickConnect
 
     override fun createDialogView(inflater: LayoutInflater, container: ViewGroup?): View {
         bind = BtmOnclickRecordBinding.inflate(inflater)
@@ -29,6 +33,7 @@ class OneClickBottom : BottomDialog() {
     }
 
     override fun onCreateDialog() {
+        connect.registerContext(this)
         viewModel.startRecord()
     }
 
