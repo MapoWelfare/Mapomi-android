@@ -101,6 +101,11 @@ class AccompanyViewModel @Inject constructor(
      */
     fun onAddPost()
     {
+        if (!signModel.isLogin.value){
+            uiModel.goToLogin()
+            return
+        }
+
         postModel.startBuild(POST_ACCOMPANY)
         navigation.changePage(Page.POST_WRITE)
     }

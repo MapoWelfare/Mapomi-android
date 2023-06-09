@@ -91,6 +91,12 @@ class HelpViewModel @Inject constructor(
      */
     fun onAddPost()
     {
+
+        if (!signModel.isLogin.value){
+            uiModel.goToLogin()
+            return
+        }
+
         postModel.startBuild(POST_HELP)
         navigation.changePage(Page.POST_WRITE)
     }

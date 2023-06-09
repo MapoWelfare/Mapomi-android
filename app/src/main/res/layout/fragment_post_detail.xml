@@ -9,6 +9,9 @@
         <variable
             name="postCont"
             type="io.mapomi.android.constants.PostConstKt" />
+        <variable
+            name="type"
+            type="io.mapomi.android.enums.Type" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -292,10 +295,10 @@
 
             <include
                 layout="@layout/view_primary_button"
-                app:buttonText="@{@string/str_with}"
+                app:buttonText="@{vm.type==type.COMPANION ? @string/str_with : @string/str_show_volunteer}"
                 app:enabled="@{true}"
                 app:needSub="@{vm.postType == postCont.POST_HELP}"
-                app:onClick="@{v->vm.onMoveSelect()}"/>
+                app:onClick="@{v->vm.onClickButton()}"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,5 +1,6 @@
 package io.mapomi.android.remote.remotesources
 
+import com.google.gson.JsonObject
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
 import io.mapomi.android.remote.dataclass.response.post.PostDetailResponse
@@ -43,5 +44,16 @@ interface RemotePostInterface {
 
     @GET("helps")
     fun getAllHelpPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
+
+
+    @POST("posts/{id}/match")
+    fun acceptVolunteer(@HeaderMap header: HashMap<String, String>, @Path("id") id: String, @Body body: JsonObject) : Call<CResponse>
+
+    @GET("posts/{id}/match-request")
+    fun getVolunteerList(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+
+    @POST("posts/{id}/match-request")
+    fun requestVolunteer(@HeaderMap header: HashMap<String, String>, @Path("id") id : String) : Call<CResponse>
+
 
 }
