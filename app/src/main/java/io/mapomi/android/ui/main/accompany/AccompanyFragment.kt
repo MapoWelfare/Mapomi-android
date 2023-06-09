@@ -98,6 +98,13 @@ class AccompanyFragment : BaseFragment() {
 
     fun showRecordView()
     {
+        if (!viewModel.signModel.isLogin.value){
+            viewModel.uiModel.goToLogin()
+            return
+        }
+
+        if (!viewModel.systemModel.checkPermission()) return
+
         recordView.show(requireActivity().supportFragmentManager, recordView.tag)
     }
     

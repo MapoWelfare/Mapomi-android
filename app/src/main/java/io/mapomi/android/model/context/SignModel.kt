@@ -33,6 +33,12 @@ class SignModel @Inject constructor(
         setIsLogin(false)
     }
 
+    fun logout()
+    {
+        _isLogin.value = false
+        saveToken(Token(accessToken = "", refreshToken = ""))
+    }
+
     /*******************************************
      **** 카카오 로그인
      ******************************************/

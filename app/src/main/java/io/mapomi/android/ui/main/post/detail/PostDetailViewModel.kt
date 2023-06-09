@@ -46,6 +46,11 @@ class PostDetailViewModel @Inject constructor(
      */
     fun onClickButton()
     {
+        if (!signModel.isLogin.value){
+            uiModel.goToLogin()
+            return
+        }
+
         when(type.value){
             DISABLED -> onMoveSelect()
             COMPANION -> onVolunteer()

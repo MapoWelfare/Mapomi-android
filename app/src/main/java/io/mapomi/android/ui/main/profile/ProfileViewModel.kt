@@ -71,4 +71,13 @@ class ProfileViewModel @Inject constructor(
     {
 
     }
+
+    /**
+     * 로그아웃을 누릅니다
+     */
+    fun onLogOut()
+    {
+        signModel.logout()
+        navigation.changePage(Page.ACCOMPANY)
+    }
 }

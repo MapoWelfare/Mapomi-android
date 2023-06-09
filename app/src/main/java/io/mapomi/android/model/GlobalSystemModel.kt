@@ -146,7 +146,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
         }
     }
 
-    fun destroySTTEngine()
+    private fun destroySTTEngine()
     {
         speechRecognizer?.let {
             it.stopListening()
@@ -214,7 +214,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
         Toast.makeText(_activity ,msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkPermission() : Boolean {
+    fun checkPermission() : Boolean {
         val granted = ContextCompat.checkSelfPermission(_activity!!,Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
         if (!granted)
             ActivityCompat.requestPermissions(_activity!!, arrayOf(Manifest.permission.RECORD_AUDIO),0)
