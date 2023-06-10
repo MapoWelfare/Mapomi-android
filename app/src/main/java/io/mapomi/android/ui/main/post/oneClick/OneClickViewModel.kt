@@ -2,8 +2,10 @@ package io.mapomi.android.ui.main.post.oneClick
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.mapomi.android.model.GlobalSystemModel
+import io.mapomi.android.remote.dataclass.local.PostVoice
 import io.mapomi.android.system.LogInfo
 import io.mapomi.android.ui.base.BaseViewModel
+import java.util.LinkedList
 import javax.inject.Inject
 
 @HiltViewModel

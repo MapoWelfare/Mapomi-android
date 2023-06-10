@@ -81,8 +81,8 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     private fun startOneClickFlow()
     {
-        speakMsg(voiceList!!.poll()!!)
-        waitSpeaking({requestRecord(voiceList!!.poll()!!)},4000)
+        speakMsg(voiceList?.poll()!!)
+        waitSpeaking({requestRecord(voiceList?.poll() ?: return@waitSpeaking)},4000)
     }
 
     private fun requestRecord(postVoice : PostVoice)
@@ -186,7 +186,7 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
     {
         currentPostVoice.value = postVoice
         tts?.speak(postVoice.voice,TextToSpeech.QUEUE_FLUSH, null, "")
-        if (postVoice.id==4) waitSpeaking({recordDone.value=true}, delay = 2500)
+        if (postVoice.id==4) waitSpeaking({recordDone.value=true}, delay = 3000)
     }
 
     private fun waitSpeaking(callback : ()->Unit, delay : Long)
@@ -207,13 +207,9 @@ class GlobalSystemModel @Inject constructor() : STTUtil(), TextToSpeech.OnInitLi
 
     fun stopRecord()
     {
-        initVoiceStatus()
-        destroyTTSEngine()
+        tts?.stop()
         destroySTTEngine()
-    }
-
-    private fun showToast(msg : String) {
-        Toast.makeText(_activity ,msg, Toast.LENGTH_SHORT).show()
+        initVoiceStatus()
     }
 
     fun checkPermission() : Boolean {
