@@ -1,54 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
+        <variable
+            name="btm"
+            type="io.mapomi.android.ui.main.post.oneClick.OneClickBottom" />
+        <variable
+            name="vm"
+            type="io.mapomi.android.ui.main.post.oneClick.OneClickViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="400dp"
         android:paddingHorizontal="@dimen/app_padding"
-        android:paddingVertical="25dp"
-        android:background="@drawable/cl_register_term">
+        android:paddingTop="60dp"
+        android:paddingBottom="46dp"
+        android:background="@drawable/cl_register_term"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/textView9"
-            style="@style/bold22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="음성인식"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                style="@style/bold22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{vm.currentPostVoice.title}" />
 
-        <TextView
-            android:id="@+id/textView10"
-            style="@style/medium16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="타이틀 결과"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{vm.currentPostVoice.announce}"
+                android:layout_marginTop="24dp"
+                android:visibility="@{vm.currentPostVoice.needInput ? 8 : 0}"/>
 
-        <TextView
-            android:id="@+id/textView11"
-            style="@style/medium14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="출발지"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            <TextView
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:gravity="center"
+                android:text="@{vm.voiceResponse}"
+                android:textColor="@color/white"
+                android:background="@drawable/tv_voice"
+                android:layout_marginTop="15dp"
+                android:visibility="@{vm.currentPostVoice.needInput ? 0 : 8}"/>
 
-        <TextView
-            style="@style/medium14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="목적지"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            android:layout_marginTop="10dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_voice"
+                android:layout_marginTop="45dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/medium16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_primary"
+                android:backgroundTint="@color/red"
+                android:gravity="center"
+                android:text="@string/str_stop"
+                android:textColor="@color/white"
+                android:visibility="@{vm.currentPostVoice.id == 0 ? 0 : 4}"
+                android:layout_marginTop="56dp"
+                android:onClick="@{v->btm.onStopRecord()}"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

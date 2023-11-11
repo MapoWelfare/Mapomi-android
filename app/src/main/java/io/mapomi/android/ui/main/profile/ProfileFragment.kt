@@ -22,6 +22,7 @@ class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated() {
         inflateChild()
+        viewModel.getRemoteMyProfile()
     }
 
     override fun showBottomBar(): Boolean {
@@ -85,6 +86,7 @@ class ProfileFragment : BaseFragment() {
     private fun inflateAuth()
     {
         ViewProfileAuthBinding.inflate(layoutInflater).apply {
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
             bind.llProfile.addView(root)
         }

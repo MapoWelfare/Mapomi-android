@@ -22,6 +22,7 @@ class PostSelectFragment : BaseFragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
+/*        viewModel.getRemoteVolunteerList()*/
     }
 
     override fun showBottomBar(): Boolean {

@@ -1,7 +1,9 @@
 package io.mapomi.android.remote.remotesources
 
+import com.google.gson.JsonObject
 import io.mapomi.android.remote.dataclass.CResponse
 import io.mapomi.android.remote.dataclass.request.post.PostBuildRequest
+import io.mapomi.android.remote.dataclass.response.post.PostDetailResponse
 import io.mapomi.android.remote.dataclass.response.post.PostResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -23,7 +25,7 @@ interface RemotePostInterface {
     fun deleteAccompanyPost(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
 
     @POST("accompany/{id}")
-    fun readAccompanyPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+    fun readAccompanyPostDetail(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<PostDetailResponse>
 
     @GET("accompanies")
     fun getAllAccompanyPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
@@ -42,5 +44,16 @@ interface RemotePostInterface {
 
     @GET("helps")
     fun getAllHelpPosts(@HeaderMap header: HashMap<String, String>, @Query("search") search : String, @Query("page") page : Int, @Query("size") size : Int) : Call<PostResponse>
+
+
+    @POST("posts/{id}/match")
+    fun acceptVolunteer(@HeaderMap header: HashMap<String, String>, @Path("id") id: String, @Body body: JsonObject) : Call<CResponse>
+
+    @GET("posts/{id}/match-request")
+    fun getVolunteerList(@HeaderMap header: HashMap<String, String>, @Path("id") id: String) : Call<CResponse>
+
+    @POST("posts/{id}/match-request")
+    fun requestVolunteer(@HeaderMap header: HashMap<String, String>, @Path("id") id : String) : Call<CResponse>
+
 
 }

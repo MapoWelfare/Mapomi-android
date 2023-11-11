@@ -80,6 +80,22 @@ class CallImpl(
             API_POST_HELP_LIST -> remoteApi.getAllHelpPosts(header, paramStr0!!, paramInt0!!, paramInt1!!)
 
 
+
+            API_ACCEPT_POST_VOLUNTEER -> remoteApi.acceptVolunteer(header, paramStr0!!, JsonObject().apply {
+                addProperty("matchRequestId", paramStr1!!)
+            })
+
+            API_GET_VOLUNTEER_LIST -> remoteApi.getVolunteerList(header, paramStr0!!)
+
+            API_REQUEST_POST_VOLUNTEER -> remoteApi.requestVolunteer(header, paramStr0!!)
+
+
+
+            API_GET_MY_PROFILE -> remoteApi.getMyProfile(header)
+
+            API_EDIT_PROFILE_IMAGE -> remoteApi.editProfileImage(header, multipart!!)
+
+
             else -> throw NoSuchMethodException()
 
         } as Call<CResponse>

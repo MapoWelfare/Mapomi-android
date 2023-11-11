@@ -10,8 +10,9 @@ import io.mapomi.android.databinding.ViewAccompanyAppbarBinding
 import io.mapomi.android.databinding.ViewAccompanyListBinding
 import io.mapomi.android.databinding.ViewAccompanySearchbarBinding
 import io.mapomi.android.databinding.ViewOneClickBlueBinding
+import io.mapomi.android.system.LogDebug
 import io.mapomi.android.ui.base.BaseFragment
-import io.mapomi.android.ui.main.post.oneclick.OneClickBottom
+import io.mapomi.android.ui.main.post.oneClick.OneClickBottom
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,8 +34,8 @@ class AccompanyFragment : BaseFragment() {
     }
 
     override fun onFragmentCreated() {
+        viewModel.requestRemotePostList(refresh = true)
         inflateChild()
-/*        viewModel.requestRemotePostList()*/
     }
 
     override fun showBottomBar(): Boolean {
@@ -97,6 +98,13 @@ class AccompanyFragment : BaseFragment() {
 
     fun showRecordView()
     {
+        if (!viewModel.signModel.isLogin.value){
+            viewModel.uiModel.goToLogin()
+            return
+        }
+
+        if (!viewModel.systemModel.checkPermission()) return
+
         recordView.show(requireActivity().supportFragmentManager, recordView.tag)
     }
     
